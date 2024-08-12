@@ -1,0 +1,20 @@
+article>div{
+    padding: 10px 0;
+    background: var(--c2);
+}
+h1:first-child{ padding: 20px 0; }
+.gridbox{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+    .gridbox>.generalita{
+        margin: 0 10px;
+        width: 100%;
+    }
+    .gridbox>*{
+        width: clamp(250px, 30%, 30%);
+        padding: 10px;
+        background: var(--c3);
+    }
