@@ -60,6 +60,19 @@ export interface Character {
 }
 
 // TODO enum
+// export enum Morale{
+//   Individualista_buono ="Individualista buono",
+//   Individualista_neutrale ="Individualista neutrale",
+//   Individualista_malvagio ="Individualista malvagio",
+  
+//   Neutrale_buono ="Neutrale buono",
+//   Neutrale_puro ="Neutrale puro",
+//   Neutrale_malvagio ="Neutrale malvagio",
+
+//   Collettivista_buono="Collettivista buono",
+//   Collettivista_neutrale="Collettivista neutrale",
+//   Collettivista_malvagio="Collettivista malvagio",
+// }
 export enum Morale{
   Individualista_buono,
   Individualista_neutrale,

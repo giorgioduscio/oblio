@@ -1,0 +1,31 @@
+<section class="generalita flexbox"> @for(field of fields; track $index) { 
+  <div class="flexitem">
+    <i>{{ field.title }}</i> 
+    @if (field.name==='morale') {
+      <span>{{field.value}}</span>
+    <!-- <select 
+      name="{{field.name}}" 
+      value="{{field.value}}" 
+      (change)="changeField($event)"
+    >
+      <option *ngFor="let item of moralEnum; let i=index" 
+        value="{{item.value}}">{{item.placeHolder}}
+      </option>
+    </select> -->
+    }
+    @else {
+    <input 
+      type="{{field.inputType}}" 
+      value="{{field.value}}" 
+      name="{{field.name}}" 
+      (change)="changeField($event)"
+    />
+    }
+  </div>
+  }
+
+  <div class="flexitem">
+    <i>Trasporto</i> 
+    <span>{{ trasporto }}kg</span>
+  </div>
+</section>

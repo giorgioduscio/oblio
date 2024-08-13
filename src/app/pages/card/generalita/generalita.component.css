@@ -1,0 +1,28 @@
+*{box-sizing: border-box;}
+.flexbox{
+    /* flex-flow: nowrap; */
+    align-items: flex-start;
+    gap: 5px;
+}
+.flexitem{
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+}
+.flexitem:has( input[type="number"] ){
+    max-width: 100px;
+}
+
+i{
+    font-size: 13px;
+}
+input, span, select{
+    padding: 5px 10px;
+    font-size: 15px;
+
+    background: transparent;
+    color: var(--c5);
+    border: 1px solid;
+    border-radius: 0;
+}
+option{color: var(--c1);}

@@ -1,11 +1,14 @@
-
 <article>
   <div>
     <h1>Scheda personaggio</h1>
-    <div class="gridbox"> @for (key of keys; track $index) {
+    <div class="gridbox"> 
+      <app-generalita [character]="character"></app-generalita>
+
+    @for (key of keys; track $index) {
       <div [class]="key">
         <h5>{{ key }}</h5>
       </div>
-    }</div>
+    }
+    </div>
   </div>
 </article>

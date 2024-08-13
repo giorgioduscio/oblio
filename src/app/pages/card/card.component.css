@@ -1,6 +1,5 @@
 article>div{
     padding: 10px 0;
-    background: var(--c2);
 }
 h1:first-child{ padding: 20px 0; }
 .gridbox{
@@ -9,8 +8,7 @@ h1:first-child{ padding: 20px 0; }
     justify-content: center;
     gap: 10px;
 }
-    .gridbox>.generalita{
-        margin: 0 10px;
+    .gridbox>*:first-child{
         width: 100%;
     }
     .gridbox>*{
@@ -18,3 +16,9 @@ h1:first-child{ padding: 20px 0; }
         padding: 10px;
         background: var(--c3);
     }
+
+@media only screen and (max-width:600px){
+h1:first-child{
+    display: none;
+}
+}
