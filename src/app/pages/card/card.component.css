@@ -2,17 +2,17 @@ article>div{
     padding: 10px 0;
 }
 h1:first-child{ padding: 20px 0; }
-.gridbox{
+.box{
     display: flex;
     flex-flow: wrap;
     justify-content: center;
     gap: 10px;
 }
-    .gridbox>*:first-child{
+    .box>*:first-child{
         width: 100%;
     }
-    .gridbox>*{
-        width: clamp(250px, 30%, 30%);
+    .box>*{
+        width: clamp(200px, 32%, 32%);
         padding: 10px;
         background: var(--c3);
     }
@@ -20,5 +20,8 @@ h1:first-child{ padding: 20px 0; }
 @media only screen and (max-width:600px){
 h1:first-child{
     display: none;
+}
+.box>*{
+    width: 100%;
 }
 }

@@ -1,5 +1,5 @@
-<section class="generalita flexbox"> @for(field of fields; track $index) { 
-  <div class="flexitem">
+<section class="generalita box"> @for(field of fields; track $index) { 
+  <div class="item">
     <i>{{ field.title }}</i> 
     @if (field.name==='morale') {
       <span>{{field.value}}</span>
@@ -24,7 +24,7 @@
   </div>
   }
 
-  <div class="flexitem">
+  <div class="item">
     <i>Trasporto</i> 
     <span>{{ trasporto }}kg</span>
   </div>

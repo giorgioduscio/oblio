@@ -1,8 +1,13 @@
 <article>
   <div>
     <h1>Scheda personaggio</h1>
-    <div class="gridbox"> 
+    <!-- <p>{{character().generalita.altezza}}</p>
+    <p>{{character().generalita.eta}}</p>
+    <p>{{character().generalita.nome}}</p>
+    <p>{{character().generalita.punti_esperienza}}</p> -->
+    <div class="box"> 
       <app-generalita [character]="character"></app-generalita>
+      <app-competenze  [character]="character"></app-competenze>
 
     @for (key of keys; track $index) {
       <div [class]="key">
