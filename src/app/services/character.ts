@@ -9,8 +9,8 @@ export interface Character {
   }
   competenze:{
     linguaggi :string, 
-    Armature :string, 
-    Armi :string, 
+    armature :string, 
+    armi :string, 
     strumenti :string 
   },
   combattimento:{ 

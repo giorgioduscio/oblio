@@ -20,7 +20,7 @@ export class GeneralitaComponent implements OnInit{
   
   //TODO INIZIALIZZAZIONI
   ngOnInit(): void {
-    console.log("character", this.moralEnum);
+    // console.log("character", this.moralEnum);
     // PESO TRASPORTABILE
     this.trasporto =((this.character().bonus.punteggi.forza *2) +10 ) *7.5
     

@@ -18,8 +18,8 @@ export class CharactersService {
       },
       competenze: {
         linguaggi: 'Elfico',
-        Armature: 'Armature leggere',
-        Armi: 'Armi bilanciate',
+        armature: 'Armature leggere',
+        armi: 'Armi bilanciate',
         strumenti: 'Nessuno'
       },
       combattimento: {

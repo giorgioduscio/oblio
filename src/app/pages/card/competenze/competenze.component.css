@@ -1,0 +1,14 @@
+*{box-sizing: border-box;}
+h5{ 
+    text-align: center;
+    margin: 5px 0;
+}
+.gridbox{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+.item{
+    display: grid;
+    gap: 5px;
+}
