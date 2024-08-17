@@ -21,7 +21,6 @@ h1:first-child{ padding: 20px 0; }
 h1:first-child{
     display: none;
 }
-.box>*{
-    width: 100%;
-}
+.box{ gap: 2px; }
+.box>*{ width: 100%; }
 }

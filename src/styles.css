@@ -59,7 +59,11 @@ h5{font-size: 20px; margin: 0;}
 h6{font-size: 15px;}
 i{ font-size: 13px;}
 
-input, button, textarea, select{
+input[type="text"], 
+input[type="number"], 
+textarea, 
+select{
+    width: min(100%, 300px);
     padding: 5px 10px;
     outline: 0;
 
@@ -71,9 +75,7 @@ input, button, textarea, select{
     font-family: inherit;
 } 
 input::placeholder{ color: inherit; }
-input[type="text"], input[type="number"], textarea{
-    width: min(100%, 300px);
-}
+
 
 button{
     display: flex;
@@ -82,7 +84,7 @@ button{
     align-content: center;
     gap: 5px;
 }
-    button:hover, input:hover{
+    button:hover{
         background: var(--c2);
     }
     button:disabled{

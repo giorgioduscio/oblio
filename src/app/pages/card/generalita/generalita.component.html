@@ -2,16 +2,22 @@
   <div class="item">
     <i>{{ field.title }}</i> 
     @if (field.name==='morale') {
-      <span>{{field.value}}</span>
-    <!-- <select 
-      name="{{field.name}}" 
-      value="{{field.value}}" 
+      <!-- <span>{{field.value}}</span> -->
+    <select 
+      [name]="field.name" 
+      [value]="character().generalita.morale" 
       (change)="changeField($event)"
     >
-      <option *ngFor="let item of moralEnum; let i=index" 
-        value="{{item.value}}">{{item.placeHolder}}
-      </option>
-    </select> -->
+      <option value="0">Individualista buono</option>
+      <option value="1">Individualista neutrale</option>
+      <option value="2">Individualista malvagio</option>
+      <option value="3">Neutrale buono</option>
+      <option value="4">Neutrale puro</option>
+      <option value="5">Neutrale malvagio</option>
+      <option value="6">Collettivista buono</option>
+      <option value="7">Collettivista neutrale</option>
+      <option value="8">Collettivista malvagio</option>
+    </select>
     }
     @else {
     <input 

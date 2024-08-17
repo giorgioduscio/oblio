@@ -14,9 +14,6 @@ export class GeneralitaComponent implements OnInit{
   @Input() character! :WritableSignal<Character> 
   fields! :Compiler[]
   trasporto! :number 
-  moralEnum =Object.keys(Morale) 
-    .filter(key=>key.length>1)
-    .map((key,i) =>({value:i, placeHolder:key.replace('_', ' ')}))
   
   //TODO INIZIALIZZAZIONI
   ngOnInit(): void {

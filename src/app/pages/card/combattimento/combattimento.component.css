@@ -1,0 +1,31 @@
+h5{ 
+    text-align: center;
+    margin: 5px 0;
+}
+.box, .box>*{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.box>*{ gap: 5px; }
+
+
+.box>*>i:first-child{
+    height: 20px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+p{
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+}
+span{
+    display: grid;
+    align-items: center;
+    text-align: center;
+
+    color: var(--c1);
+    background: var(--c4);
+    border-radius: 5px;
+}

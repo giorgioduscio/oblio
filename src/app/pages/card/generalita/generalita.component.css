@@ -16,10 +16,10 @@ input[type="number"]{
 span{
     padding: 5px 10px;
 
-    background: var(--c5);
+    background: var(--c4);
     color: var(--c1);
     border-radius: 5px;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 input:hover{background: var(--c5);}
 option{color: var(--c1);}
