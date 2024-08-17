@@ -4,11 +4,12 @@ import { Character } from '../../services/character';
 import { GeneralitaComponent } from "./generalita/generalita.component";
 import { CompetenzeComponent } from "./competenze/competenze.component";
 import { CombattimentoComponent } from "./combattimento/combattimento.component";
+import { PersonalitaComponent } from "./personalita/personalita.component";
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [GeneralitaComponent, CompetenzeComponent, CombattimentoComponent],
+  imports: [GeneralitaComponent, CompetenzeComponent, CombattimentoComponent, PersonalitaComponent],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })
@@ -17,7 +18,7 @@ export class CardComponent {
   keys! :string[]
   constructor(private charactersService:CharactersService){
     this.character =signal(this.charactersService.characters[0])
-    this.keys =Object.keys(this.character()) .filter((key, i)=> i>2)
+    this.keys =Object.keys(this.character()) .filter((key, i)=> i>3)
     
     console.log("card", this.character());
   }

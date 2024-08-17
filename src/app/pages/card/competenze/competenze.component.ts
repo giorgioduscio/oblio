@@ -11,7 +11,7 @@ import { NgFor } from '@angular/common';
 })
 export class CompetenzeComponent implements OnInit{
   @Input() character! :WritableSignal<Character>
-  fields! :Competenze[]
+  fields! :thisCategory[]
 
   //TODO INIZIALIZZAZIONE
   ngOnInit(): void {
@@ -33,13 +33,7 @@ export class CompetenzeComponent implements OnInit{
 
     clone.competenze[name] =value
     this.character.set(clone)
-
-    console.log(`competenze`, name, value);
   }
 }
 
-interface Competenze{ 
-  key:string, 
-  title:string, 
-  value:string 
-}
+interface thisCategory{ key:string, title:string, value:string }
