@@ -1,15 +1,18 @@
 <article>
   <div>
     <h1>Scheda personaggio</h1>
-    <p>{{character().personalita.aggettivi}}</p>
-    <p>{{character().personalita.ideali}}</p>
-    <p>{{character().personalita.legami}}</p>
+    <!-- <p>{{character().bonus.destrezza.valore}}</p>
+    <p>{{character().bonus.destrezza.abilita.acrobazia}}</p>
+    <p>{{character().bonus.destrezza.abilita.furtivita}}</p>
+    <p>{{character().bonus.destrezza.abilita.mano}}</p> -->
     <div class="box"> 
       <app-generalita [character]="character"></app-generalita>
       
       <app-competenze [character]="character"></app-competenze>
       <app-combattimento [character]="character"></app-combattimento>
       <app-personalita [character]="character"></app-personalita>
+      
+      <app-bonus [character]="character"></app-bonus>
 
     @for (key of keys; track $index) {
       <div [class]="key">

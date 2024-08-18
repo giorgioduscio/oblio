@@ -21,7 +21,6 @@ export class PersonalitaComponent {
       title: key.charAt(0).toUpperCase() +key.slice(1),
       value: personalita[key as keyof typeof personalita]
     }))
-    console.log(this.fields);
   }
   
   // TODO CAMBIO VALORE

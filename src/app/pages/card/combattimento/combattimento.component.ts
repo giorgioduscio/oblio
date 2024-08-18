@@ -11,11 +11,11 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class CombattimentoComponent implements OnInit {
   @Input() character! :WritableSignal<Character>
-  combattimento :Combattimento[] =[]
+  combattimento :thisCategory[] =[]
 
   // TODO INIZIALIZZAZIONE
   ngOnInit(): void {
-    const cos =this.character().bonus.punteggi.costituzione
+    const cos =this.character().bonus.costituzione.valore
 
     this.combattimento =Object.keys(this.character().combattimento) .map(key=>({
       key:key,
@@ -38,29 +38,16 @@ export class CombattimentoComponent implements OnInit {
   }
 
   calculateCA():number{
-    const {destrezza, costituzione, saggezza} =this.character().bonus.punteggi
-    
+    const {destrezza, costituzione, saggezza} =this.character().bonus
     switch(this.character().combattimento.classe_armatura){
-      case 0: return 10 +destrezza
-      case 1: return 10 +destrezza +saggezza
-      case 2: return 10 +destrezza +costituzione
-      case 3: return 12 +destrezza 
+      case 0: return 10 +destrezza.valore
+      case 1: return 10 +destrezza.valore +saggezza.valore
+      case 2: return 10 +destrezza.valore +costituzione.valore
+      case 3: return 12 +destrezza.valore 
       case 4: return 16
       case 5: return 18
       default: return 404
     }
   }
 }
-
-interface Combattimento{
-  key:string,
-  title:string,
-  value:number |Combattimento, 
-}
-
-/*
-puntiFerita
-velocita
-classeArmatura
-tiriControMorte
-*/
+interface thisCategory{ key:string, title:string, value:number }

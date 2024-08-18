@@ -1,0 +1,33 @@
+<div>
+  <h5>Bonus</h5>
+  <p>Competenza: <b>+{{character().bonus.competenza}}</b></p>
+
+  <div class="box">
+    <main class="item" *ngFor="let characteristic of characteristics; let a=index">
+      <div class="caratteristica">
+        <i>{{characteristic.title}}</i>
+        <input type="number" 
+          [value]="characteristic.value" 
+          [name]="characteristic.key" 
+          (change)="changeCharacteristic($event)"
+        >
+      </div>
+
+      <div class="abilityBox">
+        <div class="ability" *ngFor="let ability of characteristic.abilities; let b=index">
+          <input 
+            type="checkbox" 
+            [checked]="ability.value" 
+            [name]="ability.key"
+            [id]="ability.key"
+            (change)="changeAbility(characteristic.key, ability.key, $event)"
+          >
+          <label [for]="ability.key">
+            <b>{{ability.value ?characteristic.value +BC :characteristic.value}}</b>
+            <i>{{ability.title}}</i>
+          </label>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

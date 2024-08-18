@@ -33,44 +33,65 @@ export class CharactersService {
       },
       bonus: {
         competenza: 2,
-        punteggi: {
-          forza: -1,
-          destrezza: 0,
-          costituzione: 1,
-          intelligenza: 2,
-          saggezza: 3,
-          carisma: 4,
+        forza: {
+          valore: -1,
+          abilita: {
+            atletica: false
+          }
         },
-        abilita: {
-          atletica: true,
-          acrobazia: false,
-          fFurtività: true,
-          mano: false,
-          resilienza: true,
-          conoscenzeGenerali: false,
-          indagare: true,
-          psiche: false,
-          animali: true,
-          intuizione: false,
-          medicina: true,
-          percezione: false,
-          sopravvivenza: true,
-          inganno: false,
-          intimidire: true,
-          intrattenere: false,
-          persuasione: true
+        destrezza: {
+          valore: 0,
+          abilita: {
+            acrobazia: true,
+            furtivita: false,
+            mano: true
+          }
+        },
+        costituzione: {
+          valore: 1,
+          abilita: {
+            resilienza: false
+          }
+        },
+        intelligenza: {
+          valore: 2,
+          abilita: {
+            conoscenze_generali: true,
+            indagare: false,
+            psiche: true
+          }
+        },
+        saggezza: {
+          valore:3,
+          abilita: {
+            animali: false,
+            intuizione: true,
+            medicina: false,
+            percezione: true,
+            sopravvivenza: false
+          }
+        },
+        carisma: {
+          valore:4,
+          abilita: {
+            inganno: true,
+            intimidire: false,
+            intrattenere: true,
+            persuasione: false
+          }
         }
       },
       equipaggiamento: {
-        oggetti:[
+        oggetti: [
           { quantita: 0, titolo: 'Banana' },
         ],
         monete: 200,
       },
       privilegi: [
-        { titolo: 'Allerta' },
-      ]
+        'Allerta',
+      ],
     },
 
+    // todo
   ]
 }

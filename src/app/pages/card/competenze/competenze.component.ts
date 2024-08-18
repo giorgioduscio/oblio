@@ -35,5 +35,4 @@ export class CompetenzeComponent implements OnInit{
     this.character.set(clone)
   }
 }
-
 interface thisCategory{ key:string, title:string, value:string }

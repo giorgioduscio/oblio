@@ -19,7 +19,7 @@ export class GeneralitaComponent implements OnInit{
   ngOnInit(): void {
     // console.log("character", this.moralEnum);
     // PESO TRASPORTABILE
-    this.trasporto =((this.character().bonus.punteggi.forza *2) +10 ) *7.5
+    this.trasporto =((this.character().bonus.forza.valore *2) +10 ) *7.5
     
     // CREA UN AUTOCOMPILATORE {field.key field.value field.inputType}
     const {generalita} =this.character()
