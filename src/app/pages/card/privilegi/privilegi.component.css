@@ -1,0 +1,15 @@
+.box{
+    display: grid;
+    gap: 5px;
+}
+details{
+    padding: 5px 10px;
+
+    background: var(--c4);
+    color: var(--c1);
+    border-radius: 5px;
+}
+.descrizione{ margin-top: 5px; }
+input{
+    max-width: 80%;
+}

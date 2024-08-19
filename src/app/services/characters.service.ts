@@ -92,6 +92,8 @@ export class CharactersService {
       },
       privilegi: [
         'Allerta',
+        'Baluardo',
+        'Protettore',
       ],
     },
 
