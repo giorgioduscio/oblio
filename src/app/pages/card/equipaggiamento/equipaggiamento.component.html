@@ -1,0 +1,31 @@
+<main>
+  <h5>Equipaggiamento</h5>
+  <div class="monete">
+    <i>Monete</i>
+    <input 
+        type="number" 
+        name="monete" 
+        [value]="monete"
+        (change)="changeMoney($event)"
+    >
+    <i>Peso trasportabile</i>
+    <span>20 / {{trasporto}}kg</span>
+  </div>
+
+  <table class="box">
+    <thead>
+      <tr>
+        <td>Quantità</td>
+        <td>Nome</td>
+        <td>Peso</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of equipaggiamento; let i=index">
+        <td><input type="number" name="quantita" [value]="item.quantita" (change)="changeField($event, i)"></td>
+        <td><input type="text" name="titolo" [value]="item.titolo" (change)="changeField($event, i)"></td>
+        <td><span>30kg</span></td>
+      </tr>
+    </tbody>
+  </table>
+</main>

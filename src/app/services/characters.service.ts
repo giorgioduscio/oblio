@@ -83,7 +83,10 @@ export class CharactersService {
       },
       equipaggiamento: {
         oggetti: [
-          { quantita: 0, titolo: 'Banana' },
+          { quantita: 1, titolo: 'Arco' },
+          { quantita: 2, titolo: 'Banana' },
+          { quantita: 1, titolo: 'Spada lunga' },
+          { quantita: 30, titolo: 'Freccia' },
         ],
         monete: 200,
       },

@@ -84,7 +84,7 @@ export interface Character {
   }
   // todo
   equipaggiamento:{
-    oggetti:[{quantita:number, titolo:string}],
+    oggetti:{quantita:number, titolo:string}[],
     monete:number,
   }
   // todo

@@ -1,10 +1,11 @@
 <article>
   <div>
     <h1>Scheda personaggio</h1>
-    <!-- <p>{{character().bonus.destrezza.valore}}</p>
-    <p>{{character().bonus.destrezza.abilita.acrobazia}}</p>
-    <p>{{character().bonus.destrezza.abilita.furtivita}}</p>
-    <p>{{character().bonus.destrezza.abilita.mano}}</p> -->
+    <p>{{character().equipaggiamento.monete}}</p>
+    @for (item of character().equipaggiamento.oggetti; track $index) {
+      <p>{{item.quantita}} {{item.titolo}}</p>
+    }
+
     <div class="box"> 
       <app-generalita [character]="character"></app-generalita>
       
@@ -13,6 +14,7 @@
       <app-personalita [character]="character"></app-personalita>
       
       <app-bonus [character]="character"></app-bonus>
+      <app-equipaggiamento [character]="character"></app-equipaggiamento>
 
     @for (key of keys; track $index) {
       <div [class]="key">

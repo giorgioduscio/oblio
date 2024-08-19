@@ -36,7 +36,7 @@ export class BonusComponent implements OnInit {
               value: abilities[abilityKey as keyof object],
             }))
         }})
-    console.log(this.characteristics);
+    // console.log(this.characteristics);
   }
   
   // TODO CAMBIO VALORE CARATTERISTICA
