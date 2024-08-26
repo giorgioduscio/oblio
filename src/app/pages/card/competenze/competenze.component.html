@@ -1,9 +1,0 @@
-<section>
-  <h5>Competenze</h5>
-  <div class="gridbox">
-    <div class="item" *ngFor="let field of fields; let i=index">
-      <i>{{field.title}}</i>
-      <textarea name="{{field.key}}" (change)="changeField($event)">{{ field.value }}</textarea>
-    </div>
-  </div>
-</section>

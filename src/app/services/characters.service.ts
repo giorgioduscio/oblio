@@ -33,62 +33,64 @@ export class CharactersService {
       },
       bonus: {
         competenza: 2,
-        forza: {
-          valore: -1,
-          abilita: {
-            atletica: false
-          }
-        },
-        destrezza: {
-          valore: 0,
-          abilita: {
-            acrobazia: true,
-            furtivita: false,
-            mano: true
-          }
-        },
-        costituzione: {
-          valore: 1,
-          abilita: {
-            resilienza: false
-          }
-        },
-        intelligenza: {
-          valore: 2,
-          abilita: {
-            conoscenze_generali: true,
-            indagare: false,
-            psiche: true
-          }
-        },
-        saggezza: {
-          valore:3,
-          abilita: {
-            animali: false,
-            intuizione: true,
-            medicina: false,
-            percezione: true,
-            sopravvivenza: false
-          }
-        },
-        carisma: {
-          valore:4,
-          abilita: {
-            inganno: true,
-            intimidire: false,
-            intrattenere: true,
-            persuasione: false
+        caratteristica:{
+          forza: {
+            valore: -1,
+            abilita: {
+              atletica: false
+            }
+          },
+          destrezza: {
+            valore: 0,
+            abilita: {
+              acrobazia: true,
+              furtivita: false,
+              mano: true
+            }
+          },
+          costituzione: {
+            valore: 1,
+            abilita: {
+              resilienza: false
+            }
+          },
+          intelligenza: {
+            valore: 2,
+            abilita: {
+              conoscenze_generali: true,
+              indagare: false,
+              psiche: true
+            }
+          },
+          saggezza: {
+            valore:3,
+            abilita: {
+              animali: false,
+              intuizione: true,
+              medicina: false,
+              percezione: true,
+              sopravvivenza: false
+            }
+          },
+          carisma: {
+            valore:4,
+            abilita: {
+              inganno: true,
+              intimidire: false,
+              intrattenere: true,
+              persuasione: false
+            }
           }
         }
       },
       equipaggiamento: {
+        monete: 200,
         oggetti: [
           { quantita: 1, titolo: 'Arco' },
           { quantita: 2, titolo: 'Banana' },
           { quantita: 1, titolo: 'Spada lunga' },
           { quantita: 30, titolo: 'Freccia' },
         ],
-        monete: 200,
       },
       privilegi: [
         'Allerta',

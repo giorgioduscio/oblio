@@ -1,9 +1,0 @@
-.gridbox{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
-}
-.item{
-    display: grid;
-    gap: 5px;
-}

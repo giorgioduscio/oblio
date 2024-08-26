@@ -1,26 +1,29 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CharactersService } from '../../services/characters.service';
 import { Character } from '../../services/character';
-import { GeneralitaComponent } from "./generalita/generalita.component";
-import { CompetenzeComponent } from "./competenze/competenze.component";
-import { CombattimentoComponent } from "./combattimento/combattimento.component";
-import { PersonalitaComponent } from "./personalita/personalita.component";
-import { BonusComponent } from "./bonus/bonus.component";
-import { EquipaggiamentoComponent } from "./equipaggiamento/equipaggiamento.component";
-import { PrivilegiComponent } from "./privilegi/privilegi.component";
+import { NgFor, NgIf } from '@angular/common';
+import { CharacterMapper, Initial } from './CharacterMapper';
+import { CardFieldsComponent } from "./cardFields.component";
+import { CardContent } from "./cardContent.component";
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [GeneralitaComponent, CompetenzeComponent, CombattimentoComponent, PersonalitaComponent, BonusComponent, EquipaggiamentoComponent, PrivilegiComponent],
+  imports: [NgIf, NgFor, CardFieldsComponent, CardContent],
   templateUrl: './card.component.html',
-  styleUrl: './card.component.css'
+  styleUrl:'./card.component.css'
 })
 export class CardComponent {
-  character! :WritableSignal<Character>
+  characters! :Character[]
+  character! :CharacterMapper[] 
+
   constructor(private charactersService:CharactersService){
-    this.character =signal(this.charactersService.characters[0])
+    this.characters =this.charactersService.characters
+    this.character =CharacterMapper(this.characters[0])
     
-    console.log("card", this.character());
+  } //constructor
+  abilityModifier(proficiency:boolean, modifier:number){
+    const proficiencyBonus =this.characters[0].bonus.competenza
+    return proficiency ?modifier+proficiencyBonus :modifier
   }
 }

@@ -1,20 +1,30 @@
 <article>
   <div>
     <h1>Scheda personaggio</h1>
-    <!-- @for (item of character().privilegi; track $index) {
-      <p>{{item}}</p>
-    } -->
+    <div class="categories"> 
+      <div *ngFor="let category of character; let a=index" computer>
+        <h5 *ngIf="a!==0">{{category.keyCategory}}</h5>
 
-    <div class="box"> 
-      <app-generalita [character]="character"></app-generalita>
-      
-      <app-competenze [character]="character"></app-competenze>
-      <app-combattimento [character]="character"></app-combattimento>
-      <app-personalita [character]="character"></app-personalita>
-      
-      <app-bonus [character]="character"></app-bonus>
-      <app-equipaggiamento [character]="character"></app-equipaggiamento>
-      <app-privilegi [character]="character"></app-privilegi>
+        <app-card-content [a]="a" class="fields {{category.keyCategory}}"></app-card-content>
+      </div>
+
+
+      <details *ngFor="let category of character; let a=index" [open]="a===0" smart>
+        <summary>
+          <h5 *ngIf="a!==0">{{category.keyCategory}}</h5>
+        </summary>
+        <app-card-content [a]="a" class="fields {{category.keyCategory}}"></app-card-content>
+      </details>
     </div>
   </div>
 </article>
+
+<style>
+*[computer]{ display: block; }
+*[smart]{ display: none; }
+
+@media only screen and (max-width:600px){
+  *[computer]{ display: none; }
+  *[smart]{ display: block; }
+}
+</style>

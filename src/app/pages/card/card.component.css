@@ -1,26 +1,67 @@
-article>div{
-    padding: 10px 0;
+@import url(./specific.component.css);
+article>div{ padding: 10px 0; }
+*{
+    gap: 5px;
 }
+
 h1:first-child{ padding: 20px 0; }
-.box{
+.categories{
     display: flex;
     flex-flow: wrap;
     justify-content: center;
-    gap: 10px;
 }
-    .box>*:first-child{
+
+    .categories>*:first-child{
         width: 100%;
     }
-    .box>*{
-        width: clamp(200px, 32%, 32%);
-        padding: 10px;
+    .categories>*{
+        width: clamp(200px, 100%, 33%);
+        padding: 5px;
         background: var(--c3);
+        border: 1px solid;
     }
+
+    /* fix */
+summary{
+    display: grid;
+}
+h5{ 
+    padding: 10px 0;
+    text-align: center; 
+}
+.fields{}
+.field{
+    padding: 2px 0;
+    display: grid;
+    font-style: italic;
+    font-size: 15px;
+}
+label{
+    width: 100%;
+    max-width: max-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-style: italic;
+}
+
+
+    /* todo */
+.subfields{
+    padding: 5px;
+    display: grid;
+}
+
+    /* optimize */
+.abilities{
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
 
 @media only screen and (max-width:600px){
 h1:first-child{
     display: none;
 }
-.box{ gap: 2px; }
-.box>*{ width: 100%; }
+.categories{ gap: 2px; }
+.categories>*{ width: 100%; }
 }
