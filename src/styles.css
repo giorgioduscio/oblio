@@ -61,6 +61,7 @@ i{ font-size: 13px;}
 
 input[type="text"], 
 input[type="number"], 
+input[type="email"], 
 textarea, 
 select{
     width: min(100%, 300px);

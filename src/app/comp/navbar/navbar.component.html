@@ -1,0 +1,20 @@
+<nav>
+  <div>
+    <button>Home</button>
+    <button>button</button>
+    <details class="dropdown">
+      <summary>Articoli</summary>
+      <div>
+        <a 
+            [routerLink]="page.path" 
+            *ngFor="let page of pages; let i=index">
+          {{page.path}}
+        </a>
+      </div>
+    </details>
+  </div>
+
+  <div>
+
+  </div>
+</nav>
