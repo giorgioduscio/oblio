@@ -1,0 +1,11 @@
+<app-navbar></app-navbar>
+<article>
+  <div>
+    <h1>Dashboard</h1>
+
+    @for (user of users; track user; let a=$index) {
+        <input type="text" [value]="user.username">
+        <input type="email" [value]="user.email">
+    }
+  </div>
+</article>

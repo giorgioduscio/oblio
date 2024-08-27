@@ -18,6 +18,6 @@ export class NavbarComponent {
   pages =routes .filter(page =>page.show && page.path!=document.title)
   constructor(){
     closeDropdown("dropdown")
-    console.log('routes',this.pages);
+    // console.log('routes',this.pages);
   }
 }

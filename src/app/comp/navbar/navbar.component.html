@@ -6,8 +6,9 @@
       <summary>Articoli</summary>
       <div>
         <a 
-            [routerLink]="page.path" 
-            *ngFor="let page of pages; let i=index">
+          *ngFor="let page of pages; let i=index"
+          routerLink="/{{page.path}}" 
+        >
           {{page.path}}
         </a>
       </div>
