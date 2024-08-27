@@ -16,5 +16,5 @@ export class UsersService {
 
   getUsers(){return this.http.get(this.url +'.json')}
   addUser(body:User){return this.http.post(this.url +'.json',body)}
-  removeUser(id:string){return this.http.delete(this.url +id +'.json')}
+  deleteUser(id:string){return this.http.delete(`${this.url}/${id}.json`)}
 }

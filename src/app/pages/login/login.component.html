@@ -1,0 +1,18 @@
+<article>
+  <div>
+    <h1>Login</h1>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="box">@for (item of showForm; track item; let a =$index) {
+        <label [for]="item.key">{{item.title}}</label>
+        <input  
+          [type]="item.inputType" 
+          [id]="item.key"
+          [formControlName]="item.key"
+          [value]="item.value"
+          [placeholder]="item.title"
+        >
+      }</div>
+      <button type="submit" [disabled]="form.invalid">Invio</button>
+    </form>
+  </div>
+</article>

@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+<article>
+  <div>
+    <h1>Users</h1>
+
+    <div class="box">
+      <div *ngFor="let user of users; let i=index">
+        <mat-icon class="delete" (click)="delete(user.key!)">delete</mat-icon>
+
+        <div class="wrapper">
+          <!-- <img [src]="user.imageUrl" [alt]="user.username"> -->
+          <!-- <span>{{user.id}}</span> -->
+          <input type="text" [value]="user.username">
+          <input type="email" [value]="user.email">
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

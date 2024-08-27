@@ -1,0 +1,17 @@
+article>div{
+    padding: 10px;
+    background: var(--c2);
+}
+.box{
+    padding: 10px;
+    display: grid;
+    gap: 5px;
+}
+button[type='submit']{
+    padding: 10px;
+    border-radius: 5px;
+}
+button:disabled{
+    background: var(--st);
+    color: var(--c5);
+}

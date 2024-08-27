@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { UsersService } from '../../services/users.service';
-import { mapper } from '../tools';
+import { mapper } from '../../tools/tools';
 import { User } from '../../services/user';
 import { Character } from '../../services/character';
 import { RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { NavbarComponent } from "../../comp/navbar/navbar.component";
 
 @Component({
   selector: 'app-personal',
@@ -12,7 +13,8 @@ import { NgFor } from '@angular/common';
   imports: [
     RouterModule,
     NgFor,
-  ],
+    NavbarComponent
+],
   templateUrl: './personal.component.html',
   styleUrl: './personal.component.css'
 })

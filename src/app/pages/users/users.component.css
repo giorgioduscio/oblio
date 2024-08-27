@@ -1,0 +1,28 @@
+*{ gap: 5px; }
+.box{
+    padding: 10px;
+    display: grid;
+}
+.box>*{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-content: start;
+}
+.wrapper{
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+}
+.wrapper>*{
+    width: min(100%,300px);
+}
+
+img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.delete{
+    color: red;
+}

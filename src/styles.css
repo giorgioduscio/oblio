@@ -62,6 +62,7 @@ i{ font-size: 13px;}
 input[type="text"], 
 input[type="number"], 
 input[type="email"], 
+input[type="password"], 
 textarea, 
 select{
     width: min(100%, 300px);
@@ -124,3 +125,5 @@ a{
     position: relative;
     scroll-snap-align: center;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
