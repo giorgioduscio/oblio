@@ -3,13 +3,15 @@ import { routes } from '../../app.routes';
 import { NgFor } from '@angular/common';
 import { closeDropdown } from './closeDropdown';
 import { RouterModule } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
     NgFor,
-    RouterModule
+    RouterModule,
+    MatIcon,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'

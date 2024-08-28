@@ -1,4 +1,3 @@
-*{ gap: 5px; }
 nav{
     padding: 5px 10px;
     width: 100%;
@@ -12,7 +11,19 @@ nav{
 }
 nav>div{
     display: flex;
+    align-items: center;
 }
+nav>div>*{
+    padding: 5px;
+    border-radius: 5px;
+
+    color: var(--c5);
+    background: transparent;
+    border: 0;
+    font-size: 15px;
+}
+nav>div>button:hover{ color: var(--c1); }
+
 
 
 details{
@@ -21,16 +32,19 @@ details{
 }
 details summary{
     cursor: pointer;
+    display: grid;
 }
 details>div{
+    min-width: 100px;
     padding: 5px;
     top: 50px;
     position: absolute;
 
     display: grid;
 
-    background: linear-gradient(3deg, var(--st), var(--c3), var(--c3));
+    background: var(--c4);
 }
+a{ text-align: center; }
 
 @media screen and (max-width:600px) {
 details>div{

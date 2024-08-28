@@ -1,9 +1,11 @@
 <nav>
   <div>
-    <button>Home</button>
-    <button>button</button>
+    <button routerLink="/Users">
+      <mat-icon>home</mat-icon>
+    </button>
     <details class="dropdown">
-      <summary>Articoli</summary>
+      <summary class="dropdown"><mat-icon>apps</mat-icon></summary>
+
       <div>
         <a 
           *ngFor="let page of pages; let i=index"
@@ -13,9 +15,5 @@
         </a>
       </div>
     </details>
-  </div>
-
-  <div>
-
   </div>
 </nav>
