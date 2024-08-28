@@ -7,13 +7,15 @@
       <div *ngFor="let user of users; let i=index">
         <mat-icon class="delete" (click)="delete(user.key!)">delete</mat-icon>
 
-        <div class="wrapper">
+        <form (ngSubmit)="onSubmit(form)" #form="ngForm" class="wrapper">
           <!-- <img [src]="user.imageUrl" [alt]="user.username"> -->
           <!-- <span>{{user.id}}</span> -->
-          <input type="text" [value]="user.username">
-          <input type="email" [value]="user.email">
-        </div>
+          <input type="text" [placeholder]="user.username" name="username" ngModel>
+          <input type="email" [placeholder]="user.email" name="email" ngModel>
+          <a [routerLink]="'/User/'+user.key"> <mat-icon>output</mat-icon> </a>
+        </form>
       </div>
     </div>
+    <a routerLink="/Login"> <mat-icon>add</mat-icon> </a>
   </div>
 </article>

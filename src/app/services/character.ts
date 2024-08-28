@@ -1,4 +1,5 @@
 export interface Character {
+  key?:string,
   generalita:{
     nome :string,
     punti_esperienza :number,

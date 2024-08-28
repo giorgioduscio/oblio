@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<article>
+  <div>
+    <h1>Area personale</h1>
+    <div class="box">
+      <div class="user">
+        <img [src]="user.imageUrl" [alt]="user.username">
+        <p>{{user.username}}</p>
+        <p>{{user.email}}</p>
+      </div>
+
+      <div class="characters">
+        <h5>Personaggi</h5>
+        <p *ngIf="characters==undefined||characters.length==0">Nessun personaggio</p>
+
+        <div><button class="addCharacter" (click)="addCharacter()">
+          <mat-icon class="icon">add</mat-icon>
+          <b>Aggiungi</b>
+        </button></div>
+
+        <div class="charactersBox">
+          @for (character of characters; track character; let a=$index) {
+            <mat-icon class="delete" (click)="deleteCharacter(character.key!)">delete</mat-icon>
+            <a routerLink="">{{character.generalita.nome}}</a>
+          }
+        </div>
+      </div>
+    </div>    
+  </div>
+</article>

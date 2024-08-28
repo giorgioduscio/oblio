@@ -17,4 +17,12 @@ export class UsersService {
   getUsers(){return this.http.get(this.url +'.json')}
   addUser(body:User){return this.http.post(this.url +'.json',body)}
   deleteUser(id:string){return this.http.delete(`${this.url}/${id}.json`)}
+  patchUser(id:string, body:User){return this.http.patch(`${this.url}/${id}.json`,body)}
+  
+  addCharacter(id:string, body:object){
+    return this.http.post(`${this.url}/${id}/gdrCharacters.json`,body)
+  }
+  deleteCharacter(userId:string, characterKey:string){
+    return this.http.delete(`${this.url}/${userId}/gdrCharacters/${characterKey}.json`)
+  }
 }

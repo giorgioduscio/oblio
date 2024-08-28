@@ -1,13 +1,19 @@
 *{ gap: 5px; }
-.box{
+article>div{
     padding: 10px;
+    background: var(--c2);
+}
+.box{
+    padding: 5px;
     display: grid;
 }
 .box>*{
     display: grid;
     grid-template-columns: auto 1fr;
     justify-content: start;
+    gap: 20px;
 }
+
 .wrapper{
     display: flex;
     flex-flow: wrap;
@@ -25,4 +31,8 @@ img{
 }
 .delete{
     color: red;
+    cursor: pointer;
+}.delete:hover{ color: var(--c4); }
+button{
+    border-radius: 5px;
 }

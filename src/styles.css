@@ -12,9 +12,13 @@ html, body{
     background: var(--c1);
     font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
-*{box-sizing: border-box;}
-#app *{
+*{
+    box-sizing: border-box;
+    gap: 5px;
+    margin: 0;
     transition: 0.3s;
+}
+#app *{
     font-size: 20px;
     margin: 0;
 }
@@ -84,7 +88,7 @@ button{
     align-items: center;
     justify-content: space-evenly;
     align-content: center;
-    gap: 5px;
+    background: var(--c5);
 }
     button:hover{
         background: var(--c2);
@@ -125,5 +129,3 @@ a{
     position: relative;
     scroll-snap-align: center;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

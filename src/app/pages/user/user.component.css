@@ -1,0 +1,50 @@
+h1, h5{
+    padding: 10px 0;
+    text-align: center;
+}
+.box{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+.box>*{
+    padding: 10px;
+    min-width: 300px;
+
+    display: grid;
+    align-items: center;
+
+    background:var(--c2);
+}
+img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.charactersBox{
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+.delete{
+    color: red;
+    cursor: pointer;
+}.delete:hover{ color: var(--c4); }
+
+.addCharacter{
+    padding: 0;
+    padding-right: 10px;
+
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 50px;
+}
+.addCharacter:hover{ background: var(--c4); }
+.addCharacter>*{ padding: 5px; }
+.icon{
+    display: inline-table;
+    background: var(--st);
+    border-radius: 50px;
+}
