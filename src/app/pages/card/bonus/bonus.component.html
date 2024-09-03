@@ -1,0 +1,46 @@
+<div class="proficiencyBonus">
+  <label for="bonusCompetenza">Bonus competenza</label>
+  <select 
+    name="bonusCompetenza" 
+    id="bonusCompetenza" 
+    [value]="proficiencyBonus" 
+    (change)="updateProficiency($event)"
+  >
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+  </select>
+</div>
+
+<main class="traitsBox">
+  <div *ngFor="let trait of mappedTraits; let a=index">
+    <div class="trait">
+      <label [for]="trait.key">{{trait.title}}</label>
+      <input 
+        type="number" 
+        [name]="trait.key" 
+        [id]="trait.key" 
+        [value]="trait.value"
+        (change)="updateBonus(trait.key, $event)"
+      >
+    </div>
+
+    <main class="abilitiesBox">
+      <div *ngFor="let ability of trait.abilities; let b=index">
+        <input 
+            type="checkbox" 
+            [name]="ability.key" 
+            [id]="ability.key" 
+            [checked]="ability.value"
+            (change)="updateAbility(trait.key, ability.key, $event)"
+        >
+        <label [for]="ability.key">
+          {{abilityModifier(ability.value, trait.value)}} 
+          {{ability.title}}
+        </label>
+      </div>
+    </main>
+  </div>
+</main>

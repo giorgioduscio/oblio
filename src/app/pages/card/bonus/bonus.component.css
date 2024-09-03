@@ -1,0 +1,37 @@
+.proficiencyBonus{
+    padding-bottom: 10px;
+}
+.proficiencyBonus>select{
+    margin-left: 5px;
+    width: 60px;
+}
+
+.traitsBox{
+    display: grid;
+}
+.traitsBox>div{
+    padding: 5px;
+    
+    display: grid;
+    grid-template-columns: auto 2fr;
+    align-items: start;
+    gap: 10px;
+
+    background: var(--c2);
+    border-radius: 5px;
+}
+
+.trait{
+    display: grid;
+    justify-items: center;
+}
+.trait>*{
+    width: 60px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.abilitiesBox>div{
+    display: flex;
+}

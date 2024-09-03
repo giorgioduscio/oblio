@@ -75,12 +75,13 @@ select{
 
     background: var(--c5);
     color: var(--c1);
+    font-weight: bolder;
     border-radius: 5px;
     border: 1px solid;
     resize: none;
     font-family: inherit;
 } 
-input::placeholder{ color: inherit; }
+input::placeholder{ color: var(--st); }
 
 
 button{

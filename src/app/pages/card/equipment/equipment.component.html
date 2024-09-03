@@ -1,0 +1,30 @@
+<div>
+  <header>
+    <label for="coins">Monete</label>
+    <input type="number" [value]="coins" id="coins" (change)="updateCoins($event)">
+    <label>Trasporto: </label>
+    <span>{{transport.current}}/{{transport.max}}kg</span>
+  </header>
+
+  <main class="box">
+    <div>
+      <span>Qtà</span>
+      <span>Titolo</span>
+      <span>Peso</span>
+    </div>
+    
+    <div *ngFor="let tool of tools; let i=index">
+      <input type="number" [value]="tool.quantita" name="quantita" (change)="updateToEquip(i,$event)">
+      <input type="text" [value]="tool.titolo" name="titolo" (change)="updateToEquip(i,$event)">
+      <span class="weigth">30km</span>
+      <mat-icon class="delete" (click)="deleteToEquip(i)">delete</mat-icon>
+    </div>
+
+    <form (ngSubmit)="addToEquip(addForm)" #addForm="ngForm" class="addForm">
+      <input type="number" name="quantita" ngModel>
+      <input type="text" name="titolo" ngModel required>
+      <span></span>
+      <button type="submit" [disabled]="addForm.invalid"> <mat-icon class="add">add</mat-icon> </button>
+    </form>
+  </main>
+</div>

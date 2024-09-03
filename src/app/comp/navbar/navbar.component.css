@@ -22,7 +22,8 @@ nav>div>*{
     border: 0;
     font-size: 15px;
 }
-nav>div>button:hover{ color: var(--c1); }
+nav>div>button:hover,
+summary:hover{ color: var(--c1); }
 
 
 
@@ -44,7 +45,10 @@ details>div{
 
     background: var(--c4);
 }
-a{ text-align: center; }
+a{ 
+    padding: 5px;
+    text-align: center; 
+}
 
 @media screen and (max-width:600px) {
 details>div{

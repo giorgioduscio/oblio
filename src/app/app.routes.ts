@@ -5,9 +5,10 @@ import { UserComponent } from './pages/user/user.component';
 import { LoginComponent } from './pages/login/login.component';
 
 export const routes :Routes |any[] =[
-  {show:false, path:'', pathMatch:'full', redirectTo:"/Card"},
-  {show:true, path:'Card', component:CardComponent},
+  {show:false, path:'', pathMatch:'full', redirectTo:"/Login"},
+  {show:true, path:'Login', component:LoginComponent},
+
   {show:true, path:'Users', component:UsersComponent},
   {show:false, path:'User/:userId', component:UserComponent},
-  {show:true, path:'Login', component:LoginComponent},
+  {show:false, path:'Card/:userId/:charId', component:CardComponent},
 ];

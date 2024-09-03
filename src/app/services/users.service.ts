@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { effect, Injectable, signal, WritableSignal } from '@angular/core';
 import { User } from './user';
+import { Character } from './character';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,8 @@ export class UsersService {
   }
   deleteCharacter(userId:string, characterKey:string){
     return this.http.delete(`${this.url}/${userId}/gdrCharacters/${characterKey}.json`)
+  }
+  patchCharacter(userId:string, characterKey:string, body:Character){
+    return this.http.patch(`${this.url}/${userId}/gdrCharacters/${characterKey}.json`, body)
   }
 }

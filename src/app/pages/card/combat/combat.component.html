@@ -1,0 +1,70 @@
+<main>
+  <div>
+    <label for="velocita">Velocità</label>
+    <div class="inline">
+      <input
+        type="number" 
+        step="1.5"
+        id="velocita" 
+        [value]="combat.velocita" 
+        (change)="updateField($event)"
+      >
+      <span>
+        {{combat.velocita /1.5}} unità
+        <mat-icon>speed</mat-icon>
+      </span>
+    </div>
+  </div>
+
+  <div>
+    <label for="pf_attuali">Punti ferita</label>
+    <div class="inline">
+      <input 
+        type="number" 
+        id="pf_attuali"
+        [value]="combat.pf_attuali" 
+        (change)="updateField($event)"
+      >
+      <span>
+        {{hitPoints()}}
+        <mat-icon>favorite</mat-icon> 
+      </span>
+    </div>
+  </div>
+
+  <div>
+    <label for="classe_armatura">Classe armatura</label>
+    <div class="col">
+      <select
+        id="classe_armatura" 
+        [value]="combat.classe_armatura" 
+        (change)="updateField($event)"
+      >
+        <option value="0">Senza armatura</option>
+        <option value="1">Monaco</option>
+        <option value="2">Barbaro</option>
+        <option value="3">Armatura di cuoio</option>
+        <option value="4">Cotta di maglia</option>
+        <option value="5">Armatura di piastre</option>
+      </select>
+      <span>
+        {{calculateCA()}} 
+        <mat-icon>shield</mat-icon>
+      </span>
+    </div>
+  </div>
+
+  <div>
+    <label for="">Tiri contro morte</label>
+    <div class="TS">
+      <label for="">Successi</label>
+      <input type="checkbox">
+      <input type="checkbox">
+      <input type="checkbox">
+      <label for="">Fallimenti</label>
+      <input type="checkbox">
+      <input type="checkbox">
+      <input type="checkbox">
+    </div>
+  </div>
+</main>

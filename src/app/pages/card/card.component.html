@@ -2,30 +2,27 @@
 <article>
   <div>
     <h1>Scheda personaggio</h1>
-    <div class="categories"> 
-      <div *ngFor="let category of character; let a=index" computer>
-        <h5 *ngIf="a!==0">{{category.keyCategory}}</h5>
 
-        <app-card-content [a]="a" class="fields {{category.keyCategory}}"></app-card-content>
+    <main class="categoryBox"> 
+      <div class="category" *ngFor="let category of characterMapper; let a=index">
+        <summary *ngIf="a!==0" (click)="menageDrop($event)"> {{category.title}} </summary>
+        
+        <main class="fieldBox {{category.keyCategory}}">
+          @if(a===2){ <app-combat></app-combat> }
+          @else if(a===4){ <app-bonus></app-bonus> }
+          @else if(a===5){ <app-equipment></app-equipment> }
+          @else if(a===6){ <app-privileges></app-privileges> }
+          @else{
+            <app-card-fields
+              *ngFor="let field of category.content; let b=index"
+              class="field"
+              [field]="field" 
+              [keyCategory]="category.keyCategory"
+            ></app-card-fields>
+          }
+        </main>
+
       </div>
-
-
-      <details *ngFor="let category of character; let a=index" [open]="a===0" smart>
-        <summary>
-          <h5 *ngIf="a!==0">{{category.keyCategory}}</h5>
-        </summary>
-        <app-card-content [a]="a" class="fields {{category.keyCategory}}"></app-card-content>
-      </details>
-    </div>
+    </main>
   </div>
 </article>
-
-<style>
-*[computer]{ display: block; }
-*[smart]{ display: none; }
-
-@media only screen and (max-width:600px){
-  *[computer]{ display: none; }
-  *[smart]{ display: block; }
-}
-</style>

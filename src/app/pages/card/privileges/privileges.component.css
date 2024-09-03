@@ -1,0 +1,48 @@
+main{ display: grid; }
+
+.experiencePoints>input{
+    margin-left: 5px;
+    width: 60px;
+}
+form{
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    background: var(--st);
+    border-radius: 5px;
+}
+    .addItem{
+        padding: 0;
+        padding-right: 10px;
+
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 50px;
+        border: 0;
+    }
+    .addItem:hover{ background: var(--c4); }
+    .addItem>b{ padding: 5px; }
+
+.box{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: start;
+}
+    .delete{ 
+        display: none;
+    }
+    .box:hover .delete{ 
+        margin: 5px 0; 
+        display: inline; 
+    }
+
+    .description{
+        padding: 5px;
+        max-height: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background: var(--st);
+        border-radius: 5px;
+        border: 1px solid;
+    }

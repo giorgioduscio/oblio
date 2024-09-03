@@ -1,67 +1,49 @@
-@import url(./specific.component.css);
-article>div{ padding: 10px 0; }
-*{
-    gap: 5px;
-}
-
-h1:first-child{ padding: 20px 0; }
-.categories{
+/* CATEGORY */
+h1{ padding: 20px 0; }
+.categoryBox{
     display: flex;
     flex-flow: wrap;
     justify-content: center;
+    box-shadow: 0 0 20px black;
 }
-
-    .categories>*:first-child{
-        width: 100%;
-    }
-    .categories>*{
-        width: clamp(200px, 100%, 33%);
+    .category{
+        width: clamp(300px, 33%, 33%);
         padding: 5px;
         background: var(--c3);
         border: 1px solid;
     }
-
-    /* fix */
-summary{
+    .category:first-child{
+        width: 100%;
+    }
+    summary{ 
+        padding: 10px;
+        text-align: center; 
+        font-weight: bold;
+        font-size: 20px;
+    }
+/* FIELD app*/
+.fieldBox.generalita{ display: flex; }
+.fieldBox.competenze, 
+.fieldBox.personalita{
     display: grid;
+    grid-template-columns: 1fr 1fr;
 }
-h5{ 
-    padding: 10px 0;
-    text-align: center; 
-}
-.fields{}
-.field{
-    padding: 2px 0;
-    display: grid;
-    font-style: italic;
-    font-size: 15px;
-}
-label{
-    width: 100%;
-    max-width: max-content;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-style: italic;
-}
-
-
-    /* todo */
-.subfields{
-    padding: 5px;
-    display: grid;
-}
-
-    /* optimize */
-.abilities{
-    display: grid;
-    grid-template-columns: auto 1fr;
-}
+.field{ display: grid; }
+input[type="number"]{ width: 50px; }
 
 @media only screen and (max-width:600px){
-h1:first-child{
-    display: none;
-}
-.categories{ gap: 2px; }
-.categories>*{ width: 100%; }
+h1{ display: none; }
+.category>main{ display: none; }
+.category[drop]>main{ display: grid; } 
+
+.category>.generalita{
+    overflow-x: scroll;
+    display: flex;
+    scroll-snap-type: x mandatory;
+} 
+    .generalita>*{
+        flex-shrink: 0;
+        position: relative;
+        scroll-snap-align: center;
+    }
 }

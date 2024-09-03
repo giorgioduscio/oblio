@@ -1,0 +1,24 @@
+<main>
+  <div class="experiencePoints">
+    <label for="punti_esperienza">Punti esperienza</label>
+    <input type="number" name="punti_esperienza" id="punti_esperienza" [value]="experiencePoints">
+  </div>
+  
+  <form #form="ngForm" (ngSubmit)="addPrivilege(form)">
+    <input type="text" name="newPrivilege" placeholder="Aggiungi privilegio" ngModel required>
+    <button class="addItem" type="submit" *ngIf="form.valid">
+      <mat-icon class="icon">add</mat-icon>
+      <b>Aggiungi</b>
+    </button>
+  </form>
+  
+  <div class="box"> @for (privilege of privileges; track privilege; let a=$index) {
+    <div>
+      <input type="text" [value]="privilege" (change)="updatePrivilege(a,$event)">
+      <mat-icon class="delete" (click)="deletePrivilege(a)">delete</mat-icon>
+    </div>
+    <span class="description">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur temporibus vitae exercitationem atque sunt fuga delectus ipsa veniam! Culpa recusandae molestiae natus sed placeat voluptatibus illo? Aspernatur quasi aut magni.
+    </span>
+  }</div>
+</main>

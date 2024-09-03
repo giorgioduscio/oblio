@@ -1,0 +1,29 @@
+header{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+header span{
+    padding: 5px;
+    background: var(--st);
+    border-radius: 5px;
+}
+
+.box>*{
+    padding: 2px;
+    display: grid;
+    grid-template-columns: 50px 2fr 1fr auto;
+}
+    .weigth{
+        padding: 5px;
+        background: var(--st);
+        border: 1px solid;
+        border-radius: 5px;
+    }
+.addForm{
+    background: var(--st);
+    border-radius: 5px;
+}
+.addForm button{
+    border-radius: 5px;
+}

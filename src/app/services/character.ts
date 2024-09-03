@@ -2,7 +2,6 @@ export interface Character {
   key?:string,
   generalita:{
     nome :string,
-    punti_esperienza :number,
     morale :Morale,
     eta :number,
     altezza :number,
@@ -15,8 +14,9 @@ export interface Character {
     strumenti :string 
   },
   combattimento:{ 
-    velocita:number
-    classe_armatura :ClasseArmatura 
+    velocita:number,
+    classe_armatura :ClasseArmatura ,
+    pf_attuali:number,
   },
   personalita:{ 
     aggettivi :string, 
@@ -56,7 +56,6 @@ export interface Character {
           psiche :boolean,
         }
       },
-  
       saggezza :{
         valore :number,
         abilita :{
@@ -67,7 +66,6 @@ export interface Character {
           sopravvivenza :boolean,
         },
       }
-  
       carisma :{
         valore :number,
         abilita :{
@@ -83,7 +81,10 @@ export interface Character {
     monete:number,
     oggetti:{quantita:number, titolo:string}[],
   }
-  privilegi:string[]
+  privilegi:{
+    punti_esperienza :number,
+    privilegi :string[]
+  }
 }
 
 // TODO enum
