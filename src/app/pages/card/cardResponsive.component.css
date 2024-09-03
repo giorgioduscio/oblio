@@ -1,0 +1,25 @@
+@media only screen and (max-width:600px){
+    h1{ display: none; }
+    .category>main{ display: none; }
+    .category[drop]>main{ display: grid; } 
+    
+    .categoryBox{
+        padding: 10px;
+        box-shadow: none !important;
+    }
+    div.category{ 
+        width: 100%; 
+        background: linear-gradient(30deg,var(--c2), var(--c3));
+        border-radius: 5px;
+    }
+    .category>.generalita{
+        overflow-x: scroll;
+        display: flex;
+        scroll-snap-type: x mandatory;
+    } 
+    .generalita>*{
+        flex-shrink: 0;
+        position: relative;
+        scroll-snap-align: center;
+    }
+}

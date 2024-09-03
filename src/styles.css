@@ -16,10 +16,10 @@ html, body{
     box-sizing: border-box;
     gap: 5px;
     margin: 0;
+    font-size: 15px;
     transition: 0.3s;
 }
 #app *{
-    font-size: 20px;
     margin: 0;
 }
 article{ padding: 50px 0; }
@@ -114,8 +114,25 @@ a{
     flex-flow: wrap;
     justify-content: center;
     align-items: center;
-    gap: 10px;
 }
+.round{
+    padding: 0 10px 0 0;
+    border-radius: 50px;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+
+    background: var(--c5);
+    color: var(--c1);
+    border-radius: 50px;
+}
+    .round .icon{
+        padding: 3px;
+        display: inline-table;
+        background: var(--st);
+        border-radius: 50px;
+    }
 .slider{
     min-width: 300px;
     overflow-x: scroll;
@@ -123,10 +140,10 @@ a{
     gap: 10px;
     scroll-snap-type: x mandatory;
 }
-.slider>*{
-    width: 250px;
+    .slider>*{
+        width: 250px;
 
-    flex-shrink: 0;
-    position: relative;
-    scroll-snap-align: center;
-}
+        flex-shrink: 0;
+        position: relative;
+        scroll-snap-align: center;
+    }

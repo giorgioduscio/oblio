@@ -4,7 +4,7 @@ import { User } from '../../services/user';
 import { NavbarComponent } from "../../comp/navbar/navbar.component";
 import { NgFor } from '@angular/common';
 import { mapper } from '../../tools/tools';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 
@@ -17,7 +17,6 @@ import { FormsModule, NgForm } from '@angular/forms';
     MatIconModule,
     RouterModule,
     FormsModule,
-    
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
@@ -33,11 +32,13 @@ export class UsersComponent {
     })
   }
   delete(key:string){
-    this.usersService.deleteUser(key)
-    .subscribe(res=>{
-      console.log(res+" eliminato");
-      this.users =this.users .filter(user =>user.key!=key)
-    })
+    if (confirm("Eliminare l'utente?")){
+      this.usersService.deleteUser(key)
+      .subscribe(res=>{
+        console.log(res+" eliminato");
+        this.users =this.users .filter(user =>user.key!=key)
+      })
+    }
   }
   onSubmit(form:NgForm){
     console.log(form);

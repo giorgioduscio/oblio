@@ -30,20 +30,3 @@ h1{ padding: 20px 0; }
 }
 .field{ display: grid; }
 input[type="number"]{ width: 50px; }
-
-@media only screen and (max-width:600px){
-h1{ display: none; }
-.category>main{ display: none; }
-.category[drop]>main{ display: grid; } 
-
-.category>.generalita{
-    overflow-x: scroll;
-    display: flex;
-    scroll-snap-type: x mandatory;
-} 
-    .generalita>*{
-        flex-shrink: 0;
-        position: relative;
-        scroll-snap-align: center;
-    }
-}

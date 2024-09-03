@@ -2,31 +2,32 @@
 <article>
   <div>
     <h1>Area personale</h1>
-    <div class="box">
+    <main class="box">
       <div class="user">
         <img [src]="user.imageUrl" [alt]="user.username">
-        <p>{{user.username}}</p>
-        <p>{{user.email}}</p>
+        <div>
+          <input type="text" [value]="user.username">
+          <input type="text" [value]="user.email">
+        </div>
       </div>
 
       <div class="characters">
-        <h5>Personaggi</h5>
-        <p *ngIf="characters==undefined||characters.length==0"
-          style="text-align: center;"
-        >Nessun personaggio</p>
-
-        <div><button class="addCharacter" (click)="addCharacter()">
-          <mat-icon class="icon">add</mat-icon>
-          <b>Aggiungi</b>
-        </button></div>
-
-        <div class="charactersBox">
-          @for (character of characters; track character; let a=$index) {
-            <mat-icon class="delete" (click)="deleteCharacter(character.key!)">delete</mat-icon>
-            <a routerLink="/Card/{{userId}}/{{character.key}}">{{character.generalita.nome}}</a>
-          }
+        <div class="addCharacter">
+          <h5>Personaggi</h5>
+          <button class="round" (click)="addCharacter()">
+            <mat-icon class="icon">add</mat-icon>
+            Aggiungi
+          </button>
         </div>
+
+        <p *ngIf="characters==undefined||characters.length==0">Nessun personaggio</p>
+
+        <div class="round" *ngFor="let character of characters; let i=index">
+          <mat-icon class="icon" (click)="deleteCharacter(character.key!)">delete</mat-icon>
+          <a routerLink="/Card/{{userId}}/{{character.key}}">{{character.generalita.nome}}</a>
+        </div>
+
       </div>
-    </div>    
+    </main>    
   </div>
 </article>

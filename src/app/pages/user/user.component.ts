@@ -7,7 +7,6 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { NavbarComponent } from "../../comp/navbar/navbar.component";
 import { MatIcon } from '@angular/material/icon';
-import { randomId, randomString } from '../../tools/randomCompiler';
 import { initCharacter } from '../card/initCharacter';
 
 @Component({
@@ -24,8 +23,8 @@ import { initCharacter } from '../card/initCharacter';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
-  user! :User
-  characters! :Character[]
+  user :User ={id: 0,email: '',username: '',password: '',imageUrl: '' }
+  characters :Character[] =[]
   userId! :string
 
   constructor(private activateRoute:ActivatedRoute, private usersService:UsersService){
@@ -49,10 +48,12 @@ export class UserComponent {
     })
   }
   deleteCharacter(characterKey:string){
-    this.usersService.deleteCharacter(this.userId, characterKey)
-    .subscribe(res=>{
-      location.reload()
-      console.log(characterKey);
-    })
+    if(confirm("Cancellare il personaggio?")){
+      this.usersService.deleteCharacter(this.userId, characterKey)
+      .subscribe(res=>{
+        location.reload()
+        console.log(characterKey);
+      })
+    }
   }
 }

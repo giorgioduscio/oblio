@@ -17,7 +17,7 @@ import { CombatComponent } from "./combat/combat.component";
   standalone: true,
   imports: [NgIf, NgFor, CardFieldsComponent, NavbarComponent, EquipmentComponent, PrivilegesComponent, BonusComponent, CombatComponent],
   templateUrl: './card.component.html',
-  styleUrl:'./card.component.css'
+  styleUrls:['./card.component.css','./cardResponsive.component.css']
 })
 
 export class CardComponent {

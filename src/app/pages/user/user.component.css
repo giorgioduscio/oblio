@@ -1,51 +1,53 @@
-h1, h5{
-    padding: 10px 0;
-    text-align: center;
+article>div{
+    padding: 10px;
+    background: var(--c2);
 }
 .box{
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
-    gap: 5px;
-}
-.box>*{
-    padding: 10px;
-    min-width: 300px;
-
     display: grid;
-    align-items: center;
-
-    background:var(--c2);
+    grid-template-columns: 1fr 1fr;
 }
+    .box>*{
+        padding: 10px;
+        display: grid;
+        background: var(--st);
+        border-radius: 5px;
+    }
+ /* TODO USER */
+.user{ grid-template-columns: auto 1fr; }
 img{
     height: 100px;
     width: 100px;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 50px;
+    border: 1px solid;
 }
 
-.charactersBox{
+ /* TODO PERSONAGGIO */
+.characters{}
+.addCharacter{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+.character{
+    padding: 5px;
     display: grid;
     grid-template-columns: auto 1fr;
+    align-items: center;
+    background: var(--c2);
+    border-radius: 5px;
 }
-.delete{
-    color: red;
-    cursor: pointer;
-}.delete:hover{ color: var(--c4); }
 
-.addCharacter{
-    padding: 0;
-    padding-right: 10px;
-
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 50px;
-    border: 0;
-}
-.addCharacter:hover{ background: var(--c4); }
-.addCharacter>*{ padding: 5px; }
-.icon{
-    display: inline-table;
-    background: var(--st);
-    border-radius: 50px;
+@media only screen and (max-width:600px) {
+    article>div{ 
+        height: 100vh; 
+    }
+    h1{
+        color: var(--c5);
+        padding-bottom: 30px;
+        font-size: 30px;
+    }
+    .box{
+        grid-template-columns: 1fr;
+    }
 }
