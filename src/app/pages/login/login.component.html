@@ -1,8 +1,8 @@
 <article>
   <div>
-    <h1>Login</h1>
+    <h1>Registrazione</h1>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <main class="box">@for (item of showForm; track item; let a =$index) {
+      <main class="box">@for (item of mappedForm; track item; let a =$index) {
         <input  
           [type]="item.inputType" 
           [id]="item.key"
@@ -10,7 +10,9 @@
           [value]="item.value"
           [placeholder]="item.title"
         >
-      }</main>
+      }
+        <p>Hai già un profilo? <a routerLink="/Access">Accedi</a></p>
+      </main>
       <button type="submit" [disabled]="form.invalid || form.value.confirm_password !==form.value.password">Invio</button>
     </form>
   </div>
