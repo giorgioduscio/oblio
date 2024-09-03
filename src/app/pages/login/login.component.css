@@ -1,12 +1,20 @@
 article>div{
     padding: 10px;
+    width: 300px;
     background: var(--c2);
+    border-radius: 5px;
 }
 .box{
     padding: 10px;
     display: grid;
-    gap: 5px;
 }
+input::placeholder{ color: var(--c3); }
+input{
+    padding: 10px;
+    background: transparent;
+    color: var(--c5);
+}
+
 button[type='submit']{
     padding: 10px;
     border-radius: 5px;

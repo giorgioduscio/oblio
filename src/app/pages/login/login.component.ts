@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms'
-import { mapper } from '../../tools/tools';
 import { NgFor } from '@angular/common';
 import { Initial } from '../card/CharacterMapper';
 import { randomId, randomImage } from '../../tools/randomCompiler';
@@ -13,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [
     ReactiveFormsModule,
     NgFor,
+    FormsModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -20,6 +20,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent{
   form! :FormGroup
   showForm! :{key:string, title:string, inputType:string, value:string}[]
+  passwordConfirmer :string =''
 
   constructor(private usersService:UsersService, 
     private activatedRoute: ActivatedRoute, private router: Router
@@ -31,32 +32,36 @@ export class LoginComponent{
       username :new FormControl('', Validators.required),
       email :new FormControl('', [Validators.required, Validators.email]),
       password :new FormControl('', [Validators.required, Validators.minLength(8)]),
+      confirm_password :new FormControl('', [Validators.required]),
     })
 
-    this.showForm =Object.keys(this.form.value) .map(key=>({
+    this.showForm =Object.keys(this.form.value) .map((key,i)=>({
       key:key,
       title:Initial(key),
-      inputType: key=='username' ?'text' :key,
+      inputType: i<2 ?'text' :'password',
       value: this.form.value[key],
-    }))
+    }))   
   }
 
 
   onSubmit(){
-    console.log('form',this.form, this.showForm);
-    this.usersService.addUser({
-      id: randomId(),
-      email: this.form.value.email,
-      username: this.form.value.username,
-      password: this.form.value.password,
-      imageUrl: randomImage(),
+    if (this.form.value.confirm_password==this.form.value.password){
+      console.log('submit',this.form);
+      
+      this.usersService.addUser({
+        id: randomId(),
+        email: this.form.value.email,
+        username: this.form.value.username,
+        password: this.form.value.password,
+        imageUrl: randomImage(),
+      })
+      .subscribe((res:any)=>{
+        console.log(res); 
+        this.router.navigate(
+          ['/User/'+res.name], 
+          { relativeTo: this.activatedRoute }
+        );
     })
-    .subscribe((res:any)=>{
-      console.log(res); 
-      // this.router.navigate(
-      //   ['/User/'+res.name], 
-      //   { relativeTo: this.activatedRoute }
-      // );
-    })
+    } else console.log('nosubmit');
   }
 }

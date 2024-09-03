@@ -2,8 +2,7 @@
   <div>
     <h1>Login</h1>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <div class="box">@for (item of showForm; track item; let a =$index) {
-        <label [for]="item.key">{{item.title}}</label>
+      <main class="box">@for (item of showForm; track item; let a =$index) {
         <input  
           [type]="item.inputType" 
           [id]="item.key"
@@ -11,8 +10,8 @@
           [value]="item.value"
           [placeholder]="item.title"
         >
-      }</div>
-      <button type="submit" [disabled]="form.invalid">Invio</button>
+      }</main>
+      <button type="submit" [disabled]="form.invalid || form.value.confirm_password !==form.value.password">Invio</button>
     </form>
   </div>
 </article>
