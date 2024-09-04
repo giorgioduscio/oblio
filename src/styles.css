@@ -93,8 +93,10 @@ button{
     align-items: center;
     justify-content: space-evenly;
     align-content: center;
+
     background: var(--c5);
     border: 0;
+    border-radius: 5px;
 }
     button:hover{
         background: var(--c2);

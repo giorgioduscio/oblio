@@ -20,7 +20,7 @@ import { initCharacter } from '../card/initCharacter';
     MatIcon,
 ],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+  styleUrls: ['./user.component.css','./userResponsive.component.css']
 })
 export class UserComponent {
   user :User ={id: 0,email: '',username: '',password: '',imageUrl: '' }

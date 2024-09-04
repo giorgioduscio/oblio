@@ -1,0 +1,18 @@
+@media only screen and (max-width:600px) {
+    /* HERO */
+    .hero>*{
+        height: 80vh;
+    }
+    /* BOX */
+    .box{ 
+        padding: 0; 
+        gap: 0;
+    }
+    .box>*{   
+        width: 100%;
+        border-radius: 0;
+        border: 0;
+    }
+    .box .text{ padding-bottom: 50px; }
+    
+}

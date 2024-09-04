@@ -4,9 +4,12 @@ import { UsersComponent } from './pages/users/users.component';
 import { UserComponent } from './pages/user/user.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AccessComponent } from './pages/login/access/access.component';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes :Routes |any[] =[
-  {show:false, path:'', pathMatch:'full', redirectTo:"/Login"},
+  {show:false, path:'', pathMatch:'full', redirectTo:"/Home"},
+  {show:true, path:'Home', component:HomeComponent},
+
   {show:true, path:'Login', component:LoginComponent},
   {show:true, path:'Access', component:AccessComponent},
 

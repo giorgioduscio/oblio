@@ -15,7 +15,7 @@ import { MappedForm, mapperForm } from './mapperForm';
     RouterModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css', './loginResponsive.component.css']
 })
 export class LoginComponent{
   form! :FormGroup

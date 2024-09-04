@@ -38,17 +38,3 @@ img{
     background: var(--c2);
     border-radius: 5px;
 }
-
-@media only screen and (max-width:600px) {
-    article>div{ 
-        height: 100vh; 
-    }
-    h1{
-        color: var(--c5);
-        padding-bottom: 30px;
-        font-size: 30px;
-    }
-    .box{
-        grid-template-columns: 1fr;
-    }
-}

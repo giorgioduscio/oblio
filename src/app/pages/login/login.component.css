@@ -24,12 +24,3 @@ button:disabled{
     background: var(--st);
     color: var(--c5);
 }
-@media only screen and (max-width:600px) {
-    article{ padding: 0; }
-    article>*{ height: 100vh; }
-    h1{
-        color: var(--c5);
-        padding-bottom: 30px;
-        font-size: 30px;
-    }
-}
