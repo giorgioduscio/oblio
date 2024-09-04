@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { CharacterMapper } from './CharacterMapper';
+import { CharacterMapper } from '../CharacterMapper';
 import { MatIcon } from '@angular/material/icon';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Character } from '../../services/character';
-import { UsersService } from '../../services/users.service';
+import { Character } from '../../../services/character';
+import { UsersService } from '../../../services/users.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [NgIf, MatIcon, FormsModule],
   templateUrl:'./cardFields.component.html',
-  styleUrl:'./card.component.css'
+  styleUrl:'../card.component.css'
 })
 export class CardFieldsComponent {
   // MODIFICA I CAMPI IN BASE A DOVE SI TROVANO 

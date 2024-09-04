@@ -94,9 +94,11 @@ button{
     justify-content: space-evenly;
     align-content: center;
     background: var(--c5);
+    border: 0;
 }
     button:hover{
         background: var(--c2);
+        color: var(--c5);
     }
     button:disabled{
         background: var(--st);

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Character } from '../../services/character';
 import { NgFor, NgIf } from '@angular/common';
 import { CharacterMapper } from './CharacterMapper';
-import { CardFieldsComponent } from "./cardFields.component";
+import { CardFieldsComponent } from "./cardFields/cardFields.component";
 import { NavbarComponent } from "../../comp/navbar/navbar.component";
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../services/user';
