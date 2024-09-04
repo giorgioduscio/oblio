@@ -1,10 +1,11 @@
 import { Character, ClasseArmatura, Morale } from "../../services/character";
 import { randomString } from "../../tools/randomCompiler";
+import { upperSpaces } from "./CharacterMapper";
 
 export function initCharacter():Character {
   return {
     generalita: {
-      nome: 'New-' +randomString(),
+      nome: upperSpaces(randomString()),
       morale: Morale.Collettivista_buono,
       eta: 30,
       altezza: 170,
@@ -22,9 +23,9 @@ export function initCharacter():Character {
       pf_attuali: 18
     },
     personalita: {
-      aggettivi: 'Aggiungi aggettivi',
-      ideali: 'Aggiungi ideali',
-      legami: 'Aggiungi legami'
+      aggettivi: '',
+      ideali: '',
+      legami: ''
     },
     bonus: {
       competenza: 2,
@@ -81,15 +82,15 @@ export function initCharacter():Character {
     equipaggiamento: {
       monete: 20,
       oggetti: [
-        { titolo: "Arma di competenza", quantita: 0 },
-        { titolo: "Arma/scudo di competenza", quantita: 0 },
-        { titolo: "Armatura di competenza", quantita: 0 },
-        { titolo: "Giaciglio (sacco a pelo)", quantita: 0 },
-        { titolo: "Gavetta (kit da pranzo)", quantita: 0 },
-        { titolo: "Un otre (borraccia)", quantita: 0 },
-        { titolo: "15m Corda di canapa", quantita: 0 },
+        { titolo: "Arma di competenza", quantita: 1 },
+        { titolo: "Arma/scudo di competenza", quantita: 1 },
+        { titolo: "Armatura di competenza", quantita: 1 },
+        { titolo: "Giaciglio (sacco a pelo)", quantita: 1 },
+        { titolo: "Gavetta (kit da pranzo)", quantita: 1 },
+        { titolo: "Un otre (borraccia)", quantita: 1 },
+        { titolo: "15m Corda di canapa", quantita: 1 },
         { titolo: "Torcia", quantita: 10 },
-        { titolo: "Acciarino e pietra focaia", quantita: 0 },
+        { titolo: "Acciarino e pietra focaia", quantita: 1 },
         { titolo: "Razioni giornaliere", quantita: 10 },
       ]
     },

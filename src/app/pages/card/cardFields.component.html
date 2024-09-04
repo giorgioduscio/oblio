@@ -3,6 +3,7 @@
   <textarea
     [id]="field.keyField" 
     [value]="field.value" 
+    placeholder="Aggiungi {{field.keyField}}"
     (change)="updateField(keyCategory, field.keyField, $event)"
     ></textarea>
 }

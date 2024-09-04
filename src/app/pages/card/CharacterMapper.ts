@@ -1,6 +1,6 @@
 import { Title } from "@angular/platform-browser"
 import { Character } from "../../services/character"
-export function Initial(phrase:string) {
+export function upperSpaces(phrase:string) {
   return phrase[0].toUpperCase() +phrase.slice(1) .replaceAll('_',' ')
 }
 export interface CharacterMapper{
@@ -38,14 +38,14 @@ export function CharacterMapper(ref:Character) :CharacterMapper[] {
   .map(keyCategory=>{
     return{
     keyCategory: keyCategory,
-    title: Initial(keyCategory),
+    title: upperSpaces(keyCategory),
     content: Object.keys(ref[keyCategory as keyof object]) 
     
     // CAMPI
     .map(keyField=>{
       const field :CharacterMapper['content'][0]['content'] =ref[keyCategory as keyof object][keyField as keyof object]
       return{ 
-      title: Initial(keyField),
+      title: upperSpaces(keyField),
       keyField: keyField,
       value: typeof(field)==='object' ?undefined :field,
       content: keyField!=='caratteristica'&&keyField!=='oggetti' ?undefined :Object.keys(field) 
@@ -54,13 +54,13 @@ export function CharacterMapper(ref:Character) :CharacterMapper[] {
       .map(keySub=>{
         const subfield =field[keySub]
         return{
-        keySub: keyCategory==='equipaggiamento' ?subfield['titolo'] :Initial(keySub),
+        keySub: keyCategory==='equipaggiamento' ?subfield['titolo'] :upperSpaces(keySub),
         value: keyCategory==='equipaggiamento' ?subfield['quantita'] :subfield['valore'],
         content: keyCategory==='equipaggiamento' ?undefined :Object.keys(subfield['abilita'])
 
         // ABILITA
         .map(keyAb=>({
-          keyAb:Initial(keyAb),
+          keyAb:upperSpaces(keyAb),
           value:subfield['abilita'][keyAb],
         }))
       }})

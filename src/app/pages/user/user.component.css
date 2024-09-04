@@ -9,6 +9,7 @@ article>div{
     .box>*{
         padding: 10px;
         display: grid;
+        align-items: start;
         background: var(--st);
         border-radius: 5px;
     }

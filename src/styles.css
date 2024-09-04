@@ -81,7 +81,11 @@ select{
     resize: none;
     font-family: inherit;
 } 
-input::placeholder{ color: var(--st); }
+textarea::placeholder,input::placeholder{ 
+    font-style: italic;
+    color: var(--st); 
+}
+label{ font-style: italic; }
 
 
 button{

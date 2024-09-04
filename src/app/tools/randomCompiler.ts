@@ -23,13 +23,13 @@ export function randomImage():string{
 
 export function randomString() :string {
   const 
-    repeat =Math.floor(Math.random() *(8 -2) +2),
+    repetitions =Math.floor(Math.random() *(10 -4) +4),
     consonants =['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'],
     vowels =['a', 'e', 'i', 'o', 'u'],
     result :string[] =[]
-    // repeat =Math.random() * (max - min) + min;
+    // repetitions =Math.random() * (max - min) + min;
 
-  for (let index = 0; index < repeat; index++) {
+  for (let index = 0; index < repetitions; index++) {
     // array da esaminare
     const letters =(result.length%2==0 ||result.length==5) ?consonants :vowels 
     // indice casuale

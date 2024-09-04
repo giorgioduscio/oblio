@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
 import { NgFor } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-import { every } from 'rxjs';
 
 @Component({
   selector: 'app-equipment',
@@ -53,14 +52,16 @@ export class EquipmentComponent {
   }
   // TODO ELIMINA
   deleteToEquip(indexToDelete:number){
-    const updatedObject =this.tools .filter((_privilege,i)=>i!==indexToDelete)
-      
-    this.character.equipaggiamento.oggetti =updatedObject
-    this.usersService.patchCharacter(this.userId, this.charId, this.character)
-      .subscribe((res:any)=>{ 
-        this.tools =this.character.equipaggiamento.oggetti
-        console.log(res['equipaggiamento']['oggetti']) 
-      })
+    if (confirm('Eliminare elemento?')) {
+      const updatedObject =this.tools .filter((_privilege,i)=>i!==indexToDelete)
+        
+      this.character.equipaggiamento.oggetti =updatedObject
+      this.usersService.patchCharacter(this.userId, this.charId, this.character)
+        .subscribe((res:any)=>{ 
+          this.tools =this.character.equipaggiamento.oggetti
+          console.log(res['equipaggiamento']['oggetti']) 
+        })
+    }
   }
   // TODO MODIFICA
   updateToEquip(indexToUpdate:number,e:Event){

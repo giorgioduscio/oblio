@@ -4,7 +4,7 @@ import { Character } from '../../../services/character';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
 import { mapper } from '../../../tools/tools';
-import { Initial } from '../CharacterMapper';
+import { upperSpaces } from '../CharacterMapper';
 
 @Component({
   selector: 'app-bonus',
@@ -32,12 +32,12 @@ export class BonusComponent {
         this.mappedTraits =Object.keys(this.character.bonus.caratteristica) 
           .map((key)=>({
             key:key,
-            title: Initial(key),
+            title: upperSpaces(key),
             value: this.character.bonus.caratteristica[key as keyof object]['valore'],
             abilities: Object.keys(this.character.bonus.caratteristica[key as keyof object]['abilita'])
               .map(abilityKey=>({
                 key:abilityKey, 
-                title: Initial(abilityKey),
+                title: upperSpaces(abilityKey),
                 value:this.character.bonus.caratteristica[key as keyof object]['abilita'][abilityKey] 
               })),
           }))

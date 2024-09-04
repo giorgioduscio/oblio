@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Privileges } from './privileges';
+import { Privilege } from './privileges';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrivilegesService {
-  privileges :Privileges[] =[
+  privileges :Privilege[] =[
     {
       title: `Allerta`,
       description: `Il personaggio ottiene un bonus +5 all'iniziativa, non può essere sorpreso finché cosciente e chi lo attacca o interagisce fisicamente con lui in maniera furtiva, non dispone di vantaggio`,

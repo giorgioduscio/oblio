@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
 import { Character } from '../../../services/character';
 import { NgFor, NgIf } from '@angular/common';
+import { PrivilegesService } from '../../../services/privileges.service';
+import { upperSpaces } from '../CharacterMapper';
 
 @Component({
   selector: 'app-privileges',
@@ -20,7 +22,11 @@ export class PrivilegesComponent {
   privileges! :Character['privilegi']['privilegi']
   experiencePoints! :Character['privilegi']['punti_esperienza']
   // TODO MOSTRA
-  constructor(private activatedRoute:ActivatedRoute, private usersService:UsersService){
+  constructor(
+    private activatedRoute:ActivatedRoute, 
+    private usersService:UsersService,
+    private privilegeService:PrivilegesService,
+  ){
     activatedRoute.params.subscribe(params=>{
       usersService.getUsers().subscribe((res:any)=>{
         this.userId =params['userId']
@@ -33,26 +39,36 @@ export class PrivilegesComponent {
       })
     })
   }
+  findDescription(privilegeTitle:string):string{
+    privilegeTitle =upperSpaces(privilegeTitle)
+    let result ='Errore'
+    this.privilegeService.privileges.map(privilege=>{
+      if (privilege.title===privilegeTitle) result =privilege.description
+    })
+    return result
+  }
   // TODO AGGIUNGE
   addPrivilege(form:NgForm){
     const newPrivilege =form.value['newPrivilege']
     this.character.privilegi.privilegi.push(newPrivilege)
     this.usersService.patchCharacter(this.userId, this.charId,this.character)
       .subscribe((res:any)=>{ 
-        console.log(res['privilegi']) 
+        console.log(res['privilegi']['privilegi']) 
         form.reset()
       })
   }
   // TODO ELIMINA
   deletePrivilege(indexToDelete:number){
-    const updatedPrivileges =this.privileges .filter((privilege,i)=>i!==indexToDelete)
-      
-    this.character.privilegi.privilegi =updatedPrivileges
-    this.usersService.patchCharacter(this.userId, this.charId, this.character)
-      .subscribe((res:any)=>{ 
-        this.privileges =this.character.privilegi.privilegi
-        console.log(res['privilegi']) 
-      })
+    if(confirm('Eliminare elemento?')){
+      const updatedPrivileges =this.privileges .filter((privilege,i)=>i!==indexToDelete)
+        
+      this.character.privilegi.privilegi =updatedPrivileges
+      this.usersService.patchCharacter(this.userId, this.charId, this.character)
+        .subscribe((res:any)=>{ 
+          this.privileges =this.character.privilegi.privilegi
+          console.log(res['privilegi']['privilegi']) 
+        })
+    }
   }
   // TODO MODIFICA
   updatePrivilege(indexToUpdate:number,e:Event){
@@ -61,7 +77,7 @@ export class PrivilegesComponent {
     this.character.privilegi.privilegi[indexToUpdate] =updatedPrivilege
     this.usersService.patchCharacter(this.userId, this.charId,this.character)
     .subscribe((res:any)=>{ 
-      console.log(res['privilegi']);
+      console.log(res['privilegi']['privilegi']);
       (e.target as HTMLInputElement).value =''
     })
   }
