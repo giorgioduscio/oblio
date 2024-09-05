@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
 import { NgFor } from '@angular/common';
 import { User } from '../../../services/user';
-import { mapper } from '../../../tools/tools';
+import { mapper } from '../../../tools/mapper';
 import { MappedForm, mapperForm } from '../mapperForm';
 
 @Component({

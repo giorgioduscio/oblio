@@ -3,7 +3,7 @@ import { UsersService } from '../../services/users.service';
 import { User } from '../../services/user';
 import { NavbarComponent } from "../../comp/navbar/navbar.component";
 import { NgFor, NgIf } from '@angular/common';
-import { mapper } from '../../tools/tools';
+import { mapper } from '../../tools/mapper';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';

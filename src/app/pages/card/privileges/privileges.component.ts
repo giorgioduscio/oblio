@@ -6,7 +6,7 @@ import { UsersService } from '../../../services/users.service';
 import { Character } from '../../../services/character';
 import { NgFor, NgIf } from '@angular/common';
 import { PrivilegesService } from '../../../services/privileges.service';
-import { upperSpaces } from '../CharacterMapper';
+import { upperSpaces } from '../../../tools/upperSpaces';
 
 @Component({
   selector: 'app-privileges',

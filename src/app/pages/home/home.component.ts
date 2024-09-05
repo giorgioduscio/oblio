@@ -11,5 +11,8 @@ import { MatIcon } from '@angular/material/icon';
   styleUrls: ['./home.component.css', './homeResponsive.component.css']
 })
 export class HomeComponent {
+  constructor(){
+    document.title ='Home'
+  }
 
 }

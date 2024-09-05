@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { Character } from '../../../services/character';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
-import { mapper } from '../../../tools/tools';
-import { upperSpaces } from '../CharacterMapper';
+import { mapper } from '../../../tools/mapper';
+import { upperSpaces } from '../../../tools/upperSpaces';
 
 @Component({
   selector: 'app-bonus',

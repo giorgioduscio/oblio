@@ -1,8 +1,5 @@
-import { Title } from "@angular/platform-browser"
 import { Character } from "../../services/character"
-export function upperSpaces(phrase:string) {
-  return phrase[0].toUpperCase() +phrase.slice(1) .replaceAll('_',' ')
-}
+import { upperSpaces } from "../../tools/upperSpaces"
 export interface CharacterMapper{
   keyCategory:string,
   title:string,

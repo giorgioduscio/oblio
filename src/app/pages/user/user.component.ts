@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UsersService } from '../../services/users.service';
-import { mapper } from '../../tools/tools';
+import { mapper } from '../../tools/mapper';
 import { User } from '../../services/user';
 import { Character, ClasseArmatura, Morale } from '../../services/character';
 import { ActivatedRoute, RouterModule } from '@angular/router';

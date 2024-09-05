@@ -1,5 +1,5 @@
 import { FormGroup } from "@angular/forms";
-import { upperSpaces } from "../card/CharacterMapper";
+import { upperSpaces } from "../../tools/upperSpaces"
 
 export interface MappedForm{
   key:string, title:string, inputType:string, value:string

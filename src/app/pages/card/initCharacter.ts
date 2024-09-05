@@ -1,6 +1,6 @@
 import { Character, ClasseArmatura, Morale } from "../../services/character";
 import { randomString } from "../../tools/randomCompiler";
-import { upperSpaces } from "./CharacterMapper";
+import { upperSpaces } from "../../tools/upperSpaces";
 
 export function initCharacter():Character {
   return {
