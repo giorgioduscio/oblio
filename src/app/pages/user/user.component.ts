@@ -25,23 +25,23 @@ import { initCharacter } from '../card/initCharacter';
 export class UserComponent {
   user :User ={id: 0,email: '',username: '',password: '',imageUrl: '' }
   characters :Character[] =[]
-  userId! :string
+  userKey! :string
 
   constructor(private activateRoute:ActivatedRoute, private usersService:UsersService){
     document.title='User'
 
     activateRoute.params.subscribe(params=>{
-      this.userId =params['userId']
+      this.userKey =params['userKey']
     })
 
     usersService.getUsers().subscribe((res:any)=>{
-      this.user =mapper(res) .filter(user=>user.key ===this.userId)[0]
+      this.user =mapper(res) .filter(user=>user.key ===this.userKey)[0]
       this.characters =mapper(this.user.gdrCharacters!)
       // console.log('user',this.user,'\ncharacters', this.characters);
     })
   }
   addCharacter(){
-    this.usersService.addCharacter(this.userId, initCharacter())
+    this.usersService.addCharacter(this.userKey, initCharacter())
     .subscribe((res:any)=>{
       console.log(res);
       location.reload()
@@ -49,7 +49,7 @@ export class UserComponent {
   }
   deleteCharacter(characterKey:string){
     if(confirm("Cancellare il personaggio?")){
-      this.usersService.deleteCharacter(this.userId, characterKey)
+      this.usersService.deleteCharacter(this.userKey, characterKey)
       .subscribe(res=>{
         location.reload()
         console.log(characterKey);

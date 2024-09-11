@@ -18,16 +18,17 @@ export class CardFieldsComponent {
   // MODIFICA I CAMPI IN BASE A DOVE SI TROVANO 
   @Input() field!: CharacterMapper['content'][0];
   @Input() keyCategory!: string;
-  userId! :string
-  charId! :string
+  userKey! :string
+  charKey! :string
   character! :Character
+  
   // TODO MOSTRA
   constructor(private activatedRoute:ActivatedRoute, private usersService:UsersService){
     usersService.getUsers().subscribe((res:any)=>{
       activatedRoute.params.subscribe(params=>{
-        this.userId =params['userId']
-        this.charId =params['charId']
-        this.character =res[this.userId].gdrCharacters[this.charId]
+        this.userKey =params['userKey']
+        this.charKey =params['charKey']
+        this.character =res[this.userKey].gdrCharacters[this.charKey]
         // console.log('res', this.character);
       })
     })
@@ -40,7 +41,7 @@ export class CardFieldsComponent {
       ,clone :any =this.character
     clone[keyCategory][fieldKey] =typeof clone[keyCategory][fieldKey]==='number' ?Number(newValue) :newValue
       this.character =clone
-    this.usersService.patchCharacter(this.userId, this.charId, this.character)
+    this.usersService.patchCharacter(this.userKey, this.charKey, this.character)
       .subscribe((res:any)=>{
         console.log(
           // keyCategory, fieldKey, newValue,

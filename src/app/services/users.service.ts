@@ -23,10 +23,10 @@ export class UsersService {
   addCharacter(id:string, body:object){
     return this.http.post(`${this.url}/${id}/gdrCharacters.json`,body)
   }
-  deleteCharacter(userId:string, characterKey:string){
-    return this.http.delete(`${this.url}/${userId}/gdrCharacters/${characterKey}.json`)
+  deleteCharacter(userKey:string, characterKey:string){
+    return this.http.delete(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`)
   }
-  patchCharacter(userId:string, characterKey:string, body:Character){
-    return this.http.patch(`${this.url}/${userId}/gdrCharacters/${characterKey}.json`, body)
+  patchCharacter(userKey:string, characterKey:string, body:Character){
+    return this.http.patch(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`, body)
   }
 }

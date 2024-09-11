@@ -10,12 +10,7 @@ import { CharacterMapper } from '../pages/card/CharacterMapper';
 })
 export class RealtimeUsersService {
   private url ='https://users-b9804-default-rtdb.europe-west1.firebasedatabase.app/users'
-  constructor(private http:HttpClient) {
-    effect(()=>{
-      // console.log("service",this.characters());
-      this.characters()
-    })
-  }
+  constructor(private http:HttpClient) {}
   // TODO USERS
   users :WritableSignal<User[]> =signal([])
   getUsers(){
@@ -27,7 +22,7 @@ export class RealtimeUsersService {
     this.http.post( this.url+".json", body ).subscribe((res:any)=>{
       this.users().push( {...body, key: res.name} ) 
     })  
-    console.log("addUser",this.users());
+    console.log("addUser",this.users() .filter(u=>u.id===body.id));
   }
   deleteUser(key:string){
     this.http.delete(`${this.url}/${key}.json`).subscribe((res:any)=>{

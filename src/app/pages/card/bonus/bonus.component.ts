@@ -14,8 +14,8 @@ import { upperSpaces } from '../../../tools/upperSpaces';
   styleUrl: './bonus.component.css'
 })
 export class BonusComponent {
-  userId! :string
-  charId! :string
+  userKey! :string
+  charKey! :string
   character! :Character
   bonus! :Character['bonus']
   mappedTraits! :{abilities:{key:string, title:string, value:boolean}[], key:string, title:string, value:number}[]
@@ -24,10 +24,10 @@ export class BonusComponent {
   constructor(private activatedRoute:ActivatedRoute, private usersService:UsersService){
     activatedRoute.params.subscribe(params=>{
       usersService.getUsers().subscribe((res:any)=>{
-        this.userId =params['userId']
-        this.charId =params['charId']
+        this.userKey =params['userKey']
+        this.charKey =params['charKey']
 
-        this.character =res[this.userId].gdrCharacters[this.charId]
+        this.character =res[this.userKey].gdrCharacters[this.charKey]
         this.proficiencyBonus =this.character.bonus.competenza
         this.mappedTraits =Object.keys(this.character.bonus.caratteristica) 
           .map((key)=>({
@@ -53,7 +53,7 @@ export class BonusComponent {
   updateProficiency(e:Event){
     const value =Number((e.target as HTMLInputElement).value)
     this.character.bonus.competenza =value
-    this.usersService.patchCharacter(this.userId, this.charId,this.character)
+    this.usersService.patchCharacter(this.userKey, this.charKey,this.character)
     .subscribe((res:any)=>{ 
       this.character =res
       console.log('bc', this.character.bonus.competenza);
@@ -64,7 +64,7 @@ export class BonusComponent {
     const value =Number((e.target as HTMLInputElement).value)
 
     this.character.bonus.caratteristica[traitKey]['valore'] =value
-    this.usersService.patchCharacter(this.userId, this.charId,this.character)
+    this.usersService.patchCharacter(this.userKey, this.charKey,this.character)
     .subscribe((res:any)=>{ 
       this.character =res
       this.mappedTraits .filter(trait=>trait.key==traitKey)[0]['value'] = value
@@ -77,7 +77,7 @@ export class BonusComponent {
     clone.bonus.caratteristica[traitName].abilita[abilityName] =newValue
     this.character=clone
 
-    this.usersService.patchCharacter(this.userId, this.charId,this.character)
+    this.usersService.patchCharacter(this.userKey, this.charKey,this.character)
     .subscribe((res:any)=>{ 
       this.character =res
       this.mappedTraits .filter(trait=>trait.key==traitName)[0].abilities 

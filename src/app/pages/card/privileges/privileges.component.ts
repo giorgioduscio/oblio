@@ -16,8 +16,8 @@ import { upperSpaces } from '../../../tools/upperSpaces';
   styleUrl: './privileges.component.css'
 })
 export class PrivilegesComponent {
-  userId! :string
-  charId! :string
+  userKey! :string
+  charKey! :string
   character! :Character
   privileges! :Character['privilegi']['privilegi']
   experiencePoints! :Character['privilegi']['punti_esperienza']
@@ -29,29 +29,27 @@ export class PrivilegesComponent {
   ){
     activatedRoute.params.subscribe(params=>{
       usersService.getUsers().subscribe((res:any)=>{
-        this.userId =params['userId']
-        this.charId =params['charId']
+        this.userKey =params['userKey']
+        this.charKey =params['charKey']
 
-        this.character =res[this.userId].gdrCharacters[this.charId]
+        this.character =res[this.userKey].gdrCharacters[this.charKey]
         this.privileges =this.character.privilegi.privilegi
         this.experiencePoints =this.character.privilegi.punti_esperienza
         // console.log(this.privileges);
       })
     })
   }
-  findDescription(privilegeTitle:string):string{
-    privilegeTitle =upperSpaces(privilegeTitle)
-    let result ='Errore'
-    this.privilegeService.privileges.map(privilege=>{
-      if (privilege.title===privilegeTitle) result =privilege.description
-    })
-    return result
+  privilegeDescription(privilegeTitle:string){ 
+    return this.privilegeService.privilegeProprieties(privilegeTitle,true) 
+  }
+  privilegeCost(privilegeTitle:string){ 
+    return this.privilegeService.privilegeProprieties(privilegeTitle,false) 
   }
   // TODO AGGIUNGE
   addPrivilege(form:NgForm){
     const newPrivilege =form.value['newPrivilege']
     this.character.privilegi.privilegi.push(newPrivilege)
-    this.usersService.patchCharacter(this.userId, this.charId,this.character)
+    this.usersService.patchCharacter(this.userKey, this.charKey,this.character)
       .subscribe((res:any)=>{ 
         console.log(res['privilegi']['privilegi']) 
         form.reset()
@@ -63,7 +61,7 @@ export class PrivilegesComponent {
       const updatedPrivileges =this.privileges .filter((privilege,i)=>i!==indexToDelete)
         
       this.character.privilegi.privilegi =updatedPrivileges
-      this.usersService.patchCharacter(this.userId, this.charId, this.character)
+      this.usersService.patchCharacter(this.userKey, this.charKey, this.character)
         .subscribe((res:any)=>{ 
           this.privileges =this.character.privilegi.privilegi
           console.log(res['privilegi']['privilegi']) 
@@ -75,7 +73,7 @@ export class PrivilegesComponent {
     const updatedPrivilege =(e.target as HTMLInputElement).value
       
     this.character.privilegi.privilegi[indexToUpdate] =updatedPrivilege
-    this.usersService.patchCharacter(this.userId, this.charId,this.character)
+    this.usersService.patchCharacter(this.userKey, this.charKey,this.character)
     .subscribe((res:any)=>{ 
       console.log(res['privilegi']['privilegi']);
       (e.target as HTMLInputElement).value =''

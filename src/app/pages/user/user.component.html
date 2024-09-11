@@ -24,7 +24,7 @@
 
         <div class="round" *ngFor="let character of characters; let i=index">
           <mat-icon class="icon" (click)="deleteCharacter(character.key!)">delete</mat-icon>
-          <a routerLink="/Card/{{userId}}/{{character.key}}">{{character.generalita.nome}}</a>
+          <a routerLink="/Card/{{userKey}}/{{character.key}}">{{character.generalita.nome}}</a>
         </div>
 
       </div>

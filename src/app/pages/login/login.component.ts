@@ -5,56 +5,45 @@ import { NgFor } from '@angular/common';
 import { randomId, randomImage } from '../../tools/randomCompiler';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MappedForm, mapperForm } from './mapperForm';
+import { RealtimeUsersService } from '../../services/realtimeUsers.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgFor,
-    RouterModule,
-  ],
+  imports: [ ReactiveFormsModule, NgFor, RouterModule, ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css', './loginResponsive.component.css']
 })
 export class LoginComponent{
-  form! :FormGroup
+  form :FormGroup =new FormGroup({
+    username :new FormControl('', Validators.required),
+    email :new FormControl('', [Validators.required, Validators.email]),
+    password :new FormControl('', [Validators.required, Validators.minLength(8)]),
+    confirm_password :new FormControl('', [Validators.required]),
+  })
   mappedForm! :MappedForm[]
 
-  constructor(private usersService:UsersService, 
-    private activatedRoute: ActivatedRoute, private router: Router
+  constructor(
+    private usersService:UsersService, 
+    private rus :RealtimeUsersService,
+    private activatedRoute: ActivatedRoute, 
+    private router: Router
   ){
     document.title ='Login'
-
-    this.form =new FormGroup({
-      username :new FormControl('', Validators.required),
-      email :new FormControl('', [Validators.required, Validators.email]),
-      password :new FormControl('', [Validators.required, Validators.minLength(8)]),
-      confirm_password :new FormControl('', [Validators.required]),
-    })
-
     this.mappedForm =mapperForm(this.form) 
   }
   // TODO AGGIUNGE
   onSubmit(){
-    if (this.form.value.confirm_password==this.form.value.password){
-      console.log('submit',this.form);
-      
-      this.usersService.addUser({
-        id: randomId(),
-        email: this.form.value.email,
-        username: this.form.value.username,
-        password: this.form.value.password,
-        imageUrl: randomImage(),
-      })
-      .subscribe((res:any)=>{
-        console.log(res); 
-        this.router.navigate(
-          ['/User/'+res.name], 
-          { relativeTo: this.activatedRoute }
-        );
-        this.form.reset()
+    this.rus.addUser({
+      id: randomId(),
+      email: this.form.value.email,
+      username: this.form.value.username,
+      password: this.form.value.password,
+      imageUrl: randomImage(),
     })
-    } else console.log('nosubmit');
+    this.router.navigate(
+      ['/Access'], 
+      { relativeTo: this.activatedRoute }
+    );
   }
 }

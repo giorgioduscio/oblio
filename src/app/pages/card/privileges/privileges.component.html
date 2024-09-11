@@ -15,10 +15,13 @@
   <div class="box"> @for (privilege of privileges; track privilege; let a=$index) {
     <div>
       <input type="text" [value]="privilege" (change)="updatePrivilege(a,$event)">
-      <mat-icon class="delete" (click)="deletePrivilege(a)">delete</mat-icon>
+      <p>
+        <mat-icon (click)="deletePrivilege(a)">delete</mat-icon>
+        <span>{{ privilegeCost(privilege) }} PE</span>
+      </p>
     </div>
     <span class="description">
-      {{ findDescription(privilege) }}
+      {{ privilegeDescription(privilege) }}
     </span>
   }</div>
 </main>

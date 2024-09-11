@@ -13,8 +13,8 @@ import { initCharacter } from '../initCharacter';
   styleUrl: './combat.component.css'
 })
 export class CombatComponent {
-  userId! :string
-  charId! :string
+  userKey! :string
+  charKey! :string
   character :Character =initCharacter()
   combat :Character['combattimento'] ={ velocita: 0, classe_armatura: 0, pf_attuali: 0 }
 
@@ -22,9 +22,9 @@ export class CombatComponent {
   constructor(private activateRoute:ActivatedRoute, private usersService:UsersService){
     activateRoute.params.subscribe(params=>{
       usersService.getUsers().subscribe((res:any)=>{
-        this.userId =params['userId']
-        this.charId =params['charId']
-        this.character =res[this.userId].gdrCharacters[this.charId]
+        this.userKey =params['userKey']
+        this.charKey =params['charKey']
+        this.character =res[this.userKey].gdrCharacters[this.charKey]
         this.combat =this.character.combattimento
         // console.log(this.combat, );
       })
@@ -53,7 +53,7 @@ export class CombatComponent {
   updateField(e:Event){
     const {value, id} =(e.target as HTMLInputElement)
     this.character.combattimento[id as keyof Character['combattimento']] =Number(value)
-    this.usersService.patchCharacter(this.userId, this.charId, this.character)
+    this.usersService.patchCharacter(this.userKey, this.charKey, this.character)
       .subscribe((res:any)=>{
         console.log(
           this.character.combattimento

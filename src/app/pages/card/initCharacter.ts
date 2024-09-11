@@ -82,16 +82,16 @@ export function initCharacter():Character {
     equipaggiamento: {
       monete: 20,
       oggetti: [
-        { titolo: "Arma di competenza", quantita: 1 },
-        { titolo: "Arma/scudo di competenza", quantita: 1 },
-        { titolo: "Armatura di competenza", quantita: 1 },
-        { titolo: "Giaciglio (sacco a pelo)", quantita: 1 },
-        { titolo: "Gavetta (kit da pranzo)", quantita: 1 },
-        { titolo: "Un otre (borraccia)", quantita: 1 },
-        { titolo: "15m Corda di canapa", quantita: 1 },
-        { titolo: "Torcia", quantita: 10 },
-        { titolo: "Acciarino e pietra focaia", quantita: 1 },
-        { titolo: "Razioni giornaliere", quantita: 10 },
+        { titolo: "arma di competenza", quantita: 1 },
+        { titolo: "arma/scudo di competenza", quantita: 1 },
+        { titolo: "armatura di competenza", quantita: 1 },
+        { titolo: "giaciglio (sacco a pelo)", quantita: 1 },
+        { titolo: "gavetta (kit da pranzo)", quantita: 1 },
+        { titolo: "otre (borraccia)", quantita: 1 },
+        { titolo: "corda di canapa (15m)", quantita: 1 },
+        { titolo: "torcia", quantita: 10 },
+        { titolo: "acciarino e pietra focaia", quantita: 1 },
+        { titolo: "razione giornaliera", quantita: 10 },
       ]
     },
     privilegi: {

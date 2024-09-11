@@ -5,7 +5,7 @@
     [value]="field.value" 
     placeholder="Aggiungi {{field.keyField}}"
     (change)="updateField(keyCategory, field.keyField, $event)"
-    ></textarea>
+  ></textarea>
 }
 @else if (field.keyField==='morale') {
   <label [for]="field.keyField">{{field.title}}</label>

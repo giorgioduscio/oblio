@@ -21,8 +21,8 @@ import { CombatComponent } from "./combat/combat.component";
 })
 
 export class CardComponent {
-  userId! :string
-  charId! :string
+  userKey! :string
+  charKey! :string
   user! :User
   character! :Character
   characterMapper! :CharacterMapper[]
@@ -30,13 +30,13 @@ export class CardComponent {
   constructor(private activateRoute:ActivatedRoute, private usersService:UsersService){
     document.title =`Card`
     activateRoute.params.subscribe(params=>{
-      this.userId =params['userId']
-      this.charId =params['charId']
-      // console.log(`user: ${this.userId}, \ncharacter: ${this.charId}`)
+      this.userKey =params['userKey']
+      this.charKey =params['charKey']
+      // console.log(`user: ${this.userKey}, \ncharacter: ${this.charKey}`)
     })
     usersService.getUsers().subscribe((res:any)=>{
-      this.user =res[this.userId]
-      this.character =this.user.gdrCharacters![this.charId as keyof object]
+      this.user =res[this.userKey]
+      this.character =this.user.gdrCharacters![this.charKey as keyof object]
       this.characterMapper =CharacterMapper(this.character)
       console.log(this.character, this.characterMapper);
     })

@@ -14,6 +14,6 @@ export const routes :Routes |any[] =[
   {show:true, path:'Access', component:AccessComponent},
 
   {show:true, path:'Users', component:UsersComponent},
-  {show:false, path:'User/:userId', component:UserComponent},
-  {show:false, path:'Card/:userId/:charId', component:CardComponent},
+  {show:false, path:'User/:userKey', component:UserComponent},
+  {show:false, path:'Card/:userKey/:charKey', component:CardComponent},
 ];

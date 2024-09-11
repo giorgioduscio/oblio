@@ -29,20 +29,17 @@ form{
     grid-template-columns: 1fr 2fr;
     align-items: start;
 }
-    .delete{ 
-        display: none;
-    }
-    .box:hover .delete{ 
-        margin: 5px 0; 
-        display: inline; 
+    .box p{ 
+        padding-top: 5px;
+        display: flex;
+        align-items: center;
     }
 
-    .description{
+    span{
         padding: 5px;
         max-height: 100px;
         overflow: hidden;
         text-overflow: ellipsis;
         background: var(--st);
         border-radius: 5px;
-        border: 1px solid;
     }

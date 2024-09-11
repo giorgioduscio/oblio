@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Privilege } from './privileges';
+import { upperSpaces } from '../tools/upperSpaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrivilegesService {
+  privilegeProprieties(privilegeTitle:string, returnStringType:boolean){
+    const result = this.privileges 
+      .filter(privilege=> privilege.title===upperSpaces(privilegeTitle))
+    return result.length>0  
+    ? returnStringType ?result[0].description.replaceAll('>','- ') :result[0].cost
+    : "Titolo non trovato. Accertati che il titolo sia scritto bene"
+  }
+
   privileges :Privilege[] =[
     {
       title: `Allerta`,
