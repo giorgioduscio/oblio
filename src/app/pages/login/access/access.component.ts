@@ -10,11 +10,7 @@ import { MappedForm, mapperForm } from '../mapperForm';
 @Component({
   selector: 'app-access',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgFor,
-    RouterModule,
-  ],
+  imports: [ ReactiveFormsModule, NgFor, RouterModule,  ],
   templateUrl: './access.component.html',
   styleUrls: ['../login.component.css', '../loginResponsive.component.css']
 })

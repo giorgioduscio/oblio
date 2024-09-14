@@ -5,9 +5,7 @@ import { Character } from './character';
 import { mapper } from '../tools/mapper';
 import { CharacterMapper } from '../pages/card/CharacterMapper';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class RealtimeUsersService {
   private url ='https://users-b9804-default-rtdb.europe-west1.firebasedatabase.app/users'
   constructor(private http:HttpClient) {}

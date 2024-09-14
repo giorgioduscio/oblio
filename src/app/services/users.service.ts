@@ -3,9 +3,7 @@ import { effect, Injectable, signal, WritableSignal } from '@angular/core';
 import { User } from './user';
 import { Character } from './character';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UsersService {
   private url ='https://users-b9804-default-rtdb.europe-west1.firebasedatabase.app/users'
   datas :WritableSignal<User[]> =signal([])

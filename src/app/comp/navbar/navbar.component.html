@@ -7,13 +7,15 @@
       <summary class="dropdown"><mat-icon>apps</mat-icon></summary>
 
       <div>
-        <a 
+        <a
           *ngFor="let page of pages; let i=index"
           routerLink="/{{page.path}}" 
-        >
-          {{page.path}}
+        > {{page.path}}
         </a>
       </div>
     </details>
+  </div>
+  <div>
+    <b *ngIf="placeholder!='' ">{{placeholder}}</b>
   </div>
 </nav>

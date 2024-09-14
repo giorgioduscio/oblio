@@ -11,6 +11,7 @@ import { EquipmentComponent } from "./equipment/equipment.component";
 import { PrivilegesComponent } from "./privileges/privileges.component";
 import { BonusComponent } from "./bonus/bonus.component";
 import { CombatComponent } from "./combat/combat.component";
+import { initCharacter } from './initCharacter';
 
 @Component({
   selector: 'app-card',
@@ -21,24 +22,21 @@ import { CombatComponent } from "./combat/combat.component";
 })
 
 export class CardComponent {
-  userKey! :string
-  charKey! :string
-  user! :User
-  character! :Character
-  characterMapper! :CharacterMapper[]
+  mk ={userKey:'', charKey:''}
+  userKey :string =''
+  charKey :string =''
+  user :User ={ id: 0, email: '', username: '', password: '', imageUrl: '' }
+  character :Character =initCharacter()
+  characterMapper :CharacterMapper[] =[]
 
   constructor(private activateRoute:ActivatedRoute, private usersService:UsersService){
     document.title =`Card`
-    activateRoute.params.subscribe(params=>{
-      this.userKey =params['userKey']
-      this.charKey =params['charKey']
-      // console.log(`user: ${this.userKey}, \ncharacter: ${this.charKey}`)
-    })
+    activateRoute.params.subscribe((params:any)=>{ this.mk ={...params} })
     usersService.getUsers().subscribe((res:any)=>{
-      this.user =res[this.userKey]
-      this.character =this.user.gdrCharacters![this.charKey as keyof object]
+      this.user =res[this.mk.userKey]
+      this.character =this.user.gdrCharacters![this.mk.charKey as keyof object]
       this.characterMapper =CharacterMapper(this.character)
-      console.log(this.character, this.characterMapper);
+      // console.log(this.character, this.characterMapper);
     })
   }
   // DROPDOWN

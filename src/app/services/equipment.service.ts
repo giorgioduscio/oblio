@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class EquipmentService {
   toolWeight(toolTitle:string, toolAmount:number){
     const toolWeight =this.tools 
-      .filter(tool=>tool.title.includes(toolTitle.toLowerCase()))
+      .filter(tool=>toolTitle.toLowerCase().includes(tool.title))
     return toolWeight.length>0 ?toolWeight[0].weight *toolAmount :0
   }
   tools =[
@@ -132,7 +130,7 @@ export class EquipmentService {
     { title: "arma sbilanciata mazza", weight: 5 }, 
     { title: "flagello", weight: 5 }, 
     { title: "arma piccola", weight: 0.5 }, 
-    { title: "tirapugni borchiato", weight: 0.5 }, 
+    { title: "tirapugni", weight: 0.5 }, 
 
     { title: "fucile", weight: 4 },
     { title: "arco", weight: 2 },

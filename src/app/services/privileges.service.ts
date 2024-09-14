@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Privilege } from './privileges';
 import { upperSpaces } from '../tools/upperSpaces';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class PrivilegesService {
   privilegeProprieties(privilegeTitle:string, returnStringType:boolean){
     const result = this.privileges 
