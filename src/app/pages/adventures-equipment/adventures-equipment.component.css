@@ -1,0 +1,27 @@
+.tools{
+    padding: 10px;
+    display: flex;
+    flex-flow: wrap;
+}
+.tools>div{
+    width: 300px;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+header{ 
+    margin-bottom: 5px;
+    display: grid; 
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+}
+
+
+
+.addEquipment{
+    height: 50px;
+
+    position: sticky;
+    bottom: 0;
+    background: var(--c2);
+}

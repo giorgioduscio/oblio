@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
+import { FightEquipmentService } from './fight-equipment.service';
 
 @Injectable({ providedIn: 'root' })
 export class EquipmentService {
-  toolWeight(toolTitle:string, toolAmount:number){
-    const toolWeight =this.tools 
-      .filter(tool=>toolTitle.toLowerCase().includes(tool.title))
-    return toolWeight.length>0 ?toolWeight[0].weight *toolAmount :0
-  }
   tools =[
     { title: 'abaco', weight:1 },
     { title: 'abito comune', weight:1.5 },
@@ -109,34 +105,18 @@ export class EquipmentService {
     { title: "veste", weight: 2 },
     { title: "verga", weight: 1 },
     { title: "zaino", weight: 2.5 },
-    
-    // EQUIPAGGIAMENTO BELLICO
-    { title: "armatura di cuoio", weight: 5 },
-    { title: "cotta di maglia", weight: 20.7 },
-    { title: "armatura a piastre", weight: 32.5 },
-
-    { title: "scudo a brochiero", weight: 1 }, 
-    { title: "pugnale da parata", weight: 1 }, 
-    { title: "cappa da parata", weight: 3 }, 
-    { title: "scudo a rotella", weight: 6 }, 
-    { title: "scudo a torre", weight: 10 }, 
-
-    { title: "arma inastata", weight: 1.5 }, 
-    { title: "arma inastata pesante", weight: 3 }, 
-    { title: "arma pesante", weight: 3 }, 
-    { title: "arma bilanbiata lunga", weight: 1 }, 
-    { title: "arma bilanciata corta", weight: 1 },
-    { title: "arma sbilanciata scure", weight: 2 }, 
-    { title: "arma sbilanciata mazza", weight: 5 }, 
-    { title: "flagello", weight: 5 }, 
-    { title: "arma piccola", weight: 0.5 }, 
-    { title: "tirapugni", weight: 0.5 }, 
-
-    { title: "fucile", weight: 4 },
-    { title: "arco", weight: 2 },
-    { title: "pistola", weight: 1.5 }, 
-
-
     // { title:'',weight:0 },
   ]
+  toolWeight(toolTitle:string, toolAmount:number){
+    const toolWeight =this.tools 
+      .filter(tool=>toolTitle.toLowerCase().includes(tool.title))
+    return toolWeight.length>0 ?toolWeight[0].weight *toolAmount :0
+  }
+  constructor(private fes:FightEquipmentService){
+    const union =[...fes.armors, ...fes.weapones]
+    union .map(tool=>{ 
+      this.tools.push({title: tool.category, weight:tool.weight}) 
+    })
+    // console.log( this.tools, );
+  }
 }

@@ -5,6 +5,7 @@ import { UserComponent } from './pages/user/user.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AccessComponent } from './pages/login/access/access.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AdventuresEquipmentComponent } from './pages/adventures-equipment/adventures-equipment.component';
 
 export const routes :Routes |any[] =[
   {show:false, path:'', pathMatch:'full', redirectTo:"/Home"},
@@ -16,4 +17,6 @@ export const routes :Routes |any[] =[
   {show:true, path:'Users', component:UsersComponent},
   {show:false, path:'User/:userKey', component:UserComponent},
   {show:false, path:'Card/:userKey/:charKey', component:CardComponent},
+
+  {show:true, path:'Equipment', component:AdventuresEquipmentComponent},
 ];
