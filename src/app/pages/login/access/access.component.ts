@@ -1,46 +1,45 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, effect } from '@angular/core';
+import { NgForm, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { UsersService } from '../../../services/users.service';
 import { NgFor } from '@angular/common';
 import { User } from '../../../services/user';
-import { mapper } from '../../../tools/mapper';
-import { MappedForm, mapperForm } from '../mapperForm';
+import { RealtimeUsersService } from '../../../services/realtimeUsers.service';
 
 @Component({
   selector: 'app-access',
   standalone: true,
-  imports: [ ReactiveFormsModule, NgFor, RouterModule,  ],
+  imports: [ FormsModule, NgFor, RouterModule,  ],
   templateUrl: './access.component.html',
   styleUrls: ['../login.component.css', '../loginResponsive.component.css']
 })
 export class AccessComponent {
-  form! :FormGroup
-  mappedForm! :MappedForm[]
   error =false
+  users :User[] =[]
 
-  constructor(private usersService:UsersService, 
+  constructor(
+    private rus:RealtimeUsersService, 
     private activatedRoute: ActivatedRoute, 
     private router: Router
   ){
     document.title ='Access'
-    this.form =new FormGroup({
-      email :new FormControl('', [Validators.required, Validators.email]),
-      password :new FormControl('', [Validators.required, Validators.minLength(8)]),
+    rus.getUsers()
+    effect(()=>{
+      if(rus.users().length){ 
+        this.users =rus.users(); 
+        // console.log('this.users',this.users);
+      }
     })
-    this.mappedForm =mapperForm(this.form)  
   }
   // TODO RICERCA
-  onSubmit(){
-    this.usersService.getUsers().subscribe((res:any) =>{
-      const user :User =mapper(res) .filter(user=>
-        user.email===this.form.value.email &&
-        user.password===this.form.value.password
-      )[0]
-      this.router.navigate(
+  onSubmit(form:NgForm){
+      const {email, password} =form.value
+      , user :User =this.users.filter(user=>
+          user.email===email && user.password===password
+        )[0]
+      
+      if(user) this.router.navigate(
         ['/User/'+user.key], 
         { relativeTo: this.activatedRoute }
       );
-    })
   }
 }

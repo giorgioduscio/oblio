@@ -43,8 +43,7 @@ export class RealtimeUsersService {
 
   getCharacters(userKey:string,characterKey=''){
     this.characters.set( [] )
-    this.http.get(`${this.url}/${userKey}/gdrCharacters.json`)
-    .subscribe((res:any)=>{ //fix
+    this.http.get(`${this.url}/${userKey}/gdrCharacters.json`) .subscribe((res:any)=>{ //fix
       if(res!==null){
         console.log('getCharacters',userKey,characterKey,res);
       

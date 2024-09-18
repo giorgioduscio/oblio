@@ -1,16 +1,20 @@
 <article>
     <div>
       <h1>Accesso</h1>
-      <form (ngSubmit)="onSubmit()" [formGroup]="form">
-        <main class="box">@for (item of mappedForm; track item; let a =$index) {
+      <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <main class="box">
           <input  
-            [type]="item.inputType" 
-            [id]="item.key"
-            [formControlName]="item.key"
-            [value]="item.value"
-            [placeholder]="item.title"
+            type="email"
+            name="email"
+            placeholder="Email"
+            ngModel required email
           >
-        }
+          <input  
+            type="password"
+            name="password"
+            placeholder="Password"
+            ngModel required
+          >
           <p>Non hai un profilo? <a routerLink="/Login">Registrati</a></p>
         </main>
         <button type="submit" [disabled]="form.invalid">Invio</button>
