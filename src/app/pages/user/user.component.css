@@ -2,14 +2,15 @@ article>div{
     padding: 10px;
     background: var(--c2);
 }
+h1{ padding: 20px 0; }
 .box{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
     .box>*{
         padding: 10px;
-        display: grid;
-        align-items: start;
+        display: flex;
+        flex-flow: column;
         background: var(--st);
         border-radius: 5px;
     }
@@ -25,10 +26,11 @@ img{
 
  /* TODO PERSONAGGIO */
 .characters{}
+i{ text-align: center; color: red; }
 .addCharacter{
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
 }
 .character{
     padding: 5px;
@@ -38,3 +40,4 @@ img{
     background: var(--c2);
     border-radius: 5px;
 }
+.deleteList{ background: #faa; }

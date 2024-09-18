@@ -10,28 +10,33 @@ export class RealtimeUsersService {
   private url ='https://users-b9804-default-rtdb.europe-west1.firebasedatabase.app/users'
   constructor(private http:HttpClient) {}
   // TODO USERS
-  users :WritableSignal<User[]> =signal([])
+  users =signal<User[]>([])
   getUsers(){
     this.http.get(this.url +'.json').subscribe(((res:any)=>{
       this.users.set( mapper(res) )
+      // MAPPA I PERSONAGGI DELL'UTENTE
+      this.users().map(user=>{
+        if(user.gdrCharacters) user.gdrCharacters =mapper( user.gdrCharacters )
+      })
+      // console.log('getUsers',this.users());
     }))
   }
-  addUser(body:User){
-    this.http.post( this.url+".json", body ).subscribe((res:any)=>{
-      this.users().push( {...body, key: res.name} ) 
+  addUser(user:User){
+    this.http.post( this.url+".json", user ).subscribe((res:any)=>{
+      this.users().push( {...user, key: res.name} ) 
     })  
-    console.log("addUser",this.users() .filter(u=>u.id===body.id));
+    console.log("addUser",this.users() .filter(u=>u.id===user.id));
   }
-  deleteUser(key:string){
-    this.http.delete(`${this.url}/${key}.json`).subscribe((res:any)=>{
-      this.users.set(this.users() .filter(user=>user.key!=key))
+  deleteUser(userKey:string){
+    this.http.delete(`${this.url}/${userKey}.json`).subscribe((res:any)=>{
+      this.users.set(this.users() .filter(user=>user.key!=userKey))
     })
     console.log("deleteUser",this.users());
   }
-  patchUser(key:string, body:User){
-    delete body.key
-    this.http.put(`${this.url}/${key}.json`, body).subscribe((res:any)=>{
-      let index =this.users() .indexOf(body)
+  patchUser(userKey:string, user:User){
+    delete user.key
+    this.http.put(`${this.url}/${userKey}.json`, user).subscribe((res:any)=>{
+      let index =this.users() .indexOf(user)
       this.users()[index]=res
       console.log("patchUser",this.users()[index]);
     })
@@ -59,31 +64,39 @@ export class RealtimeUsersService {
       }}
     })
   }
-  addCharacter(userKey:string, body:Character){
-    this.http.post(`${this.url}/${userKey}/gdrCharacters.json`,body).subscribe((res:any)=>{
-      this.characters().push( {...body, key:res.name} )
+  addCharacter(userKey:string, character:Character){
+    this.http.post(`${this.url}/${userKey}/gdrCharacters.json`,character).subscribe((res:any)=>{
+      let updateCharacters =this.users().filter(user=>user.key===userKey)[0].gdrCharacters 
+        if(updateCharacters===undefined) updateCharacters =[]
+        updateCharacters?.push( {...character, key:res.name} )
+      this.users().filter(user=>user.key===userKey)[0].gdrCharacters =updateCharacters
+
+      this.characters().push( {...character, key:res.name} )
       
-      console.log("addCharacter", body.generalita.nome, res.name, 
-        this.users().filter(u=>u.key===userKey)[0]
-          .gdrCharacters?.filter(c=>c.key===body.key)[0]
+      console.log("addCharacter", character.generalita.nome, res.name, 
+        this.users().filter(u=>u.key===userKey)[0].gdrCharacters
      );
     })  
   }
 
   deleteCharacter(userKey:string, characterKey:string){
     this.http.delete(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`).subscribe((res:any)=>{
+      this.users().map(user=>{
+        if(user.key===userKey) user.gdrCharacters =user.gdrCharacters?.filter(c=>c.key!==characterKey)
+      })
+
       this.characters.set(this.characters() .filter(character=>character.key!=characterKey))
+      console.log("deleteCharacter",this.users().filter(user=>user.key===userKey)[0].gdrCharacters);
     })
-    console.log("deleteCharacter",this.characters());
   }
   
-  patchCharacter(userKey:string, characterKey:string, body:Character){
-    delete body.key
-    this.http.patch(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`, body).subscribe((res:any)=>{
+  patchCharacter(userKey:string, characterKey:string, character:Character){
+    delete character.key
+    this.http.patch(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`, character).subscribe((res:any)=>{
       let index =404
       this.characters() .map((character,i)=>{character.key===characterKey ?index=i :404})
       this.characters()[index]=res
-      console.log("patchCharacter",body);
+      console.log("patchCharacter",character);
     })
   }
 

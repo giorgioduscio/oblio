@@ -3,29 +3,51 @@
   <div>
     <h1>Area personale</h1>
     <main class="box">
-      <div class="user">
-        <img [src]="user.imageUrl" [alt]="user.username">
+      <!-- TODO USER -->
+      <div class="localUser">
+        <img [src]="localUser.imageUrl" [alt]="localUser.username">
         <div>
-          <input type="text" [value]="user.username">
-          <input type="text" [value]="user.email">
+          <input
+            type="text" 
+            name="username"
+            [value]="localUser.username" 
+            (change)="onPatchUser($event)"
+          >
+          <input
+            type="email"
+            name="email"
+            [value]="localUser.email" 
+            (change)="onPatchUser($event)"
+          >
         </div>
       </div>
-
+      <!-- TODO CHARACTERS -->
       <div class="characters">
         <div class="addCharacter">
           <h5>Personaggi</h5>
-          <button class="round" (click)="addCharacter()">
+          <button class="round deleteList" *ngIf="deleteList.length" (click)="onDeleteCharacters()">
+            <mat-icon class="icon" >delete</mat-icon>
+            Elimina
+          </button>
+          <button class="round" *ngIf="deleteList.length==0" (click)="onAddCharacter()">
             <mat-icon class="icon">add</mat-icon>
             Aggiungi
           </button>
         </div>
 
-        <p *ngIf="characters==undefined||characters.length==0">Nessun personaggio</p>
-
-        <div class="round" *ngFor="let character of characters; let i=index">
-          <mat-icon class="icon" (click)="deleteCharacter(character.key!)">delete</mat-icon>
-          <a routerLink="/Card/{{userKey}}/{{character.key}}">{{character.generalita.nome}}</a>
-        </div>
+        <i *ngIf="
+          localUser.gdrCharacters===undefined 
+          || localUser.gdrCharacters.length==0; 
+          else showCharacters"
+        >Nessun personaggio</i>
+        <ng-template #showCharacters>
+          <div class="round" *ngFor="let character of localUser.gdrCharacters; let i=index">
+            <mat-icon class="icon" (click)="setDeleteList(character.key!,$event)">delete</mat-icon>
+            @if (deleteList.length===0) {
+              <a routerLink="/Card/{{userKey}}/{{character.key}}">{{character.generalita.nome}}</a>
+            }@else{ <p (click)="setDeleteList(character.key!,$event)">{{character.generalita.nome}}</p> }
+          </div>
+        </ng-template>
 
       </div>
     </main>    
