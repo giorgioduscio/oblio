@@ -1,25 +1,170 @@
-<app-navbar [placeholder]="character.generalita.nome"></app-navbar>
+<app-navbar></app-navbar>
 <article>
   <div>
     <h1>Scheda personaggio</h1>
 
     <main class="categoryBox"> 
-      <div class="category" *ngFor="let category of characterMapper; let a=index">
+      <div class="category" *ngFor="let category of mappedCharacter; let a=index">
         <summary *ngIf="a!==0" (click)="menageDrop($event)"> {{category.title}} </summary>
         
         <main class="fieldBox {{category.keyCategory}}">
-          @if(a===2){ <app-combat></app-combat> }
-          @else if(a===4){ <app-bonus></app-bonus> }
-          @else if(a===5){ <app-equipment></app-equipment> }
-          @else if(a===6){ <app-privileges></app-privileges> }
-          @else{
-            <app-card-fields
-              *ngFor="let field of category.content; let b=index"
-              class="field"
-              [field]="field" 
-              [keyCategory]="category.keyCategory"
-            ></app-card-fields>
+          <div *ngFor="let field of category.content; let b=index">
+          @if (field.keyField=='morale'){
+            <div>
+              <label [for]="field.keyField">{{field.title}}</label>
+              <select [id]="field.keyField" [value]="field.value" (change)="onPatchField(category.keyCategory, $event)">
+                <option value="0">Individualista buono</option>
+                <option value="1">Individualista neutrale</option>
+                <option value="2">Individualista malvagio</option>
+                <option value="3">Neutrale buono</option>
+                <option value="4">Neutrale puro</option>
+                <option value="5">Neutrale malvagio</option>
+                <option value="6">Collettivista buono</option>
+                <option value="7">Collettivista neutrale</option>
+                <option value="8">Collettivista malvagio</option>
+              </select> 
+            </div>
           }
+          @else if(a==1||a==3) {
+            <label [for]="field.keyField">{{field.title}}</label>
+            <textarea
+              [name]="field.keyField"
+              [id]="field.keyField"
+              placeholder="Aggiungi {{field.title}}"
+              (change)="onPatchField(category.keyCategory, $event)"
+            >{{field.value}}</textarea>
+          }
+          @else if (a==2) {
+            <label [for]="field.keyField">{{field.title}}</label>
+            <div class="{{field.keyField=='classe_armatura' ?'CA' :'grid2'}}">
+              <select
+                *ngIf="field.keyField=='classe_armatura';else combatNumbers"
+                [value]="field.value" 
+                [id]="field.keyField" 
+                (change)="onPatchField(category.keyCategory, $event)"
+                >
+                <option value="0">Senza armatura</option>
+                <option value="1">Monaco</option>
+                <option value="2">Barbaro</option>
+                <option value="3">Armatura di cuoio</option>
+                <option value="4">Cotta di maglia</option>
+                <option value="5">Armatura di piastre</option>
+              </select>
+              <ng-template #combatNumbers>
+                <input
+                  type="number" 
+                  [step]="field.keyField=='velocita' ?1.5 :1"
+                  [id]="field.keyField" 
+                  [value]="field.value"
+                  (change)="onPatchField(category.keyCategory, $event)"
+                >
+              </ng-template>
+              <span class="flexRow">
+                {{combat(field.keyField).value}} 
+                <mat-icon>{{combat(field.keyField).icon}}</mat-icon>
+              </span>
+            </div>
+          }
+          @else if (field.keyField=='caratteristica') {
+            <main>
+              <div class="trait" *ngFor="let sub of field.content; let i=index">
+                <div class="">
+                  <label [for]="sub.keySub">{{sub.titleSub}}</label>
+                  <input
+                    type="number" 
+                    [value]="sub.value" 
+                    [id]="sub.keySub" 
+                    (change)="onPatchSubfield(category.keyCategory,field.keyField,$event)"
+                  >
+                </div>
+
+                <main class="">@for (ability of sub.content; track $index) {
+                  <input
+                    type="checkbox" 
+                    [checked]="ability.value" 
+                    [id]="ability.keyAb" 
+                    (change)="onPatchAbility(sub.keySub,$event)"
+                  >
+                  <label [for]="ability.keyAb">{{abilityBonus(sub.keySub, ability.keyAb)}}</label>
+                }</main>
+              </div>
+            </main>
+          }
+          @else if (field.keyField=='oggetti') {
+            <main class="oggetti">
+              <form #toolsForm="ngForm" (ngSubmit)="onAddRecord(category.keyCategory,toolsForm)">
+                <input type="number" placeholder="Quantità" name="quantita" ngModel >
+                <input type="text" placeholder="Aggiungi strumento" name="titolo" ngModel required >
+                <button type="submit"><mat-icon>add</mat-icon></button>
+              </form>
+
+              @for(sub of field.content; track $index; let c=$index){ @if(sub.keySub){
+                <div>
+                  <input
+                    type="number" 
+                    [value]="sub.value" 
+                    id="quantita"
+                    (change)="onPatchSubfield(category.keyCategory,field.keyField,$event,c)"
+                  >
+                  <input
+                    type="text" 
+                    [value]="sub.keySub" 
+                    id="titolo"
+                    (change)="onPatchSubfield(category.keyCategory,field.keyField,$event,c)"
+                  >
+                  <span>{{ toolWeight(c) }}kg</span>
+                  <mat-icon (click)="onDeleteRecord(category.keyCategory,c)">delete</mat-icon>
+                </div>
+              }}
+            </main>
+          }
+          @else if (field.keyField=='privilegi') {
+            <main>
+              <form #privilegesForm="ngForm" (ngSubmit)="onAddRecord(category.keyCategory,privilegesForm)">
+                <input type="text" placeholder="Aggiungi privilegio" name="titolo" ngModel required>
+                <button type="submit"><mat-icon>add</mat-icon></button>
+              </form>
+
+              @for(sub of field.content; track $index; let c=$index){ @if(sub.value){
+                <div>
+                  <div class="title">
+                    <input
+                      type="text" 
+                      [value]="sub.value" 
+                      (change)="onPatchSubfield(category.keyCategory,field.keyField,$event,c)"
+                    >
+                    <span>{{ privilegeProp(c).cost }} PE</span>
+                    <mat-icon (click)="onDeleteRecord(category.keyCategory,c)">delete</mat-icon>
+                  </div>
+  
+                  <span class="description">{{ privilegeProp(c).description }}</span>
+                </div>
+              }}
+            </main>
+          }
+          @else { <!-- TODO DEFAULT -->
+            <div class="{{
+              field.keyField=='competenza' ||field.keyField=='punti_esperienza' 
+              ?'inline' 
+              :field.keyField=='monete'
+              ?'col4' 
+              :'field'
+            }}">
+              <label [for]="field.keyField">{{field.title}}</label>
+              <input
+                [type]="inputType(field.value!)"
+                [value]="field.value"
+                [id]="field.keyField"
+                (change)="onPatchField(category.keyCategory, $event)"
+              >
+  
+              @if (field.keyField=='monete') {
+                <label for="">Peso trasportabile</label>
+                <span><b>{{transportableWeight().current}}</b> /{{transportableWeight().max}} kg</span>
+              }
+            </div>
+          }
+          </div>
         </main>
 
       </div>

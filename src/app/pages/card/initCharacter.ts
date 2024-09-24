@@ -96,7 +96,7 @@ export function initCharacter():Character {
     },
     privilegi: {
       punti_esperienza: 6,
-      privilegi: ['Aggiungi privilegi']
+      privilegi: ['']
     }
   }
 }

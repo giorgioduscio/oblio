@@ -35,7 +35,7 @@ export class RealtimeUsersService {
   }
   patchUser(userKey:string, user:User){
     delete user.key
-    this.http.put(`${this.url}/${userKey}.json`, user).subscribe((res:any)=>{
+    this.http.patch(`${this.url}/${userKey}.json`, user).subscribe((res:any)=>{
       let index =this.users() .indexOf(user)
       this.users()[index]=res
       console.log("patchUser",this.users()[index]);
@@ -43,25 +43,13 @@ export class RealtimeUsersService {
   }
 
   // TODO CHARACTER
-  characters =signal<Character[]>([])
   character =signal<CharacterMapper[]>([])
 
-  getCharacters(userKey:string,characterKey=''){
-    this.characters.set( [] )
-    this.http.get(`${this.url}/${userKey}/gdrCharacters.json`) .subscribe((res:any)=>{ //fix
-      if(res!==null){
-        console.log('getCharacters',userKey,characterKey,res);
+  getCharacter(userKey:string,characterKey:string){
+    this.http.get(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`).subscribe((res:any)=>{
+      if(res) this.character.set( CharacterMapper(res) )
       
-      delete res.key      
-      this.characters.set( mapper(res) )
-
-      if (characterKey!==''){ 
-        this.character.set( [] )
-        this.http.get(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`).subscribe((res:any)=>{
-          this.character.set( CharacterMapper(res) )
-          // console.log( `${userKey}/${characterKey}`, this.characters(), this.character())
-        })
-      }}
+      console.log( `${userKey}/${characterKey}`, res, this.character())
     })
   }
   addCharacter(userKey:string, character:Character){
@@ -71,7 +59,6 @@ export class RealtimeUsersService {
         updateCharacters?.push( {...character, key:res.name} )
       this.users().filter(user=>user.key===userKey)[0].gdrCharacters =updateCharacters
 
-      this.characters().push( {...character, key:res.name} )
       
       console.log("addCharacter", character.generalita.nome, res.name, 
         this.users().filter(u=>u.key===userKey)[0].gdrCharacters
@@ -85,19 +72,26 @@ export class RealtimeUsersService {
         if(user.key===userKey) user.gdrCharacters =user.gdrCharacters?.filter(c=>c.key!==characterKey)
       })
 
-      this.characters.set(this.characters() .filter(character=>character.key!=characterKey))
       console.log("deleteCharacter",this.users().filter(user=>user.key===userKey)[0].gdrCharacters);
     })
   }
   
-  patchCharacter(userKey:string, characterKey:string, character:Character){
-    delete character.key
-    this.http.patch(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`, character).subscribe((res:any)=>{
-      let index =404
-      this.characters() .map((character,i)=>{character.key===characterKey ?index=i :404})
-      this.characters()[index]=res
-      console.log("patchCharacter",character);
+  patchCharacter(userKey:string, characterKey:string, newCharcter:Character){
+    delete newCharcter.key
+
+    let $user =this.users().filter(u=>u.key==userKey)[0]
+    , userIndex :number =this.users().indexOf( $user )
+    , $character =$user.gdrCharacters?.filter(c=>c.key==characterKey)[0]
+    , characterIndex :number =$user.gdrCharacters && $character ?$user.gdrCharacters?.indexOf( $character ) :404
+
+    this.http.patch(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`, newCharcter).subscribe((res:any)=>{
+      this.users()[userIndex].gdrCharacters![characterIndex] =newCharcter
+
+      console.log("patchCharacter",
+        this.users()[userIndex].gdrCharacters![characterIndex] .generalita.nome,        
+      );
     })
   }
 
+  
 }

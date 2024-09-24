@@ -1,44 +1,50 @@
-import { Component } from '@angular/core';
-import { Character } from '../../services/character';
+import { Component, effect } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { CharacterMapper } from './CharacterMapper';
-import { CardFieldsComponent } from "./cardFields/cardFields.component";
 import { NavbarComponent } from "../../comp/navbar/navbar.component";
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../../services/user';
-import { UsersService } from '../../services/users.service';
-import { EquipmentComponent } from "./equipment/equipment.component";
-import { PrivilegesComponent } from "./privileges/privileges.component";
-import { BonusComponent } from "./bonus/bonus.component";
-import { CombatComponent } from "./combat/combat.component";
+import { RealtimeUsersService } from '../../services/realtimeUsers.service';
+import { Character } from '../../services/character';
 import { initCharacter } from './initCharacter';
+import { MatIcon } from '@angular/material/icon';
+import { combatDatas } from './combatDatas';
+import { EquipmentService } from '../../services/equipment.service';
+import { PrivilegesService } from '../../services/privileges.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [NgIf, NgFor, CardFieldsComponent, NavbarComponent, EquipmentComponent, PrivilegesComponent, BonusComponent, CombatComponent],
+  imports: [NgIf, NgFor, NavbarComponent,MatIcon, FormsModule],
   templateUrl: './card.component.html',
   styleUrls:['./card.component.css','./cardResponsive.component.css']
 })
 
 export class CardComponent {
   mk ={userKey:'', charKey:''}
-  userKey :string =''
-  charKey :string =''
-  user :User ={ id: 0, email: '', username: '', password: '', imageUrl: '' }
+  mappedCharacter :CharacterMapper[] =[]
   character :Character =initCharacter()
-  characterMapper :CharacterMapper[] =[]
-
-  constructor(private activateRoute:ActivatedRoute, private usersService:UsersService){
+  constructor(
+    private activatedRoute:ActivatedRoute, 
+    private rus:RealtimeUsersService,
+    private equipService:EquipmentService,
+    private privilegeService:PrivilegesService,
+  ){ 
     document.title =`Card`
-    activateRoute.params.subscribe((params:any)=>{ this.mk ={...params} })
-    usersService.getUsers().subscribe((res:any)=>{
-      this.user =res[this.mk.userKey]
-      this.character =this.user.gdrCharacters![this.mk.charKey as keyof object]
-      this.characterMapper =CharacterMapper(this.character)
-      // console.log(this.character, this.characterMapper);
+    activatedRoute.params.subscribe((params:any)=>{ this.mk =params })
+    rus.getUsers()
+    rus.getCharacter(this.mk.userKey,this.mk.charKey)
+    
+    effect(()=>{ 
+      let $user =rus.users().filter(u=>u.key===this.mk.userKey)[0]
+      if($user){
+        this.character =$user.gdrCharacters!.filter(c=>c.key===this.mk.charKey)[0]
+        this.mappedCharacter =CharacterMapper( this.character )
+      }
     })
   }
+  inputType(value:number |string){ return typeof value==='number' ?'number' :"text" }
+
   // DROPDOWN
   menageDrop(e:Event){
     const div =(e.target as HTMLInputElement).parentElement
@@ -46,4 +52,135 @@ export class CardComponent {
     ? div?.removeAttribute('drop') 
     : div?.setAttribute('drop','')
   }
+  // COMBATTIMENTO
+  combat(key:string){ 
+    const $key =key as keyof Character['combattimento']
+    , value =this.character.combattimento[$key]
+    return combatDatas(key, value, this.character)
+  }
+
+  // BONUS  
+  abilityBonus(traitName:string, abilityName:string) :string {
+    const $tn =traitName as keyof Character['bonus']['caratteristica']
+    , traitValue =this.character.bonus.caratteristica[$tn].valore
+    , $an =abilityName as keyof Character['bonus']['caratteristica'][typeof $tn]['abilita']
+    , abilityValue :boolean =this.character.bonus.caratteristica[$tn].abilita[$an]
+    , abilityBonus =abilityValue ?traitValue+this.character.bonus.competenza :traitValue
+    return abilityBonus +' ' +$an
+  }
+
+  // EQUIPAGGIAMENTO
+  transportableWeight(){
+    const max =((this.character.bonus.caratteristica.forza.valore *2) +10) *7.5
+    , current =this.character.equipaggiamento.oggetti.reduce((accumulator,tool) => accumulator +this.equipService.toolWeight(tool.titolo,tool.quantita),0) 
+    , overWeight =current>max
+    return {max:max, current:current, overWeight:overWeight}
+  }
+  toolWeight(i:number) :number { 
+    const toolAmount =this.character.equipaggiamento.oggetti[i].quantita
+    , toolTitle =this.character.equipaggiamento.oggetti[i].titolo
+    return this.equipService.toolWeight(toolTitle, toolAmount) 
+  }
+
+  // PRIVILEGI
+  privilegeProp(i:number){ 
+    const title =this.character.privilegi.privilegi[i]
+    return {
+      description: this.privilegeService.privilegeDescription(title),
+      cost: this.privilegeService.privilegeCost(title)
+    }
+  }
+
+
+  // TODO MODIFICA
+  onPatchField(keyCetegory:string, e:Event){
+    const {id, value} =e.target as HTMLInputElement
+    , $keyCetegory =keyCetegory as keyof Character
+    , $keyField =id as keyof Character[typeof $keyCetegory]
+    , newvalue =Number.isNaN(Number(value)) ?value :Number(value)
+    , newCharacter :any =this.character
+
+    newCharacter[$keyCetegory]![$keyField] =newvalue
+    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, newCharacter)    
+  }
+  
+  onPatchSubfield(keyCetegory:string, keyField:string, e:Event, indexSub?:number){
+    const {id, value} =e.target as HTMLInputElement
+    , $keyCetegory =keyCetegory as keyof Character
+    , $keyField =keyField as keyof Character[typeof $keyCetegory]
+    , $keysub =id as keyof Character[typeof $keyCetegory][typeof $keyField]
+
+    , newvalue =Number.isNaN(Number(value)) ?value :Number(value)
+    , newCharacter :any =this.character
+
+    if(indexSub!=undefined){
+      if(keyCetegory=='equipaggiamento') newCharacter[$keyCetegory]![$keyField][indexSub][$keysub] =newvalue
+      if(keyCetegory=='privilegi') newCharacter[$keyCetegory]![$keyField][indexSub] =newvalue
+      
+    }else {
+      if(keyCetegory=='bonus') newCharacter[$keyCetegory]![$keyField][$keysub]['valore'] =newvalue
+    }
+    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, newCharacter)        
+  }
+  onPatchAbility(keySub:string,e:Event){
+    const $traitName =keySub as keyof Character['bonus']['caratteristica']
+    , {id, checked} =e.target as HTMLInputElement
+    , $abilityName =id as keyof Character['bonus']['caratteristica'][typeof $traitName]['abilita']
+    , newCharacter :any =this.character
+    
+    newCharacter.bonus.caratteristica[$traitName].abilita[$abilityName] =checked
+    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, newCharacter)        
+  }
+
+  onDeleteRecord(keyCetegory:string,i:number){
+    const $keyCetegory =keyCetegory as keyof Character
+    
+    if ($keyCetegory=='equipaggiamento') {
+      this.character[$keyCetegory]['oggetti'].splice(i,1)
+      this.mappedCharacter[5].content[1].content!.splice(i,1)
+      
+    } else if($keyCetegory=='privilegi') {
+      this.character[$keyCetegory]['privilegi'].splice(i,1)
+      this.mappedCharacter[6].content[1].content!.splice(i,1)
+    }
+    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, this.character)
+  }
+  onAddRecord(keyCetegory:string,form:NgForm){
+    const isVoidEquipment =this.character.equipaggiamento.oggetti[0].titolo ?false :true
+    , isVoidPrivileges =this.character.privilegi.privilegi[0] ?false :true
+    if (keyCetegory==='equipaggiamento') {
+      const newTool ={ 
+        titolo: form.value.titolo, 
+        quantita: Number(form.value.quantita)==0 ?1 :Number(form.value.quantita)
+      }
+      // ARRAY VUOTO
+      if (isVoidEquipment){ 
+        this.character.equipaggiamento.oggetti =[newTool]
+        this.mappedCharacter[5].content[1].content 
+          =[{ titleSub: '', keySub: newTool.titolo, value: newTool.quantita }]
+      // ARRAY PIENO
+      } else {
+        this.character.equipaggiamento.oggetti.push(newTool)
+        this.mappedCharacter[5].content[1].content!
+          .push({ titleSub: '', keySub: newTool.titolo, value: newTool.quantita })
+      }
+    }
+    else if(keyCetegory==='privilegi'){
+      if (isVoidPrivileges) {
+        this.character.privilegi.privilegi = [form.value.titolo] 
+        this.mappedCharacter[6].content[1].content
+          =[{ titleSub: '', keySub: '', value: form.value.titolo }]
+        
+      } else {
+        this.character.privilegi.privilegi.push( form.value.titolo )
+        this.mappedCharacter[6].content[1].content!
+          .push({ titleSub: '', keySub: '', value: form.value.titolo })
+      }
+    }
+    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, this.character)
+    form.reset()
+  }
+
+
+
 }
