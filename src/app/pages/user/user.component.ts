@@ -9,6 +9,7 @@ import { NavbarComponent } from "../../comp/navbar/navbar.component";
 import { MatIcon } from '@angular/material/icon';
 import { initCharacter } from '../card/initCharacter';
 import { RealtimeUsersService } from '../../services/realtimeUsers.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-personal',
@@ -21,14 +22,21 @@ export class UserComponent {
   // TODO MOSTRA PERSONAGGI
   localUser :User ={id: 0,email: '',username: '',password: '',imageUrl: '' }
   userKey =''
-  constructor(private activateRoute:ActivatedRoute, private rus:RealtimeUsersService){
-    document.title='User'
+  isAuthenticated =false
+  constructor(
+    private activateRoute:ActivatedRoute, 
+    private rus:RealtimeUsersService,
+    private authService:AuthService,
+  ){
+    document.title ='Area personale'
     activateRoute.params.subscribe(params=>{ this.userKey =params['userKey'] })
     rus.getUsers()
+    
     effect(()=>{
+      this.isAuthenticated =authService.accesserUser() ?true :false
       if (rus.users().length) {
         this.localUser =rus.users().filter(user=>user.key===this.userKey)[0]
-        // console.log(this.localUser,this.localUser.gdrCharacters);
+        if(this.localUser) document.title =this.localUser.username
       }
     })
   }

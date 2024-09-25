@@ -22,7 +22,7 @@ html, body{
 #app *{
     margin: 0;
 }
-article{ padding: 50px 0; }
+/* article{ padding: 50px 0; } */
     article>div{
         width: min(100%, 1000px);
         margin: 0 auto;

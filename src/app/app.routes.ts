@@ -11,8 +11,8 @@ export const routes :Routes |any[] =[
   {show:false, path:'', pathMatch:'full', redirectTo:"/Home"},
   {show:true, path:'Home', component:HomeComponent},
 
-  {show:true, path:'Login', component:LoginComponent},
-  {show:true, path:'Access', component:AccessComponent},
+  {show:false, path:'Login', component:LoginComponent},
+  {show:false, path:'Access', component:AccessComponent},
 
   {show:true, path:'Users', component:UsersComponent},
   {show:false, path:'User/:userKey', component:UserComponent},

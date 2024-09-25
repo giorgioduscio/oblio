@@ -1,7 +1,6 @@
-<app-navbar></app-navbar>
-<article>
+<app-navbar [placeholder]="localUser.username"></app-navbar>
+<article *ngIf="isAuthenticated;else unAuth">
   <div>
-    <h1>Area personale</h1>
     <main class="box">
       <!-- TODO USER -->
       <div class="localUser">
@@ -53,3 +52,4 @@
     </main>    
   </div>
 </article>
+<ng-template #unAuth> <h1>Non sei autorizzato. Prova ad effettuare l'accesso</h1> </ng-template>

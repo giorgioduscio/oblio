@@ -1,0 +1,26 @@
+details{
+    padding: 10px 0;
+    display: grid;
+}
+details summary{
+    cursor: pointer;
+    display: grid;
+}
+details>div{
+    min-width: 100px;
+    padding: 5px;
+    top: 50px;
+    right: 0;
+    position: absolute;
+
+    display: grid;
+
+    background: var(--c4);
+}
+
+@media screen and (max-width:600px) {
+    details>div{
+        width: 100%;
+        left: 0;
+    }
+}

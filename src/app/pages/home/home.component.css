@@ -15,7 +15,7 @@ article>div{
         
         display: flex;
         flex-flow: column;
-        justify-content: end;
+        justify-content: center;
         align-items: center;
         
         background: linear-gradient(30deg, var(--st), var(--st), var(--c3));

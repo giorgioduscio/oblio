@@ -1,21 +1,11 @@
 <nav>
-  <div>
-    <button routerLink="/Home">
-      <mat-icon>home</mat-icon>
-    </button>
-    <details class="dropdown">
-      <summary class="dropdown"><mat-icon>apps</mat-icon></summary>
-
-      <div>
-        <a
-          *ngFor="let page of pages; let i=index"
-          routerLink="/{{page.path}}" 
-        > {{page.path}}
-        </a>
-      </div>
-    </details>
-  </div>
-  <div>
+  <div class="placeholder">
     <b *ngIf="placeholder!='' ">{{placeholder}}</b>
+  </div>
+
+  <div>
+    <mat-icon routerLink="/Home">home</mat-icon>
+    <app-router></app-router>
+    <app-auth></app-auth>
   </div>
 </nav>
