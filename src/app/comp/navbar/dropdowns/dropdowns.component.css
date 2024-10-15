@@ -10,17 +10,18 @@ details>div{
     min-width: 100px;
     padding: 5px;
     top: 50px;
-    right: 0;
     position: absolute;
 
-    display: grid;
+    display: flex;
+    flex-flow: column;
 
-    background: var(--c4);
+    background: linear-gradient(30deg, var(--c4), var(--c3));
 }
 
 @media screen and (max-width:600px) {
     details>div{
-        width: 100%;
+        width: 80vw;
+        height: 100vh;
         left: 0;
     }
 }

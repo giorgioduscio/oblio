@@ -43,15 +43,6 @@ export class RealtimeUsersService {
   }
 
   // TODO CHARACTER
-  character =signal<CharacterMapper[]>([])
-
-  getCharacter(userKey:string,characterKey:string){
-    this.http.get(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`).subscribe((res:any)=>{
-      if(res) this.character.set( CharacterMapper(res) )
-      
-      console.log( `${userKey}/${characterKey}`, res, this.character())
-    })
-  }
   addCharacter(userKey:string, character:Character){
     this.http.post(`${this.url}/${userKey}/gdrCharacters.json`,character).subscribe((res:any)=>{
       let updateCharacters =this.users().filter(user=>user.key===userKey)[0].gdrCharacters 

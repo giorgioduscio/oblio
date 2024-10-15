@@ -59,7 +59,6 @@ export function CharacterMapper(character:Character) :CharacterMapper[] {
       // SOTTOCAMPI
       .map(keySub=>{
         const subfield =field[keySub]
-        // if(a>3)console.log( keyCategory,subfield );
         return{
         titleSub: upperSpaces(keySub),
         keySub: keyCategory==='equipaggiamento' ?subfield['titolo'] :keySub,

@@ -7,7 +7,6 @@ import { RealtimeUsersService } from '../../services/realtimeUsers.service';
 import { Character } from '../../services/character';
 import { initCharacter } from './initCharacter';
 import { MatIcon } from '@angular/material/icon';
-import { combatDatas } from './combatDatas';
 import { EquipmentService } from '../../services/equipment.service';
 import { PrivilegesService } from '../../services/privileges.service';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -19,7 +18,6 @@ import { FormsModule, NgForm } from '@angular/forms';
   templateUrl: './card.component.html',
   styleUrls:['./card.component.css','./cardResponsive.component.css']
 })
-
 export class CardComponent {
   mk ={userKey:'', charKey:''}
   mappedCharacter :CharacterMapper[] =[]
@@ -33,12 +31,11 @@ export class CardComponent {
     document.title =`Card`
     activatedRoute.params.subscribe((params:any)=>{ this.mk =params })
     rus.getUsers()
-    rus.getCharacter(this.mk.userKey,this.mk.charKey)
     
     effect(()=>{ 
-      let $user =rus.users().filter(u=>u.key===this.mk.userKey)[0]
+      let $user =rus.users().find(u=>u.key===this.mk.userKey)
       if($user){
-        this.character =$user.gdrCharacters!.filter(c=>c.key===this.mk.charKey)[0]
+        this.character =$user.gdrCharacters!.find(c=>c.key===this.mk.charKey)!
         this.mappedCharacter =CharacterMapper( this.character )
       }
     })
@@ -53,32 +50,51 @@ export class CardComponent {
     : div?.setAttribute('drop','')
   }
   // COMBATTIMENTO
-  combat(key:string){ 
+  combat(key:string) {
     const $key =key as keyof Character['combattimento']
-    , value =this.character.combattimento[$key]
-    return combatDatas(key, value, this.character)
+    ,     value =this.character.combattimento[$key]
+    ,     destrezza =this.character.bonus.caratteristica.destrezza.valore
+    ,     costituzione =this.character.bonus.caratteristica.costituzione.valore
+    ,     saggezza =this.character.bonus.caratteristica.saggezza.valore
+    ,     hitPoints =20 +costituzione +(costituzione *Math.abs(costituzione))
+    
+    let CA =0
+    switch(value){
+      case 1: CA =10 +destrezza +saggezza; break
+      case 2: CA =10 +destrezza +costituzione; break
+      case 3: CA =12 +destrezza; break
+      case 4: CA =16; break
+      case 5: CA =18; break
+      default: CA =10 +destrezza;
+    }
+    switch(key){
+      case 'classe_armatura': return { icon:'shield', value: CA}
+      case 'velocita':        return { icon:'speed', value: value/1.5 }
+      case 'pf_attuali':      return { icon:'favorite', value: hitPoints }
+      default:                return { icon:'favorite', value:404 }
+    }
   }
 
   // BONUS  
   abilityBonus(traitName:string, abilityName:string) :string {
     const $tn =traitName as keyof Character['bonus']['caratteristica']
-    , traitValue =this.character.bonus.caratteristica[$tn].valore
-    , $an =abilityName as keyof Character['bonus']['caratteristica'][typeof $tn]['abilita']
-    , abilityValue :boolean =this.character.bonus.caratteristica[$tn].abilita[$an]
-    , abilityBonus =abilityValue ?traitValue+this.character.bonus.competenza :traitValue
+    ,     traitValue =this.character.bonus.caratteristica[$tn].valore
+    ,     $an =abilityName as keyof Character['bonus']['caratteristica'][typeof $tn]['abilita']
+    ,     abilityValue :boolean =this.character.bonus.caratteristica[$tn].abilita[$an]
+    ,     abilityBonus =abilityValue ?traitValue+this.character.bonus.competenza :traitValue
     return abilityBonus +' ' +$an
   }
 
   // EQUIPAGGIAMENTO
   transportableWeight(){
     const max =((this.character.bonus.caratteristica.forza.valore *2) +10) *7.5
-    , current =this.character.equipaggiamento.oggetti.reduce((accumulator,tool) => accumulator +this.equipService.toolWeight(tool.titolo,tool.quantita),0) 
-    , overWeight =current>max
+    ,     current =this.character.equipaggiamento.oggetti.reduce((accumulator,tool) => accumulator +this.equipService.toolWeight(tool.titolo,tool.quantita),0) 
+    ,     overWeight =current>max
     return {max:max, current:current, overWeight:overWeight}
   }
   toolWeight(i:number) :number { 
     const toolAmount =this.character.equipaggiamento.oggetti[i].quantita
-    , toolTitle =this.character.equipaggiamento.oggetti[i].titolo
+    ,     toolTitle =this.character.equipaggiamento.oggetti[i].titolo
     return this.equipService.toolWeight(toolTitle, toolAmount) 
   }
 
@@ -91,14 +107,13 @@ export class CardComponent {
     }
   }
 
-
   // TODO MODIFICA
   onPatchField(keyCetegory:string, e:Event){
     const {id, value} =e.target as HTMLInputElement
-    , $keyCetegory =keyCetegory as keyof Character
-    , $keyField =id as keyof Character[typeof $keyCetegory]
-    , newvalue =Number.isNaN(Number(value)) ?value :Number(value)
-    , newCharacter :any =this.character
+    ,     $keyCetegory =keyCetegory as keyof Character
+    ,     $keyField =id as keyof Character[typeof $keyCetegory]
+    ,     newvalue =Number.isNaN(Number(value)) ?value :Number(value)
+    ,     newCharacter :any =this.character
 
     newCharacter[$keyCetegory]![$keyField] =newvalue
     this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, newCharacter)    
@@ -106,12 +121,11 @@ export class CardComponent {
   
   onPatchSubfield(keyCetegory:string, keyField:string, e:Event, indexSub?:number){
     const {id, value} =e.target as HTMLInputElement
-    , $keyCetegory =keyCetegory as keyof Character
-    , $keyField =keyField as keyof Character[typeof $keyCetegory]
-    , $keysub =id as keyof Character[typeof $keyCetegory][typeof $keyField]
-
-    , newvalue =Number.isNaN(Number(value)) ?value :Number(value)
-    , newCharacter :any =this.character
+    ,     $keyCetegory =keyCetegory as keyof Character
+    ,     $keyField =keyField as keyof Character[typeof $keyCetegory]
+    ,     $keysub =id as keyof Character[typeof $keyCetegory][typeof $keyField]
+    ,     newvalue =Number.isNaN(Number(value)) ?value :Number(value)
+    ,     newCharacter :any =this.character
 
     if(indexSub!=undefined){
       if(keyCetegory=='equipaggiamento') newCharacter[$keyCetegory]![$keyField][indexSub][$keysub] =newvalue
@@ -124,9 +138,9 @@ export class CardComponent {
   }
   onPatchAbility(keySub:string,e:Event){
     const $traitName =keySub as keyof Character['bonus']['caratteristica']
-    , {id, checked} =e.target as HTMLInputElement
-    , $abilityName =id as keyof Character['bonus']['caratteristica'][typeof $traitName]['abilita']
-    , newCharacter :any =this.character
+    ,     {id, checked} =e.target as HTMLInputElement
+    ,     $abilityName =id as keyof Character['bonus']['caratteristica'][typeof $traitName]['abilita']
+    ,     newCharacter :any =this.character
     
     newCharacter.bonus.caratteristica[$traitName].abilita[$abilityName] =checked
     this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, newCharacter)        
@@ -147,7 +161,8 @@ export class CardComponent {
   }
   onAddRecord(keyCetegory:string,form:NgForm){
     const isVoidEquipment =this.character.equipaggiamento.oggetti[0].titolo ?false :true
-    , isVoidPrivileges =this.character.privilegi.privilegi[0] ?false :true
+    ,     isVoidPrivileges =this.character.privilegi.privilegi[0] ?false :true
+
     if (keyCetegory==='equipaggiamento') {
       const newTool ={ 
         titolo: form.value.titolo, 
