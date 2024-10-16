@@ -3,8 +3,8 @@ import { NgForm, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { User } from '../../../services/user';
-import { RealtimeUsersService } from '../../../services/realtimeUsers.service';
 import { AuthService } from '../../../auth/auth.service';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-access',
@@ -18,16 +18,16 @@ export class AccessComponent {
   users :User[] =[]
 
   constructor(
-    private rus:RealtimeUsersService, 
+    private usersService:UsersService, 
     private activatedRoute: ActivatedRoute, 
     private router: Router,
     private authService:AuthService,
   ){
     document.title ='Access'
-    rus.getUsers()
+    usersService.getUsers()
     effect(()=>{
-      if(rus.users().length){ 
-        this.users =rus.users(); 
+      if(usersService.users().length){ 
+        this.users =usersService.users(); 
         // console.log('this.users',this.users);
       }
     })
@@ -35,9 +35,9 @@ export class AccessComponent {
   // TODO RICERCA
   onSubmit(form:NgForm){
     const {email, password} =form.value
-    , user :User =this.users.filter(user=>
-        user.email===email && user.password===password
-      )[0]
+    ,     user =this.users.find(user=>
+            user.email===email && user.password===password
+          )
     if(user){
       this.authService.verifyLocalUser(user.id)
       this.router.navigate(

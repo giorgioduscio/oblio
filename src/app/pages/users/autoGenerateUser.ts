@@ -9,8 +9,4 @@ export function autoGenerateUser(usersService:UsersService) {
     password: randomString(),
     imageUrl: randomImage(),
   })
-  .subscribe((res:any)=>{
-    console.log(res); 
-    location.reload()
-  })
 }

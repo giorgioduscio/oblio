@@ -1,15 +1,14 @@
 import { Component, effect } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { CharacterMapper } from './CharacterMapper';
+import { MappedCharacter } from './MappedCharacter';
 import { NavbarComponent } from "../../comp/navbar/navbar.component";
 import { ActivatedRoute } from '@angular/router';
-import { RealtimeUsersService } from '../../services/realtimeUsers.service';
 import { Character } from '../../services/character';
-import { initCharacter } from './initCharacter';
 import { MatIcon } from '@angular/material/icon';
 import { EquipmentService } from '../../services/equipment.service';
 import { PrivilegesService } from '../../services/privileges.service';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CharactersService } from '../../services/characters.service';
 
 @Component({
   selector: 'app-card',
@@ -20,23 +19,22 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class CardComponent {
   mk ={userKey:'', charKey:''}
-  mappedCharacter :CharacterMapper[] =[]
-  character :Character =initCharacter()
+  mappedCharacter :MappedCharacter[] =[]
+  character! :Character
   constructor(
     private activatedRoute:ActivatedRoute, 
-    private rus:RealtimeUsersService,
+    private charactersService:CharactersService,
     private equipService:EquipmentService,
     private privilegeService:PrivilegesService,
   ){ 
     document.title =`Card`
     activatedRoute.params.subscribe((params:any)=>{ this.mk =params })
-    rus.getUsers()
+    charactersService.getCharacter()
     
     effect(()=>{ 
-      let $user =rus.users().find(u=>u.key===this.mk.userKey)
-      if($user){
-        this.character =$user.gdrCharacters!.find(c=>c.key===this.mk.charKey)!
-        this.mappedCharacter =CharacterMapper( this.character )
+      this.character =charactersService.characters().find(c=>c.key===this.mk.charKey)!
+      if(this.character){
+        this.mappedCharacter =MappedCharacter( this.character )
       }
     })
   }
@@ -95,7 +93,7 @@ export class CardComponent {
   toolWeight(i:number) :number { 
     const toolAmount =this.character.equipaggiamento.oggetti[i].quantita
     ,     toolTitle =this.character.equipaggiamento.oggetti[i].titolo
-    return this.equipService.toolWeight(toolTitle, toolAmount) 
+    return this.equipService.toolWeight(toolTitle, toolAmount)
   }
 
   // PRIVILEGI
@@ -116,7 +114,7 @@ export class CardComponent {
     ,     newCharacter :any =this.character
 
     newCharacter[$keyCetegory]![$keyField] =newvalue
-    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, newCharacter)    
+    this.charactersService.patchCharacter(this.mk.charKey, newCharacter)
   }
   
   onPatchSubfield(keyCetegory:string, keyField:string, e:Event, indexSub?:number){
@@ -134,7 +132,7 @@ export class CardComponent {
     }else {
       if(keyCetegory=='bonus') newCharacter[$keyCetegory]![$keyField][$keysub]['valore'] =newvalue
     }
-    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, newCharacter)        
+    this.charactersService.patchCharacter(this.mk.charKey, newCharacter)
   }
   onPatchAbility(keySub:string,e:Event){
     const $traitName =keySub as keyof Character['bonus']['caratteristica']
@@ -143,21 +141,20 @@ export class CardComponent {
     ,     newCharacter :any =this.character
     
     newCharacter.bonus.caratteristica[$traitName].abilita[$abilityName] =checked
-    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, newCharacter)        
+    this.charactersService.patchCharacter(this.mk.charKey, newCharacter)
   }
 
   onDeleteRecord(keyCetegory:string,i:number){
     const $keyCetegory =keyCetegory as keyof Character
+    ,     newCharacter :any =this.character
     
     if ($keyCetegory=='equipaggiamento') {
-      this.character[$keyCetegory]['oggetti'].splice(i,1)
-      this.mappedCharacter[5].content[1].content!.splice(i,1)
+      newCharacter[$keyCetegory]['oggetti'].splice(i,1)
       
     } else if($keyCetegory=='privilegi') {
-      this.character[$keyCetegory]['privilegi'].splice(i,1)
-      this.mappedCharacter[6].content[1].content!.splice(i,1)
+      newCharacter[$keyCetegory]['privilegi'].splice(i,1)
     }
-    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, this.character)
+    this.charactersService.patchCharacter(this.mk.charKey, newCharacter)
   }
   onAddRecord(keyCetegory:string,form:NgForm){
     const isVoidEquipment =this.character.equipaggiamento.oggetti[0].titolo ?false :true
@@ -171,28 +168,20 @@ export class CardComponent {
       // ARRAY VUOTO
       if (isVoidEquipment){ 
         this.character.equipaggiamento.oggetti =[newTool]
-        this.mappedCharacter[5].content[1].content 
-          =[{ titleSub: '', keySub: newTool.titolo, value: newTool.quantita }]
       // ARRAY PIENO
       } else {
         this.character.equipaggiamento.oggetti.push(newTool)
-        this.mappedCharacter[5].content[1].content!
-          .push({ titleSub: '', keySub: newTool.titolo, value: newTool.quantita })
       }
     }
     else if(keyCetegory==='privilegi'){
       if (isVoidPrivileges) {
         this.character.privilegi.privilegi = [form.value.titolo] 
-        this.mappedCharacter[6].content[1].content
-          =[{ titleSub: '', keySub: '', value: form.value.titolo }]
         
       } else {
         this.character.privilegi.privilegi.push( form.value.titolo )
-        this.mappedCharacter[6].content[1].content!
-          .push({ titleSub: '', keySub: '', value: form.value.titolo })
       }
     }
-    this.rus.patchCharacter(this.mk.userKey, this.mk.charKey, this.character)
+    this.charactersService.patchCharacter(this.mk.charKey, this.character)
     form.reset()
   }
 

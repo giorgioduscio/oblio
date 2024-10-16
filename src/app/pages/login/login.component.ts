@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { NgFor } from '@angular/common';
 import { randomId, randomImage } from '../../tools/randomCompiler';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MappedForm, mapperForm } from './mapperForm';
-import { RealtimeUsersService } from '../../services/realtimeUsers.service';
 
 @Component({
   selector: 'app-login',
@@ -25,16 +24,20 @@ export class LoginComponent{
 
   constructor(
     private usersService:UsersService, 
-    private rus :RealtimeUsersService,
     private activatedRoute: ActivatedRoute, 
     private router: Router
   ){
     document.title ='Login'
     this.mappedForm =mapperForm(this.form) 
+    usersService.getUsers()
+    effect(()=>{
+      if(usersService.users()) console.log(usersService.users());
+      
+    })
   }
   // TODO AGGIUNGE
   onSubmit(){
-    this.rus.addUser({
+    this.usersService.addUser({
       id: randomId(),
       email: this.form.value.email,
       username: this.form.value.username,

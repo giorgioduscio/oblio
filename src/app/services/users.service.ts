@@ -1,30 +1,38 @@
 import { HttpClient } from '@angular/common/http';
-import { effect, Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { User } from './user';
-import { Character } from './character';
+import { mapper } from '../tools/mapper';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
   private url ='https://users-b9804-default-rtdb.europe-west1.firebasedatabase.app/users'
-  datas :WritableSignal<User[]> =signal([])
-  constructor(private http:HttpClient) {
-    effect(()=>{
-      this.getUsers().subscribe((res:any)=>{ return this.datas.set(res); })
+  constructor(private http:HttpClient) {}
+  // TODO USERS
+  users =signal<User[]>([])
+  getUsers(){
+    this.http.get(this.url +'.json').subscribe((res:any)=>{
+      this.users.set( mapper(res) )
+      // console.log('get',this.users());
     })
   }
-
-  getUsers(){return this.http.get(this.url +'.json')}
-  addUser(body:User){return this.http.post(this.url +'.json',body)}
-  deleteUser(id:string){return this.http.delete(`${this.url}/${id}.json`)}
-  patchUser(id:string, body:User){return this.http.patch(`${this.url}/${id}.json`,body)}
-  
-  addCharacter(id:string, body:object){
-    return this.http.post(`${this.url}/${id}/gdrCharacters.json`,body)
+  addUser(user:User){
+    this.http.post( this.url+".json", user ).subscribe((res:any)=>{
+      this.users().push( {...user, key: res.name} ) 
+      console.log("post",this.users()[this.users().length-1]);
+    })  
   }
-  deleteCharacter(userKey:string, characterKey:string){
-    return this.http.delete(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`)
+  deleteUser(userKey:string){
+    this.http.delete(`${this.url}/${userKey}.json`).subscribe((res:any)=>{
+      this.users.set(this.users() .filter(user=>user.key!=userKey))
+      console.log("delete",this.users());
+    })
   }
-  patchCharacter(userKey:string, characterKey:string, body:Character){
-    return this.http.patch(`${this.url}/${userKey}/gdrCharacters/${characterKey}.json`, body)
+  patchUser(userKey:string, user:User){
+    delete user.key
+    this.http.patch(`${this.url}/${userKey}.json`, user).subscribe((res:any)=>{
+      let index =this.users() .indexOf(user)
+      this.users()[index]=res
+      console.log("patch",this.users()[index]);
+    })
   }
 }

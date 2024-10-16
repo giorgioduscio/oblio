@@ -1,25 +1,26 @@
-<app-navbar [placeholder]="localUser.username"></app-navbar>
+<app-navbar [placeholder]="user.username"></app-navbar>
 <article *ngIf="isAuthenticated;else unAuth">
   <div>
     <main class="box">
       <!-- TODO USER -->
-      <div class="localUser">
-        <img [src]="localUser.imageUrl" [alt]="localUser.username">
+      <div class="user">
+        <img [src]="user.imageUrl" [alt]="user.username">
         <div>
           <input
             type="text" 
             name="username"
-            [value]="localUser.username" 
+            [value]="user.username" 
             (change)="onPatchUser($event)"
           >
           <input
             type="email"
             name="email"
-            [value]="localUser.email" 
+            [value]="user.email" 
             (change)="onPatchUser($event)"
           >
         </div>
       </div>
+
       <!-- TODO CHARACTERS -->
       <div class="characters">
         <div class="addCharacter">
@@ -34,13 +35,9 @@
           </button>
         </div>
 
-        <i *ngIf="
-          localUser.gdrCharacters===undefined 
-          || localUser.gdrCharacters.length==0; 
-          else showCharacters"
-        >Nessun personaggio</i>
+        <i *ngIf="characters.length==0; else showCharacters">Nessun personaggio</i>
         <ng-template #showCharacters>
-          <div class="round" *ngFor="let character of localUser.gdrCharacters; let i=index">
+          <div class="round" *ngFor="let character of characters; let i=index">
             <mat-icon class="icon" (click)="setDeleteList(character.key!,$event)">delete</mat-icon>
             @if (deleteList.length===0) {
               <a routerLink="/Card/{{userKey}}/{{character.key}}">{{character.generalita.nome}}</a>

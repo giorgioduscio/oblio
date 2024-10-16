@@ -1,5 +1,6 @@
 export interface Character {
   key?:string,
+  userId:number,
   generalita:{
     nome :string,
     morale :Morale,

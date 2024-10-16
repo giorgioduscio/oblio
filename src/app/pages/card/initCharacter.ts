@@ -1,9 +1,10 @@
 import { Character, ClasseArmatura, Morale } from "../../services/character";
-import { randomString } from "../../tools/randomCompiler";
+import { randomId, randomString } from "../../tools/randomCompiler";
 import { upperSpaces } from "../../tools/upperSpaces";
 
-export function initCharacter():Character {
+export function initCharacter(newUserId:number):Character {
   return {
+    userId: newUserId,
     generalita: {
       nome: upperSpaces(randomString()),
       morale: Morale.Collettivista_buono,

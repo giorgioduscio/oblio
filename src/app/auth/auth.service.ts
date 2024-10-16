@@ -1,7 +1,7 @@
 import { effect, Injectable, signal } from '@angular/core';
 import { User } from '../services/user';
-import { RealtimeUsersService } from '../services/realtimeUsers.service';
 import { Router } from '@angular/router';
+import { UsersService } from '../services/users.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -10,10 +10,10 @@ export class AuthService {
   accesserUser =signal<User |undefined>(undefined)
   accessContitiones =signal({ isLogged:false, isAdmin:false })
 
-  constructor(private rus:RealtimeUsersService, private router:Router){
-    rus.getUsers()
+  constructor(private usersService:UsersService, private router:Router){
+    usersService.getUsers()
     effect(()=>{ 
-      this.users =rus.users() 
+      this.users =usersService.users() 
       this.gettedId =Number(localStorage.getItem('userId'))
       // console.log(this.users);
     })
@@ -24,15 +24,17 @@ export class AuthService {
   }
 
   verifyLocalUser(userId:number){
-    const userToVerify =this.users .filter(user=>user.id===userId)[0]
+    const userToVerify =this.users .find(user=>user.id===userId)
     
     if (userToVerify!==undefined) {
       this.accesserUser.set(userToVerify)
       localStorage.setItem('userId',`${userId}`)
       this.accessContitiones().isLogged =true
       // if (userToVerify.role===SelectRole.ADMIN) this.isAdmin.set(true)
+      console.log(this.accesserUser()?.username);
+      
       return this.accesserUser
-    }else{ return 'Error' }
+    }else return 'Error' 
   }
   resetLocalUser(){
     this.accesserUser.set(undefined)

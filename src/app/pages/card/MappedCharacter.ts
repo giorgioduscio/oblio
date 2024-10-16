@@ -1,6 +1,6 @@
 import { Character } from "../../services/character"
 import { upperSpaces } from "../../tools/upperSpaces"
-export interface CharacterMapper{
+export interface MappedCharacter{
   keyCategory:string,
   title:string,
   content:{
@@ -32,9 +32,10 @@ const order ={
   privilegi:null,
 }
 
-export function CharacterMapper(character:Character) :CharacterMapper[] {
+export function MappedCharacter(character:Character) :MappedCharacter[] {
   // elimina la chiave e inizializza gli array undefined
   delete character.key
+  let characterAny :any =character; delete characterAny.userId; character =characterAny
   if (!character.equipaggiamento.oggetti) character.equipaggiamento.oggetti =[{ quantita: 0, titolo: "" }]
   if (!character.privilegi.privilegi) character.privilegi.privilegi =['']
   
@@ -48,7 +49,7 @@ export function CharacterMapper(character:Character) :CharacterMapper[] {
     
     // CAMPI
     .map(keyField=>{
-      const field :CharacterMapper['content'][0]['content'] =character[keyCategory as keyof object][keyField as keyof object]
+      const field :MappedCharacter['content'][0]['content'] =character[keyCategory as keyof object][keyField as keyof object]
       
       return{ 
       title: upperSpaces(keyField),
