@@ -5,18 +5,19 @@ import { UserComponent } from './pages/user/user.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AccessComponent } from './pages/login/access/access.component';
 import { HomeComponent } from './pages/home/home.component';
-import { AdventuresEquipmentComponent } from './pages/adventures-equipment/adventures-equipment.component';
+import { EquipComponent } from './pages/equip/equip.component';
 
 export const routes :Routes |any[] =[
-  {show:false, path:'', pathMatch:'full', redirectTo:"/Home"},
-  {show:true, path:'Home', component:HomeComponent},
+  {show:false, path:'', pathMatch:'full', redirectTo:"/home"},
+  {show:true, title:'Home', path:'home', component:HomeComponent},
 
-  {show:false, path:'Login', component:LoginComponent},
-  {show:false, path:'Access', component:AccessComponent},
+  {show:false, title:'Login', path:'login', component:LoginComponent},
+  {show:false, title:'Access', path:'access', component:AccessComponent},
 
-  {show:true, path:'Users', component:UsersComponent},
-  {show:false, path:'User/:userKey', component:UserComponent},
-  {show:false, path:'Card/:userKey/:charKey', component:CardComponent},
+  {show:true, title:'Users', path:'users', component:UsersComponent},
+  {show:false, title:'User', path:'user/:userKey', component:UserComponent},
+  {show:false, title:'Card', path:'card/:charKey', component:CardComponent},
 
-  {show:true, path:'Equipment', component:AdventuresEquipmentComponent},
+  {show:true, title:'Equipment', path:'equipment/:charKey', component:EquipComponent},
+  // {show:false, path:'equipment/', pathMatch:'full', redirectTo:'equipment/any'},
 ];
