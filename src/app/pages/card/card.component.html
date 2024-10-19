@@ -92,6 +92,9 @@
           }
           @else if (field.keyField=='oggetti') {
             <main class="oggetti">
+              <button class="toEquip" routerLink="/equipment/{{charKey}}">
+                Equipaggiamento <mat-icon>add</mat-icon>
+              </button>
               <form #toolsForm="ngForm" (ngSubmit)="onAddRecord(category.keyCategory,toolsForm)">
                 <input type="number" placeholder="Quantità" name="quantita" ngModel >
                 <input type="text" placeholder="Aggiungi strumento" name="titolo" ngModel required >

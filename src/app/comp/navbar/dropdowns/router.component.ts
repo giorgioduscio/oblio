@@ -16,10 +16,9 @@ import { closeDropdown } from './closeDropdown';
       <summary class="routerDropdown"><mat-icon>apps</mat-icon></summary>
 
       <div>
-        <a
-          *ngFor="let page of pages; let i=index"
-          routerLink="/{{page.path}}" 
-        > {{page.path}}
+        <a *ngFor="let page of pages; let i=index"
+          routerLink="/{{page.path}}"
+        > {{page.title}}
         </a>
       </div>
     </details>
@@ -29,7 +28,7 @@ import { closeDropdown } from './closeDropdown';
 export class RouterComponent {
   pages =routes .filter(page =>
     page.show 
-    && page.path!=document.title 
+    && page.title!=document.title 
   )
   constructor(){
     closeDropdown("routerDropdown")

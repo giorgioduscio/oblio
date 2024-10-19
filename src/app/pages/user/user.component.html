@@ -40,7 +40,7 @@
           <div class="round" *ngFor="let character of characters; let i=index">
             <mat-icon class="icon" (click)="setDeleteList(character.key!,$event)">delete</mat-icon>
             @if (deleteList.length===0) {
-              <a routerLink="/Card/{{userKey}}/{{character.key}}">{{character.generalita.nome}}</a>
+              <a routerLink="/card/{{character.key}}">{{character.generalita.nome}}</a>
             }@else{ <p (click)="setDeleteList(character.key!,$event)">{{character.generalita.nome}}</p> }
           </div>
         </ng-template>

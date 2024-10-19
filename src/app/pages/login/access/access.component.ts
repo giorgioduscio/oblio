@@ -41,7 +41,7 @@ export class AccessComponent {
     if(user){
       this.authService.verifyLocalUser(user.id)
       this.router.navigate(
-        ['/User/'+user.key], 
+        ['/user/'+user.key], 
         { relativeTo: this.activatedRoute }
       );
     }

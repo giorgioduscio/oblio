@@ -22,11 +22,11 @@
             (change)="onPatchUser($event, i)"
             ngModel
           >
-          <a [routerLink]="'/User/'+user.key"> <mat-icon>output</mat-icon> </a>
+          <a [routerLink]="'/user/'+user.key"> <mat-icon>output</mat-icon> </a>
         </div>
       </div>
     </div>
-    <button class="round" routerLink="/Login"> <mat-icon class="icon">add</mat-icon> Aggiungi utente </button>
+    <button class="round" routerLink="/login"> <mat-icon class="icon">add</mat-icon> Aggiungi utente </button>
     <!-- <button (click)="generateForTest()"> Genera utente </button> -->
   </div>
 </article>

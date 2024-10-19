@@ -42,7 +42,7 @@ export class UserComponent {
 
         if (charactersService.characters().length){
           this.characters =charactersService.characters().filter(c=>c.userId===this.user.id)
-          console.log('users',this.characters);
+          // console.log('users',this.characters);
         }
       } 
     })

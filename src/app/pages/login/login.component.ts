@@ -45,7 +45,7 @@ export class LoginComponent{
       imageUrl: randomImage(),
     })
     this.router.navigate(
-      ['/Access'], 
+      ['/access'], 
       { relativeTo: this.activatedRoute }
     );
   }

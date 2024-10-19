@@ -84,11 +84,16 @@ h1{ padding: 20px 0; }
 }
 .equipaggiamento form{
 }
-.oggetti>*{
+.oggetti>form, .oggetti>div{
     margin-bottom: 5px;    
     display: grid;
     grid-template-columns: 50px 1fr auto auto;
     align-items: center;
+}
+.toEquip{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;    
 }
 
   /* TODO PRIVILEGI */

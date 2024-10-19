@@ -5,17 +5,17 @@ export class FightEquipmentService {
   // TODO ARMATURE
   armors :fightTool[] =[
     // optimize ARMATURA
-    { category: `armatura di cuoio`,
+    { title: `armatura di cuoio`,
       weight: 5,
-      cost: 1000,
+      price: 1000,
       increases: [
         { bonus: 2, description: `Quando viene indossata` },
       ],
       imageUrl: ``
     },
-    { category: `cotta di maglia`,
+    { title: `cotta di maglia`,
       weight: 20.7,
-      cost: 100000,
+      price: 100000,
       increases: [
         { bonus: 4, description: `Quando viene indossata` },
       ],
@@ -27,9 +27,9 @@ export class FightEquipmentService {
       ],
       imageUrl: ``
     },
-    { category: `armatura di piastre`,
+    { title: `armatura di piastre`,
       weight: 32.5,
-      cost: 250000,
+      price: 250000,
       increases: [
         { bonus: 2, description: `Quando viene indossata` },
         { bonus: 5, description: `Quando il proprio avversario non ci stà lottando contro` },
@@ -44,9 +44,9 @@ export class FightEquipmentService {
       imageUrl: ``
     },
     // optimize EQUIP. DIFENSIVO
-    { category: `Scudo a brocchiero`,
+    { title: `Scudo a brocchiero`,
       weight: 1,
-      cost: 100,
+      price: 100,
       increases: [
         { bonus: 2, description: `Quando viene impugnato` },
       ],
@@ -57,9 +57,9 @@ export class FightEquipmentService {
       ],
       imageUrl: ``
     },
-    { category: `cappa da parata`,
+    { title: `cappa da parata`,
       weight: 4,
-      cost: 50,
+      price: 50,
       increases: [
         { bonus: 2, description: `Quando viene impugnato` },
       ],
@@ -70,9 +70,9 @@ export class FightEquipmentService {
       ],
       imageUrl: ``
     },
-    { category: `pugnale da parata`,
+    { title: `pugnale da parata`,
       weight: 1,
-      cost: 100,
+      price: 100,
       increases: [
         { bonus: 2, description: `Quando viene impugnato` },
       ],
@@ -83,9 +83,9 @@ export class FightEquipmentService {
       ],
       imageUrl: ``
     },
-    { category: `scudo a rotella`,
+    { title: `scudo a rotella`,
       weight: 6,
-      cost: 1000,
+      price: 1000,
       increases: [
         { bonus: 2, description: `Quando viene impugnato` },
       ],
@@ -94,9 +94,9 @@ export class FightEquipmentService {
       ],
       imageUrl: ``
     },
-    { category: `scudo a torre`,
+    { title: `scudo a torre`,
       weight: 10,
-      cost: 1000,
+      price: 1000,
       increases: [
         { bonus: 2, description: `Quando viene impugnato` },
         { bonus: 1, description: `Se lo spazio di 1.5m attorno è libero da strutture immobili` },
@@ -110,9 +110,9 @@ export class FightEquipmentService {
   // TODO ARMI
   weapones :fightTool[] =[
     // optimize DA GUERRA
-    { category: `arma inastata`,
+    { title: `arma inastata`,
       weight: 1.5,
-      cost: 500,
+      price: 500,
       imageUrl: `https://img.freepik.com/vettori-premium/lancia-arma-dell-impero-romano-tombak-con-una-lunga-lama-e-mostrato-su-uno-sfondo-bianco_679343-15.jpg?w=740`,
       features: [
         `Gittata di 3m`,
@@ -124,9 +124,9 @@ export class FightEquipmentService {
         { bonus: 1, description: `Se lo spazio di 3m attorno è libero da strutture immobili` },
       ],
     },    
-    { category: `arma inastata pesante`,
+    { title: `arma inastata pesante`,
       weight: 3,
-      cost: 1000,
+      price: 1000,
       imageUrl: `https://upload.wikimedia.org/wikipedia/commons/a/ac/Hallebarde_177.jpg`,
       features: [
         `Ha gittata di 3 metri`,
@@ -139,9 +139,9 @@ export class FightEquipmentService {
         { bonus: 2, description: `Se lo spazio di 1.5m attorno è libero da strutture immobili` },
       ],
     },    
-    { category: `arma pesante`,
+    { title: `arma pesante`,
       weight: 3,
-      cost: 1000,
+      price: 1000,
       imageUrl: `https://cdn11.bigcommerce.com/s-99kn4fj7jr/images/stencil/1280x1280/products/321/579/88WGS_1__31003.1607300814.jpg?c=1`,
       features: [
         `Gli attacchi devono essere manovrati con due mani`,
@@ -154,9 +154,9 @@ export class FightEquipmentService {
       ],
     },
     // optimize SECONDARIE
-    { category: `arma bilanciata lunga`,
+    { title: `arma bilanciata lunga`,
       weight: 1.5,
-      cost: 800,
+      price: 800,
       imageUrl: `https://www.laforgiadelgrifone.com/wp-content/uploads/2019/04/0101110500.jpg`,
       features: [
         `Richiede addestramento`,
@@ -166,9 +166,9 @@ export class FightEquipmentService {
         { bonus: 1, description: `Se l'arma avversaria è sbilanciata` },
       ],
     },
-    { category: `arma bilanciata corta`,
+    { title: `arma bilanciata corta`,
       weight: 1,
-      cost: 800,
+      price: 800,
       imageUrl: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA2IYMGU4t_YRrU9q72yfOBpKxw9Ef486IFQk2HReNNWXothLgTeI7DhsBPLZcSjisxJA&usqp=CAU`,
       features: [
         `Richiede addestramento`,
@@ -179,26 +179,26 @@ export class FightEquipmentService {
       ],
     },
     // optimize TERZIARIE
-    { category: `arma sbilanciata scure`,
+    { title: `arma sbilanciata scure`,
       weight: 2,
-      cost: 500,
+      price: 500,
       imageUrl: `https://www.medioevo.com/196-medium_default/scure-d-arme-xvi-secolo.jpg`,
       increases: [
         { bonus: 2, description: `Se lo scudo avversario è a rotella o a torre` },
       ],
     },
-    { category: `arma sbilanciata mazza`,
+    { title: `arma sbilanciata mazza`,
       weight: 5,
-      cost: 400,
+      price: 400,
       imageUrl: `https://images.ontheedgebrands.com/cdn-cgi/image/f=auto,height=700,width=700,quality=90/images/A14-BK1807.jpg`,
       increases: [
         { bonus: 2, description: `Se l'armatura avversaria è a piastre` },
         { bonus: 1, description: `Se lo spazio di 3m attorno è occupato da strutture immobili` },
       ],
     },
-    { category: `arma sbilanciata flagello`,
+    { title: `arma sbilanciata flagello`,
       weight: 5,
-      cost: 600,
+      price: 600,
       imageUrl: `https://www.giornalelavoce.it/resizer/-1/-1/true/2021/09/index-28.jpg--.jpg`,
       features: [
         `Richiede addestramento`,
@@ -208,9 +208,9 @@ export class FightEquipmentService {
         { bonus: 2, description: `Se l'armatura avversaria è a piastre` },
       ],
     },
-    { category: `arma piccola`,
+    { title: `arma piccola`,
       weight: 0.5,
-      cost: 300,
+      price: 300,
       imageUrl: `https://www.jollysoftair.com/11506-home_default/pugnale-medievale-ornamentale-zs3240.jpg`,
       features: [
         `Può essere lanciata 7/12 metri`,
@@ -220,9 +220,9 @@ export class FightEquipmentService {
         { bonus: 2, description: `Se si lotta contro l'avversario` },
       ],
     },
-    { category: `tirapugni`,
+    { title: `tirapugni`,
       weight: 0.5,
-      cost: 300,
+      price: 300,
       imageUrl: `https://st.depositphotos.com/1028437/5138/v/450/depositphotos_51387097-stock-illustration-brass-knuckles.jpg`,
       increases: [
         { bonus: 1, description: `Se lo spazio di 3m attorno è occupato da strutture immobili` },
@@ -232,10 +232,12 @@ export class FightEquipmentService {
   ]
 }
 export interface fightTool{
-  category :string,
+  title :string,
   weight :number,
   imageUrl :string,
-  cost :number,
+  price :number,
+  amount? :0,
+
   increases :{
     bonus :number,
     description :string,

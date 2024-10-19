@@ -1,0 +1,77 @@
+*::-webkit-scrollbar{display: none;}
+.mat-icon{ display: table; }
+button{
+  padding: 1px;
+  
+}
+.divider{
+  margin: 10px auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  background: var(--c2);
+  border-radius: 10px;
+  border: 1px solid;
+}
+.divider>*:first-child{
+  padding: 5px;
+  background: var(--st);
+}
+  /* TODO STRUMENTI */
+.tools{
+  padding: 10px;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+  .tools>div{
+    width: 300px;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+  }
+  .tools header{ 
+    margin-bottom: 5px;
+    display: grid; 
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+  }
+
+  /* TODO CARRELLO */
+.cart{
+  padding: 5px;
+  max-height: 90vh;
+  min-width: 250px;
+  position: sticky;
+  top: 50px;
+} 
+  /* optimize main */
+  .cart header{
+    padding: 5px;
+  }
+  .cart header, .cart .item{
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+    .cart header>*, .cart .item>div{
+      display: flex;
+      align-items: center;
+    }
+      .cart label{
+        max-width: 100px;
+        max-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cart [type="number"]{ width: 50px; }
+      .cart header>div>* { 
+        padding: 5px;
+        border-radius: 5px;
+        background: var(--c3);
+      }
+  /* optimize main */
+  .cart main{
+    max-height: 68vh;
+    overflow-y: scroll;
+  }

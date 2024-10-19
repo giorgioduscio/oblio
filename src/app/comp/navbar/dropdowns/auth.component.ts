@@ -19,11 +19,11 @@ import { closeDropdown } from './closeDropdown';
     
     <div>
     @if(localUser){
-      <a routerLink="/User/{{localUser.key}}">Area personale</a>
+      <a routerLink="/user/{{localUser.key}}">Area personale</a>
       <a (click)="onResetLocalUser()">Esci</a>
     }@else {
-      <a routerLink="/Login">Login</a>
-      <a routerLink="/Access">Access</a>
+      <a routerLink="/login">Login</a>
+      <a routerLink="/access">Access</a>
     }
     </div>
   </details>
