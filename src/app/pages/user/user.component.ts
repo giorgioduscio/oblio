@@ -9,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '../../auth/auth.service';
 import { mapper } from '../../tools/mapper';
 import { CharactersService } from '../../services/characters.service';
-import { initCharacter } from '../card/initCharacter';
+import { initCharacter } from '../card/tools/initCharacter';
 
 @Component({
   selector: 'app-personal',

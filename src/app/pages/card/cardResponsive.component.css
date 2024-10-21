@@ -1,7 +1,7 @@
 @media only screen and (max-width:600px){
     h1{ display: none; }
     .category>main{ display: none; }
-    .category[drop]>main{ display: grid; } 
+    .category.drop>main{ display: grid; } 
     
     .categoryBox{
         padding: 10px;

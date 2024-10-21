@@ -1,6 +1,6 @@
 import { Component, effect } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { MappedCharacter } from './MappedCharacter';
+import { MappedCharacter } from './tools/MappedCharacter';
 import { NavbarComponent } from "../../comp/navbar/navbar.component";
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Character } from '../../services/character';
@@ -9,11 +9,17 @@ import { EquipmentService } from '../../services/equipment.service';
 import { PrivilegesService } from '../../services/privileges.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CharactersService } from '../../services/characters.service';
+import { CardService } from './card.service';
+import { TraitsComponent } from "./sec/traits/traits.component";
+import { ToolsComponent } from "./sec/tools/tools.component";
+import { PrivilegesComponent } from "./sec/privileges/privileges.component";
+import { CombatComponent } from "./sec/combat/combat.component";
+import { GenericComponent } from "./sec/generic/generic.component";
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [NgIf, NgFor, NavbarComponent,MatIcon, FormsModule, RouterModule],
+  imports: [NgIf, NgFor, NavbarComponent, MatIcon, FormsModule, RouterModule, TraitsComponent, ToolsComponent, PrivilegesComponent, CombatComponent, GenericComponent],
   templateUrl: './card.component.html',
   styleUrls:['./card.component.css','./cardResponsive.component.css']
 })
@@ -24,6 +30,8 @@ export class CardComponent {
   constructor(
     private activatedRoute:ActivatedRoute, 
     private charactersService:CharactersService,
+    public card:CardService,
+
     private equipService:EquipmentService,
     private privilegeService:PrivilegesService,
   ){ 
@@ -35,158 +43,21 @@ export class CardComponent {
       this.character =charactersService.characters().find(c=>c.key===this.charKey)!
       if(this.character){
         this.mappedCharacter =MappedCharacter( this.character )
+
+        card.charKey =this.charKey
+        card.character =this.character
+        card.mappedCharacter =this.mappedCharacter
+        // console.log('cardComponent',card.charKey, card.character, card.mappedCharacter);
       }
-      // console.log(this.charKey, this.character.key);
     })
   }
-  inputType(value:number |string){ return typeof value==='number' ?'number' :"text" }
 
   // DROPDOWN
-  menageDrop(e:Event){
-    const div =(e.target as HTMLInputElement).parentElement
-    div?.attributes.getNamedItem('drop') 
-    ? div?.removeAttribute('drop') 
-    : div?.setAttribute('drop','')
-  }
-  // COMBATTIMENTO
-  combat(key:string) {
-    const $key =key as keyof Character['combattimento']
-    ,     value =this.character.combattimento[$key]
-    ,     destrezza =this.character.bonus.caratteristica.destrezza.valore
-    ,     costituzione =this.character.bonus.caratteristica.costituzione.valore
-    ,     saggezza =this.character.bonus.caratteristica.saggezza.valore
-    ,     hitPoints =20 +costituzione +(costituzione *Math.abs(costituzione))
-    
-    let CA =0
-    switch(value){
-      case 1: CA =10 +destrezza +saggezza; break
-      case 2: CA =10 +destrezza +costituzione; break
-      case 3: CA =12 +destrezza; break
-      case 4: CA =16; break
-      case 5: CA =18; break
-      default: CA =10 +destrezza;
-    }
-    switch(key){
-      case 'classe_armatura': return { icon:'shield', value: CA}
-      case 'velocita':        return { icon:'speed', value: value/1.5 }
-      case 'pf_attuali':      return { icon:'favorite', value: hitPoints }
-      default:                return { icon:'favorite', value:404 }
-    }
-  }
-
-  // BONUS  
-  abilityBonus(traitName:string, abilityName:string) :string {
-    const $tn =traitName as keyof Character['bonus']['caratteristica']
-    ,     traitValue =this.character.bonus.caratteristica[$tn].valore
-    ,     $an =abilityName as keyof Character['bonus']['caratteristica'][typeof $tn]['abilita']
-    ,     abilityValue :boolean =this.character.bonus.caratteristica[$tn].abilita[$an]
-    ,     abilityBonus =abilityValue ?traitValue+this.character.bonus.competenza :traitValue
-    return abilityBonus +' ' +$an
-  }
-
-  // EQUIPAGGIAMENTO
-  transportableWeight(){
-    const max =((this.character.bonus.caratteristica.forza.valore *2) +10) *7.5
-    ,     current =this.character.equipaggiamento.oggetti.reduce((accumulator,tool) => accumulator +this.equipService.toolWeight(tool.titolo,tool.quantita),0) 
-    ,     overWeight =current>max
-    return {max:max, current:current, overWeight:overWeight}
-  }
-  toolWeight(i:number) :number {
-    if(this.character.equipaggiamento.oggetti[i]){
-      const toolAmount =this.character.equipaggiamento.oggetti[i].quantita
-      ,     toolTitle =this.character.equipaggiamento.oggetti[i].titolo
-      return this.equipService.toolWeight(toolTitle, toolAmount)
-    } else return 404
-  }
-
-  // PRIVILEGI
-  privilegeProp(i:number){ 
-    const title =this.character.privilegi.privilegi[i]
-    return {
-      description: this.privilegeService.privilegeDescription(title),
-      cost: this.privilegeService.privilegeCost(title)
-    }
-  }
-
-  // TODO MODIFICA
-  onPatchField(keyCetegory:string, e:Event){
-    const {id, value} =e.target as HTMLInputElement
-    ,     $keyCetegory =keyCetegory as keyof Character
-    ,     $keyField =id as keyof Character[typeof $keyCetegory]
-    ,     newvalue =Number.isNaN(Number(value)) ?value :Number(value)
-    ,     newCharacter :any =this.character
-
-    newCharacter[$keyCetegory]![$keyField] =newvalue
-    this.charactersService.patchCharacter(this.charKey, newCharacter)
-  }
+  dropdowns =[false, false, false, false, false, false, false]
+  menageDrop(index:number){ this.dropdowns[index] =!this.dropdowns[index] }
   
-  onPatchSubfield(keyCetegory:string, keyField:string, e:Event, indexSub?:number){
-    const {id, value} =e.target as HTMLInputElement
-    ,     $keyCetegory =keyCetegory as keyof Character
-    ,     $keyField =keyField as keyof Character[typeof $keyCetegory]
-    ,     $keysub =id as keyof Character[typeof $keyCetegory][typeof $keyField]
-    ,     newvalue =Number.isNaN(Number(value)) ?value :Number(value)
-    ,     newCharacter :any =this.character
 
-    if(indexSub!=undefined){
-      if(keyCetegory=='equipaggiamento') newCharacter[$keyCetegory]![$keyField][indexSub][$keysub] =newvalue
-      if(keyCetegory=='privilegi') newCharacter[$keyCetegory]![$keyField][indexSub] =newvalue
-      
-    }else {
-      if(keyCetegory=='bonus') newCharacter[$keyCetegory]![$keyField][$keysub]['valore'] =newvalue
-    }
-    this.charactersService.patchCharacter(this.charKey, newCharacter)
-  }
-  onPatchAbility(keySub:string,e:Event){
-    const $traitName =keySub as keyof Character['bonus']['caratteristica']
-    ,     {id, checked} =e.target as HTMLInputElement
-    ,     $abilityName =id as keyof Character['bonus']['caratteristica'][typeof $traitName]['abilita']
-    ,     newCharacter :any =this.character
-    
-    newCharacter.bonus.caratteristica[$traitName].abilita[$abilityName] =checked
-    this.charactersService.patchCharacter(this.charKey, newCharacter)
-  }
 
-  onDeleteRecord(keyCetegory:string,i:number){
-    const $keyCetegory =keyCetegory as keyof Character
-    ,     newCharacter :any =this.character
-    
-    if ($keyCetegory=='equipaggiamento') {
-      newCharacter[$keyCetegory]['oggetti'].splice(i,1)
-      
-    } else if($keyCetegory=='privilegi') {
-      newCharacter[$keyCetegory]['privilegi'].splice(i,1)
-    }
-    this.charactersService.patchCharacter(this.charKey, newCharacter)
-  }
-  onAddRecord(keyCetegory:string,form:NgForm){
-    const isVoidEquipment =this.character.equipaggiamento.oggetti[0].titolo ?false :true
-    ,     isVoidPrivileges =this.character.privilegi.privilegi[0] ?false :true
-
-    if (keyCetegory==='equipaggiamento') {
-      const newTool ={ 
-        titolo: form.value.titolo, 
-        quantita: Number(form.value.quantita)==0 ?1 :Number(form.value.quantita)
-      }
-      // ARRAY VUOTO
-      if (isVoidEquipment){ 
-        this.character.equipaggiamento.oggetti =[newTool]
-      // ARRAY PIENO
-      } else {
-        this.character.equipaggiamento.oggetti.push(newTool)
-      }
-    }
-    else if(keyCetegory==='privilegi'){
-      if (isVoidPrivileges) {
-        this.character.privilegi.privilegi = [form.value.titolo] 
-        
-      } else {
-        this.character.privilegi.privilegi.push( form.value.titolo )
-      }
-    }
-    this.charactersService.patchCharacter(this.charKey, this.character)
-    form.reset()
-  }
 
 
 

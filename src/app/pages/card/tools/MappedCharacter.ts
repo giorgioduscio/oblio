@@ -1,5 +1,5 @@
-import { Character } from "../../services/character"
-import { upperSpaces } from "../../tools/upperSpaces"
+import { Character } from "../../../services/character"
+import { upperSpaces } from "../../../tools/upperSpaces"
 export interface MappedCharacter{
   keyCategory:string,
   title:string,

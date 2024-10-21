@@ -1,0 +1,13 @@
+.inline{
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+span{
+  display: flex;
+  align-items: center;
+}
+.CA{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}

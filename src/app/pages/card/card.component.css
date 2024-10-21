@@ -37,85 +37,6 @@ h1{ padding: 20px 0; }
     grid-template-columns: 1fr 1fr;
 }
 
-  /* TODO COMBATTIMENTO */
-.grid2{
-    display: grid;
-    grid-template-columns: 1fr auto;
-}
-.combattimento span{
-    display: flex;
-    align-items: center;
-}
-.combattimento .CA{
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-}
-
-  /* TODO CARATTERISTICA */
-.inline{ 
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-}
-.trait{
-    margin-bottom: 5px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    padding: 5px;
-    background: var(--st);
-    border-radius: 5px;
-}
-.trait>div{
-    display: flex;
-    flex-flow: column;
-}
-.trait>main{
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: start;
-}
-
-  /* TODO EQUIPAGGIAMENTO */
-.col4{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
-    align-items: center;
-}
-.equipaggiamento form{
-}
-.oggetti>form, .oggetti>div{
-    margin-bottom: 5px;    
-    display: grid;
-    grid-template-columns: 50px 1fr auto auto;
-    align-items: center;
-}
-.toEquip{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;    
-}
-
-  /* TODO PRIVILEGI */
-.privilegi form{
-}
-.privilegi main>div{
-    padding: 5px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-
-    background: var(--st);
-}
-.privilegi .title{
-    display: flex;
-    flex-flow: wrap;
-    align-items: center;
-    align-content: start;
-}
-.privilegi .description{
-    max-height: 100px;
-    overflow: hidden;
-}
 
 form{
     padding: 5px;
@@ -125,13 +46,12 @@ form{
     background: var(--st);
     border-radius: 5px;
 }
-form button[type]{ 
+form button[type='submit']{ 
     padding: 0; 
     background-color: transparent;
     color: var(--c5);
 }
 label{
-    /* max-width: 80px; */
     overflow: hidden;
     text-overflow: ellipsis;
 }

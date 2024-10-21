@@ -1,0 +1,22 @@
+.inline{ 
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+.trait{
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 5px;
+  background: var(--st);
+  border-radius: 5px;
+}
+.trait>div{
+  display: flex;
+  flex-flow: column;
+}
+.abilities{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+}
