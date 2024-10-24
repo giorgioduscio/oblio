@@ -15,9 +15,17 @@ button{
 }
 .divider>*:first-child{
   padding: 5px;
-  background: var(--st);
+  background: var(--c1);
 }
   /* TODO STRUMENTI */
+.filter{
+  padding: 10px;
+  top: 50px;
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  background: var(--c1);
+}
 .tools{
   padding: 10px;
   display: flex;
@@ -63,6 +71,7 @@ button{
         max-height: 20px;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .cart [type="number"]{ width: 50px; }
       .cart header>div>* { 

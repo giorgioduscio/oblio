@@ -5,8 +5,9 @@ form, div{
   align-items: center;
 }
 .equipLink{
+  margin-bottom: 5px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
 }
 div button{ padding: 1px; }

@@ -14,6 +14,10 @@ import { PrivilegesService } from '../../../../services/privileges.service';
   imports: [NgIf, NgFor, NavbarComponent,MatIcon, FormsModule, RouterModule],
   template:`
   <main>
+  <button class="privLink" routerLink="/privileges/{{card.charKey}}">
+    Privilegi <mat-icon>add</mat-icon>
+  </button>
+
     <form #privilegesForm="ngForm" (ngSubmit)="card.onAddRecord(category.keyCategory,privilegesForm)">
       <input type="text" placeholder="Aggiungi privilegio" name="titolo" ngModel required>
       <button type="submit"><mat-icon>add</mat-icon></button>
